@@ -6,36 +6,59 @@ public class App {
     private JButton btnLogin;
     private JPanel mainPanel;
     private JLabel txtWelcome;
-    private JPasswordField txtPassword;
-    private JTextField txtUsername;
+    private JButton getDataButton;
+    private JButton postDataButton;
+    private JButton loginBtn;
+    private JButton registerBtn;
+
+    private JFrame frame;
 
     public App() {
-        JFrame frame = new JFrame("BookBnB");
+        frame = new JFrame("BookBnB");
 
-        Login loginDialog = new Login(frame);
-        loginDialog.setVisible(true);
-
-        txtWelcome.setText("Welcome " + Controller.user + " to BookBnB!");
+        //txtWelcome.setText("Welcome " + Controller.user + " to BookBnB!");
 
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.pack();
         frame.setSize(600, 480);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
         setupListeners();
 
 
+
     }
 
     private void setupListeners(){
-        btnLogin.addActionListener(new ActionListener() {
+        getDataButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                String username = txtUsername.getText();
-                String password = String.valueOf(txtPassword.getPassword());
-                JOptionPane.showMessageDialog(null, "Hello \n Your username is: " +
-                username + "\n Your password is: " + password);
+            public void actionPerformed(ActionEvent actionEvent) {
+                Controller.getDataTest();
+            }
+        });
+
+        postDataButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Controller.postDataTest();
+            }
+        });
+
+        loginBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Login loginDialog = new Login(frame);
+                loginDialog.setVisible(true);
+            }
+        });
+
+        registerBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Register registerDialog = new Register(frame);
+                registerDialog.setVisible(true);
             }
         });
     }

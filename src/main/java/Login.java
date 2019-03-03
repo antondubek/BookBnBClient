@@ -5,7 +5,6 @@ import java.awt.event.*;
 public class Login extends JDialog {
     private JPanel loginPane;
     private JButton btnLogin;
-    private JButton btnQuit;
     private JTextField txtUsername;
     private JPasswordField txtPassword;
 
@@ -13,7 +12,7 @@ public class Login extends JDialog {
 
     public Login(Frame parent) {
 
-        super(parent, "BookBnB", true);
+        super(parent, "BookBnB : Login", true);
         setContentPane(loginPane);
         setModal(true);
         getRootPane().setDefaultButton(btnLogin);
@@ -31,12 +30,6 @@ public class Login extends JDialog {
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
-            }
-        });
-
-        btnQuit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
             }
         });
 
@@ -75,7 +68,7 @@ public class Login extends JDialog {
 
     private void onCancel() {
         // add your code here if necessary
-        System.exit(0);
+        dispose();
     }
 
     private String getUsername(){
