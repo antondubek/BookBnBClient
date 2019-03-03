@@ -58,8 +58,7 @@ public class Register extends JDialog {
         // add your code here
         String name = txtName.getText();
         String email = txtEmail.getText();
-        //TODO Hash password
-        String password = new String(txtPassword.getPassword());
+        String password = PasswordHasher.hashPassword(new String(txtPassword.getPassword()));
         String city = txtCity.getText();
 
         //TODO User already registered functionality
