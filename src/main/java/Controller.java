@@ -1,33 +1,33 @@
 
 
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-
 public class Controller {
 
-    public static String user;
     private static String address = "http://138.251.29.36:8080";
 
-    public static boolean authenticate(String username, String password){
+    public static boolean authenticate(String email, String password){
 
-        if(username.equals("anthony") && password.equals("password")) {
-            user = username;
-            return true;
-        }
+        JSONObject data = new JSONObject();
 
-        return false;
+        data.put("email", email);
+        data.put("password", password);
+
+        return sendPOSTRequest("/login", data);
 
     }
 
@@ -38,9 +38,71 @@ public class Controller {
         System.out.println("Password: " + password);
         System.out.println("City: " + city);
 
+        JSONObject data = new JSONObject();
+        data.put("name", name);
+        data.put("email", email);
+        data.put("password", password);
+        data.put("city", city);
 
+
+        return sendPOSTRequest("/register", data);
+
+    }
+
+    public static boolean addBook(String ISBN, String author, String title, String edition){
+
+        JSONObject data = new JSONObject();
+        data.put("command", "add");
+        data.put("ISBN", ISBN);
+        data.put("author", author);
+        data.put("title", title);
+        data.put("edition", edition);
+
+        return sendPOSTRequest("/book", data);
+    }
+
+
+    private static boolean sendPOSTRequest(String directory, JSONObject data){
+
+        String url = address + directory;
+
+        CloseableHttpClient client = HttpClients.createDefault();
+
+        HttpPost httpPost = new HttpPost(url);
+
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(data.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        httpPost.setEntity(entity);
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("Content-type", "application/json");
+
+        CloseableHttpResponse response = null;
+        try {
+            response = client.execute(httpPost);
+
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                client.close();
+                return true;
+            } else {
+                client.close();
+                return false;
+            }
+
+//            System.out.println(response);
+//            System.out.println(EntityUtils.toString(response.getEntity()));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return false;
+
+
     }
 
     public static void getDataTest(){
@@ -80,43 +142,4 @@ public class Controller {
         }
     }
 
-    public static void postDataTest(){
-
-        JSONObject data = new JSONObject();
-
-        data.put("name", "Rick Sanchez");
-        data.put("email", "rick@pickled.com");
-        data.put("password", "12345");
-        data.put("city", "hull");
-
-        String url = "http://138.251.29.36:8080/logintestj";
-
-
-
-        CloseableHttpClient client = HttpClients.createDefault();
-
-        HttpPost httpPost = new HttpPost(url);
-
-        StringEntity entity = null;
-        try {
-            entity = new StringEntity(data.toString());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        httpPost.setEntity(entity);
-        httpPost.setHeader("Accept", "application/json");
-        httpPost.setHeader("Content-type", "application/json");
-
-        CloseableHttpResponse response = null;
-        try {
-            response = client.execute(httpPost);
-            System.out.println(response);
-            System.out.println(EntityUtils.toString(response.getEntity()));
-            client.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 }
