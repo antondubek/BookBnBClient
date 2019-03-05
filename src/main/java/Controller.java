@@ -18,6 +18,7 @@ import org.apache.http.entity.StringEntity;
 public class Controller {
 
     public static String user;
+    private static String address = "http://138.251.29.36:8080";
 
     public static boolean authenticate(String username, String password){
 
@@ -45,7 +46,9 @@ public class Controller {
     public static void getDataTest(){
 
         try {
-            URL url = new URL("http://138.251.29.36:8080/login");
+            URL url = new URL("http://138.251.29.36:8080" +
+                    "" +
+                    "HTT/login");
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
@@ -86,7 +89,9 @@ public class Controller {
         data.put("password", "12345");
         data.put("city", "hull");
 
-        String url = "http://138.251.29.36:8080/login";
+        String url = "http://138.251.29.36:8080/logintestj";
+
+
 
         CloseableHttpClient client = HttpClients.createDefault();
 
