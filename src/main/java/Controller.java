@@ -1,13 +1,19 @@
 
+
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 
 public class Controller {
 
@@ -39,7 +45,7 @@ public class Controller {
     public static void getDataTest(){
 
         try {
-            URL url = new URL("http://localhost:8080/greeting");
+            URL url = new URL("http://138.251.29.36:8080/login");
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
@@ -75,38 +81,37 @@ public class Controller {
 
         JSONObject data = new JSONObject();
 
-        data.put("first name", "Rick");
-        data.put("last name", "Sanchez");
+        data.put("name", "Rick Sanchez");
         data.put("email", "rick@pickled.com");
+        data.put("password", "12345");
         data.put("city", "hull");
 
+        String url = "http://138.251.29.36:8080/login";
+
+        CloseableHttpClient client = HttpClients.createDefault();
+
+        HttpPost httpPost = new HttpPost(url);
+
+        StringEntity entity = null;
         try {
-            URL url = new URL("http://localhost:8080/post");
-
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "application/json");
-
-            connection.setDoOutput(true);
-
-            OutputStream os = connection.getOutputStream();
-            os.write(data.toString().getBytes());
-            os.flush();
-            os.close();
-
-            int responseCode = connection.getResponseCode();
-            System.out.println("POST response code: " + responseCode);
-            System.out.println("POST response message: " + connection.getResponseMessage());
-
-
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            entity = new StringEntity(data.toString());
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
+        httpPost.setEntity(entity);
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("Content-type", "application/json");
+
+        CloseableHttpResponse response = null;
+        try {
+            response = client.execute(httpPost);
+            System.out.println(response);
+            System.out.println(EntityUtils.toString(response.getEntity()));
+            client.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }
