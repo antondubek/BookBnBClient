@@ -25,8 +25,8 @@ public class LoginScreen {
 
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.pack();
-        frame.setSize(600, 480);
+        frame.pack();
+        //frame.setSize(600, 480);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
