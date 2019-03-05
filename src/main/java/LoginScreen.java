@@ -23,8 +23,6 @@ public class LoginScreen {
     public LoginScreen() {
         frame = new JFrame("BookBnB");
 
-        //txtWelcome.setText("Welcome " + Controller.user + " to BookBnB!");
-
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.pack();
@@ -47,6 +45,7 @@ public class LoginScreen {
                 boolean isAuthenticated = Controller.authenticate(email, password);
 
                 if(isAuthenticated){
+                    Controller.email = email;
                     new MainScreen(frame);
                 } else {
                     errorTxt.setText("Unable to login, email or password not recognised");
@@ -68,7 +67,8 @@ public class LoginScreen {
                 boolean isRegistered = Controller.register(name, email, password, city);
 
                 if(isRegistered){
-                    //Move to new screen
+                    Controller.email = email;
+                    new MainScreen(frame);
                 } else {
                     errorTxt.setText("Unable to register, please check details and try again");
                 }

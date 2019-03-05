@@ -1,5 +1,7 @@
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class MainScreen {
@@ -13,6 +15,9 @@ public class MainScreen {
     private JScrollPane yourBooks;
     private JScrollPane browseBooks;
     private JTable browseBooksTable;
+    private JLabel welcomeTxt;
+    private JPanel Buttons;
+    private JButton addBookBtn;
 
     public MainScreen(JFrame loginFrame){
         frame = new JFrame("BookBnB");
@@ -25,13 +30,22 @@ public class MainScreen {
         frame.setVisible(true);
         loginFrame.setVisible(false);
 
+        welcomeTxt.setText("Welcome " + Controller.email + " to BookBnB!");
+
         setupListeners();
 
         populateTable();
+
     }
 
     private void setupListeners(){
-
+        addBookBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddBook addBookDialog = new AddBook(frame);
+                addBookDialog.setVisible(true);
+            }
+        });
     }
 
 

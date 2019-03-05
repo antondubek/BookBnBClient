@@ -1,11 +1,12 @@
 
 
 import org.apache.http.HttpStatus;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -19,8 +20,14 @@ import java.net.URL;
 public class Controller {
 
     private static String address = "http://138.251.29.36:8080";
+    public static String email;
 
     public static boolean authenticate(String email, String password){
+
+        //TODO Remove this when finished
+        if(email.equals("admin")){
+            return true;
+        }
 
         JSONObject data = new JSONObject();
 
@@ -66,7 +73,13 @@ public class Controller {
 
         String url = address + directory;
 
-        CloseableHttpClient client = HttpClients.createDefault();
+        int timeout = 5;
+        RequestConfig config = RequestConfig.custom()
+                .setConnectTimeout(timeout * 1000)
+                .setConnectionRequestTimeout(timeout * 1000)
+                .setSocketTimeout(timeout * 1000).build();
+
+        CloseableHttpClient client = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
 
         HttpPost httpPost = new HttpPost(url);
 
