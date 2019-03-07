@@ -16,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class Controller {
 
@@ -29,7 +30,13 @@ public class Controller {
         data.put("email", email);
         data.put("password", password);
 
-        return sendPOSTRequest("/loginfail", data);
+        CloseableHttpResponse response = sendPOSTRequest("/loginfail", data);
+
+        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
@@ -47,7 +54,13 @@ public class Controller {
         data.put("city", city);
 
 
-        return sendPOSTRequest("/register", data);
+        CloseableHttpResponse response = sendPOSTRequest("/register", data);
+
+        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
@@ -60,11 +73,62 @@ public class Controller {
         data.put("title", title);
         data.put("edition", edition);
 
-        return sendPOSTRequest("/book", data);
+        CloseableHttpResponse response = sendPOSTRequest("/book", data);
+
+        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static ArrayList<Book> getUserBooks(){
+
+        //Use either get or post to retrieve the data
+
+        //Iterate through whatever you get back
+            //Add it to an arraylist
+
+        //Return the arraylist
+
+
+        //Post request parsing to get data
+        //System.out.println(response);
+        //System.out.println(EntityUtils.toString(response.getEntity()));
+
+
+        //For testing
+        Book book1 = new Book("1234", "test user books", "hello world");
+        Book book2 = new Book("4567", "JKRowling", "Harry Potter & the half blood prince");
+
+        ArrayList<Book> books = new ArrayList<Book>();
+
+        books.add(book1);
+        books.add(book2);
+
+        return books;
+    }
+
+    public static ArrayList<Book> getAllBooks(){
+
+        //JSONObject response = sendGetRequest("/searchSpecificUser?command=all");
+
+        //System.out.println(response);
+
+        Book book1 = new Book("1234", "test all books", "hello world");
+        Book book2 = new Book("4567", "JKRowling", "Harry Potter & the chamber of secrets");
+
+        ArrayList<Book> books = new ArrayList<Book>();
+
+        books.add(book1);
+        books.add(book2);
+
+        return books;
+
     }
 
 
-    private static boolean sendPOSTRequest(String directory, JSONObject data){
+    private static CloseableHttpResponse sendPOSTRequest(String directory, JSONObject data){
 
         String url = address + directory;
 
@@ -96,38 +160,35 @@ public class Controller {
 
             System.out.println(response.toString());
 
-            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                client.close();
-                return true;
-            } else {
-                client.close();
-                return false;
-            }
+            client.close();
 
-//            System.out.println(response);
-//            System.out.println(EntityUtils.toString(response.getEntity()));
+            return response;
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return false;
-
+        return response;
 
     }
 
-    public static void getDataTest(){
+
+    public static JSONObject sendGetRequest(String directory){
+
+        JSONObject json = new JSONObject();
 
         try {
-            URL url = new URL("http://138.251.29.36:8080" +
-                    "" +
-                    "HTT/login");
+
+            String website = address + directory;
+
+            URL url = new URL(website);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             connection.setRequestMethod("GET");
 
             int responseCode = connection.getResponseCode();
+
             String readLine = null;
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -141,9 +202,9 @@ public class Controller {
 
                 System.out.println(response.toString());
 
-                JSONObject json = new JSONObject(response.toString());
-                System.out.println("ID = " + json.get("id").toString());
-                System.out.println("content = " + json.getString("content"));
+                json = new JSONObject(response.toString());
+
+                return json;
             }
 
         } catch (MalformedURLException e) {
@@ -151,6 +212,8 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return json;
     }
 
 }

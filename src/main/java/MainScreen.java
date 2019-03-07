@@ -3,9 +3,11 @@ import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class MainScreen {
+public class MainScreen implements ActionListener {
 
     private JFrame frame;
     private JPanel homeScreen;
@@ -19,6 +21,12 @@ public class MainScreen {
     private JLabel welcomeTxt;
     private JPanel Buttons;
     private JButton addBookBtn;
+
+    private JMenuItem menuItemRequest;
+    private JPopupMenu popupMenu;
+
+    ArrayList<Book> userBooks = Controller.getUserBooks();
+    ArrayList<Book> allBooks = Controller.getAllBooks();
 
     public MainScreen(JFrame loginFrame) {
         frame = new JFrame("BookBnB");
@@ -52,18 +60,46 @@ public class MainScreen {
 
     private void populateTable() {
 
-        Book book1 = new Book("1234", "test", "hello world");
-        Book book2 = new Book("4567", "JKRowling", "Harry Potter");
+        userBooks = Controller.getUserBooks();
+        allBooks = Controller.getAllBooks();
 
-        ArrayList<Book> books = new ArrayList<Book>();
+        TableModel userBooksTableModel = new TableModel(userBooks);
 
-        books.add(book1);
-        books.add(book2);
-
-        TableModel tableModel = new TableModel(books);
-
-        yourBooksTable.setModel(tableModel);
+        yourBooksTable.setModel(userBooksTableModel);
         yourBooksTable.setAutoCreateRowSorter(true);
+
+        TableModel allBooksTableModel = new TableModel(allBooks);
+
+        browseBooksTable.setModel(allBooksTableModel);
+        browseBooksTable.setAutoCreateRowSorter(true);
+
+        popupMenu = new JPopupMenu();
+        menuItemRequest = new JMenuItem("Request Book");
+        popupMenu.add(menuItemRequest);
+        menuItemRequest.addActionListener(this);
+
+        browseBooksTable.setComponentPopupMenu(popupMenu);
+        browseBooksTable.addMouseListener(new TableMouseListener(browseBooksTable));
+
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JMenuItem menu = (JMenuItem) e.getSource();
+
+        if (menu == menuItemRequest) {
+            processBookRequest();
+        }
+    }
+
+    private void processBookRequest() {
+        int row = browseBooksTable.getSelectedRow();
+
+        Book selectedBook = allBooks.get(row);
+
+        System.out.println("Book requested");
+        System.out.println("Title: " + selectedBook.getTitle());
 
     }
 
@@ -153,6 +189,7 @@ public class MainScreen {
         return homeScreen;
     }
 
+
     class TableModel extends AbstractTableModel {
 
         private ArrayList<Book> books;
@@ -195,5 +232,22 @@ public class MainScreen {
             return headers[column];
         }
     }
+
+    class TableMouseListener extends MouseAdapter {
+
+        private JTable table;
+
+        TableMouseListener(JTable table) {
+            this.table = table;
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            Point point = e.getPoint();
+            int currentRow = table.rowAtPoint(point);
+            table.setRowSelectionInterval(currentRow, currentRow);
+        }
+    }
+
 
 }
