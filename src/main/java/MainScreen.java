@@ -26,7 +26,7 @@ public class MainScreen {
         frame.setContentPane(homeScreen);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.pack();
-        frame.setSize(600, 480);
+        frame.setSize(600, 300);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         loginFrame.setVisible(false);
@@ -100,7 +100,6 @@ public class MainScreen {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.WEST;
         menuBar.add(welcomeTxt, gbc);
         tabPane = new JPanel();
         tabPane.setLayout(new GridBagLayout());

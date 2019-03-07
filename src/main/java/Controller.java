@@ -19,22 +19,17 @@ import java.net.URL;
 
 public class Controller {
 
-    private static String address = "http://138.251.29.36:8080";
+    private static String address = "http://localhost:8080";
     public static String email;
 
     public static boolean authenticate(String email, String password){
-
-        //TODO Remove this when finished
-        if(email.equals("admin")){
-            return true;
-        }
 
         JSONObject data = new JSONObject();
 
         data.put("email", email);
         data.put("password", password);
 
-        return sendPOSTRequest("/login", data);
+        return sendPOSTRequest("/loginfail", data);
 
     }
 
@@ -73,6 +68,7 @@ public class Controller {
 
         String url = address + directory;
 
+
         int timeout = 5;
         RequestConfig config = RequestConfig.custom()
                 .setConnectTimeout(timeout * 1000)
@@ -97,6 +93,8 @@ public class Controller {
         CloseableHttpResponse response = null;
         try {
             response = client.execute(httpPost);
+
+            System.out.println(response.toString());
 
             if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                 client.close();

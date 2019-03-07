@@ -1,3 +1,11 @@
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,6 +24,8 @@ public class LoginScreen {
     private JPanel Login;
     private JPanel Register;
     private JPanel Heading;
+    private JPanel RegisterButton;
+    private JPanel LoginBtn;
     private JLabel errorTxt;
 
     private JFrame frame;
@@ -25,8 +35,8 @@ public class LoginScreen {
 
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        //frame.setSize(600, 480);
+        //frame.pack();
+        frame.setSize(600, 480);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
@@ -39,16 +49,33 @@ public class LoginScreen {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
-                String email = loginEmailTxt.getText().trim();
-                String password = PasswordHasher.hashPassword(new String(loginPasswordlTxt.getPassword()));
+                //Reset the error text
+                errorTxt.setText("");
 
-                boolean isAuthenticated = Controller.authenticate(email, password);
+                String email = loginEmailTxt.getText().trim().toLowerCase();
+
+                boolean isAuthenticated = false;
+
+                //TODO Remove this when needed
+                if (!email.equals("admin")) {
+
+                    //Check the email is valid
+                    if (!validateEmail(email)) {
+                        return;
+                    }
+
+                    String password = PasswordHasher.hashPassword(new String(loginPasswordlTxt.getPassword()));
+
+                    isAuthenticated = Controller.authenticate(email, password);
+                } else {
+                    isAuthenticated = true;
+                }
 
                 if (isAuthenticated) {
                     Controller.email = email;
                     new MainScreen(frame);
                 } else {
-                    errorTxt.setText("Unable to login, email or password not recognised");
+                    errorTxt.setText("Error: Unable to login, email or password not recognised");
                 }
 
             }
@@ -58,11 +85,18 @@ public class LoginScreen {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
+                //Reset the error text
+                errorTxt.setText("");
+
                 String name = registerNameTxt.getText().trim().toLowerCase();
                 String email = registerEmailTxt.getText().trim().toLowerCase();
                 String password = PasswordHasher.hashPassword(new String(registerPasswordTxt.getPassword()));
                 String city = registerCityTxt.getText().trim();
-                //TODO check that values are not empty and are alphanumeric
+
+                //Check what has been inputted is valid
+                if (!checkRegisterInfo(name, email, city)) {
+                    return;
+                }
 
                 boolean isRegistered = Controller.register(name, email, password, city);
 
@@ -70,10 +104,50 @@ public class LoginScreen {
                     Controller.email = email;
                     new MainScreen(frame);
                 } else {
-                    errorTxt.setText("Unable to register, please check details and try again");
+                    errorTxt.setText("Error: Unable to register, please check details and try again");
                 }
             }
         });
+    }
+
+    private boolean validateEmail(String email) {
+        boolean isValid = false;
+
+        try {
+            InternetAddress address = new InternetAddress(email);
+            address.validate(); // If this validates it will
+
+            isValid = true;
+
+        } catch (AddressException e) {
+            errorTxt.setText("Error: Invalid Email Address");
+        }
+
+        return isValid;
+    }
+
+    private boolean checkRegisterInfo(String name, String email, String city) {
+
+        if (name == null || email == null || city == null) {
+            errorTxt.setText("Error: null values are not permitted");
+            return false;
+        }
+
+        if (name.isEmpty() || email.isEmpty() || city.isEmpty()) {
+            errorTxt.setText("Error: Please ensure you have filled in all fields");
+            return false;
+        }
+
+        if (!validateEmail(email)) {
+            return false;
+        }
+
+        if (!StringUtils.isAlphanumeric(name) || !StringUtils.isAlphanumeric(email) || StringUtils.isAlphanumeric(city)) {
+            errorTxt.setText("Error: Please use alphanumeric characters only");
+            return false;
+        }
+
+        return true;
     }
 
 
@@ -94,39 +168,66 @@ public class LoginScreen {
     private void $$$setupUI$$$() {
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
-        Login = new JPanel();
-        Login.setLayout(new GridBagLayout());
+        Heading = new JPanel();
+        Heading.setLayout(new GridBagLayout());
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 4;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 4;
+        gbc.fill = GridBagConstraints.BOTH;
+        mainPanel.add(Heading, gbc);
+        final JLabel label1 = new JLabel();
+        label1.setText("Please login or register");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 1.0;
+        Heading.add(label1, gbc);
+        final JLabel label2 = new JLabel();
+        label2.setText("Welcome to BookBnb");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        Heading.add(label2, gbc);
+        final JPanel spacer1 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.insets = new Insets(20, 0, 0, 0);
+        Heading.add(spacer1, gbc);
+        final JPanel spacer2 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.insets = new Insets(10, 0, 0, 0);
+        Heading.add(spacer2, gbc);
+        Login = new JPanel();
+        Login.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
         gbc.fill = GridBagConstraints.BOTH;
         mainPanel.add(Login, gbc);
-        final JLabel label1 = new JLabel();
-        label1.setText("Email");
+        final JLabel label3 = new JLabel();
+        label3.setText("Email");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
-        Login.add(label1, gbc);
-        loginEmailTxt = new JTextField();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        Login.add(loginEmailTxt, gbc);
-        final JLabel label2 = new JLabel();
-        label2.setText("Password");
+        Login.add(label3, gbc);
+        final JLabel label4 = new JLabel();
+        label4.setText("Password");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
-        Login.add(label2, gbc);
+        Login.add(label4, gbc);
         loginPasswordlTxt = new JPasswordField();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
@@ -136,194 +237,120 @@ public class LoginScreen {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         Login.add(loginPasswordlTxt, gbc);
+        loginEmailTxt = new JTextField();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        Login.add(loginEmailTxt, gbc);
+        LoginBtn = new JPanel();
+        LoginBtn.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.fill = GridBagConstraints.BOTH;
+        mainPanel.add(LoginBtn, gbc);
+        loginBtn = new JButton();
+        loginBtn.setText("Login");
+        LoginBtn.add(loginBtn, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         Register = new JPanel();
-        Register.setLayout(new GridBagLayout());
-        gbc = new GridBagConstraints();
-        gbc.gridx = 4;
-        gbc.gridy = 4;
-        gbc.fill = GridBagConstraints.BOTH;
-        mainPanel.add(Register, gbc);
-        final JLabel label3 = new JLabel();
-        label3.setText("Name");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
-        Register.add(label3, gbc);
-        registerNameTxt = new JTextField();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        Register.add(registerNameTxt, gbc);
-        final JLabel label4 = new JLabel();
-        label4.setText("Email");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.anchor = GridBagConstraints.WEST;
-        Register.add(label4, gbc);
-        registerEmailTxt = new JTextField();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        Register.add(registerEmailTxt, gbc);
-        final JLabel label5 = new JLabel();
-        label5.setText("Password");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        Register.add(label5, gbc);
-        registerPasswordTxt = new JPasswordField();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        Register.add(registerPasswordTxt, gbc);
-        final JLabel label6 = new JLabel();
-        label6.setText("City");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.anchor = GridBagConstraints.WEST;
-        Register.add(label6, gbc);
-        registerCityTxt = new JTextField();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        Register.add(registerCityTxt, gbc);
-        Heading = new JPanel();
-        Heading.setLayout(new GridBagLayout());
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 3;
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.BOTH;
-        mainPanel.add(Heading, gbc);
-        final JLabel label7 = new JLabel();
-        label7.setText("Please login or register");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.weightx = 1.0;
-        Heading.add(label7, gbc);
-        final JLabel label8 = new JLabel();
-        label8.setText("Welcome to BookBnb");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        Heading.add(label8, gbc);
-        final JPanel spacer1 = new JPanel();
+        Register.setLayout(new FormLayout("fill:max(d;4px):noGrow,left:4dlu:noGrow,fill:d:grow", "center:max(d;4px):noGrow,top:3dlu:noGrow,center:max(d;4px):noGrow,top:3dlu:noGrow,center:max(d;4px):noGrow,top:3dlu:noGrow,center:max(d;4px):noGrow"));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        mainPanel.add(spacer1, gbc);
-        final JPanel spacer2 = new JPanel();
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.gridheight = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        mainPanel.add(Register, gbc);
+        final JLabel label5 = new JLabel();
+        label5.setText("Name");
+        CellConstraints cc = new CellConstraints();
+        Register.add(label5, cc.xy(1, 1));
+        registerNameTxt = new JTextField();
+        Register.add(registerNameTxt, cc.xy(3, 1, CellConstraints.FILL, CellConstraints.DEFAULT));
+        final JLabel label6 = new JLabel();
+        label6.setText("Email");
+        Register.add(label6, cc.xy(1, 3));
+        registerEmailTxt = new JTextField();
+        Register.add(registerEmailTxt, cc.xy(3, 3, CellConstraints.FILL, CellConstraints.DEFAULT));
+        final JLabel label7 = new JLabel();
+        label7.setText("Password");
+        Register.add(label7, cc.xy(1, 5));
+        registerPasswordTxt = new JPasswordField();
+        Register.add(registerPasswordTxt, cc.xy(3, 5, CellConstraints.FILL, CellConstraints.DEFAULT));
+        final JLabel label8 = new JLabel();
+        label8.setText("City");
+        Register.add(label8, cc.xy(1, 7));
+        registerCityTxt = new JTextField();
+        Register.add(registerCityTxt, cc.xy(3, 7, CellConstraints.FILL, CellConstraints.DEFAULT));
+        RegisterButton = new JPanel();
+        RegisterButton.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         gbc = new GridBagConstraints();
-        gbc.gridx = 5;
-        gbc.gridy = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        mainPanel.add(spacer2, gbc);
+        gbc.gridx = 2;
+        gbc.gridy = 5;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        mainPanel.add(RegisterButton, gbc);
+        registerBtn = new JButton();
+        registerBtn.setText("Register");
+        RegisterButton.add(registerBtn, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel spacer3 = new JPanel();
         gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 5;
-        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 20, 0, 0);
         mainPanel.add(spacer3, gbc);
         final JPanel spacer4 = new JPanel();
         gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 2;
+        gbc.gridx = 2;
+        gbc.gridy = 0;
         gbc.fill = GridBagConstraints.VERTICAL;
         mainPanel.add(spacer4, gbc);
         final JPanel spacer5 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.insets = new Insets(0, 225, 0, 0);
         mainPanel.add(spacer5, gbc);
         final JPanel spacer6 = new JPanel();
         gbc = new GridBagConstraints();
-        gbc.gridx = 3;
+        gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 225, 0, 0);
         mainPanel.add(spacer6, gbc);
         final JPanel spacer7 = new JPanel();
         gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 6;
+        gbc.gridx = 1;
+        gbc.gridy = 4;
         gbc.fill = GridBagConstraints.VERTICAL;
         mainPanel.add(spacer7, gbc);
         final JPanel spacer8 = new JPanel();
         gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 7;
+        gbc.gridx = 1;
+        gbc.gridy = 6;
         gbc.fill = GridBagConstraints.VERTICAL;
         mainPanel.add(spacer8, gbc);
-        final JPanel spacer9 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        mainPanel.add(spacer9, gbc);
-        final JPanel spacer10 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        mainPanel.add(spacer10, gbc);
-        final JPanel spacer11 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 6;
-        gbc.gridy = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        mainPanel.add(spacer11, gbc);
-        final JPanel spacer12 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 7;
-        gbc.gridy = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        mainPanel.add(spacer12, gbc);
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
+        gbc.gridy = 7;
+        gbc.gridwidth = 4;
         gbc.fill = GridBagConstraints.BOTH;
         mainPanel.add(panel1, gbc);
-        loginBtn = new JButton();
-        loginBtn.setText("Login");
+        errorTxt = new JLabel();
+        errorTxt.setForeground(new Color(-65536));
+        errorTxt.setText("");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(loginBtn, gbc);
-        registerBtn = new JButton();
-        registerBtn.setText("Register");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(registerBtn, gbc);
+        panel1.add(errorTxt, gbc);
     }
 
     /**
