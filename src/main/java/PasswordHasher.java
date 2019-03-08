@@ -2,8 +2,16 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
+/**
+ * Simple class to hash a password
+ */
 public class PasswordHasher {
 
+    /**
+     * Hashes the password passed to it using SHA-1
+     * @param password Password to be hashed
+     * @return Hashed password
+     */
     public static String hashPassword(String password) {
         String generatedPassword = null;
 
@@ -25,7 +33,11 @@ public class PasswordHasher {
         return generatedPassword;
     }
 
-    //Add salt
+    /**
+     * Method to generate a salt which is used in the hashing algorithm
+     * @return The salt
+     * @throws NoSuchAlgorithmException
+     */
     private static byte[] getSalt() throws NoSuchAlgorithmException {
         SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
         byte[] salt = new byte[16];

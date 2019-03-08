@@ -18,11 +18,21 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * Controller class which does all of the backend jobs, primarily sending and receiving data to and
+ * from the server.
+ */
 public class Controller {
 
     private static String address = "http://localhost:8080";
     public static String email;
 
+    /**
+     * Authenticate method is called to validate the login credentials of the user
+     * @param email Email of the user
+     * @param password Password of the user, this should already be hashed
+     * @return True (User credentials are correct) False (They are not)
+     */
     public static boolean authenticate(String email, String password){
 
         JSONObject data = new JSONObject();
@@ -40,6 +50,14 @@ public class Controller {
 
     }
 
+    /**
+     * Registers the user with the server
+     * @param name Name of the user
+     * @param email Email of the user
+     * @param password Hashed password of the user
+     * @param city City of the user
+     * @return True (Register was successful) False (Register unsuccessful)
+     */
     public static boolean register(String name, String email, String password, String city){
 
         System.out.println("Name: " + name);
@@ -64,6 +82,14 @@ public class Controller {
 
     }
 
+    /**
+     * Adds a book to the servers collection
+     * @param ISBN ISBN of the book
+     * @param author Author of the book
+     * @param title Title of the book
+     * @param edition Edition of the book
+     * @return True (Successfully added) False (Addition not successful)
+     */
     public static boolean addBook(String ISBN, String author, String title, String edition){
 
         JSONObject data = new JSONObject();
@@ -82,6 +108,10 @@ public class Controller {
         }
     }
 
+    /**
+     * Gets the books belonging to the user
+     * @return An arraylist of all the book objects which belong to the user
+     */
     public static ArrayList<Book> getUserBooks(){
 
         //Use either get or post to retrieve the data
@@ -109,6 +139,10 @@ public class Controller {
         return books;
     }
 
+    /**
+     * Retrieve all of the browsable books of the system
+     * @return Arraylist containing all the book objects
+     */
     public static ArrayList<Book> getAllBooks(){
 
         //JSONObject response = sendGetRequest("/searchSpecificUser?command=all");

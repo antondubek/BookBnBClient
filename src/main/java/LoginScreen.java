@@ -6,6 +6,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Login screen is the main screen that the user will see when launching the app. It will allow them to either
+ * register with the service or login.
+ */
 public class LoginScreen {
     private JPanel mainPanel;
     private JButton loginBtn;
@@ -25,6 +29,9 @@ public class LoginScreen {
 
     private JFrame frame;
 
+    /**
+     * Constructor which creates the main frame of the app.
+     */
     public LoginScreen() {
         frame = new JFrame("BookBnB");
 
@@ -38,73 +45,97 @@ public class LoginScreen {
         setupListeners();
     }
 
+    /**
+     * Method to setup the listners for the login and register buttons.
+     */
     private void setupListeners() {
 
         loginBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
-                //Reset the error text
-                errorTxt.setText("");
-
-                String email = loginEmailTxt.getText().trim().toLowerCase();
-
-                boolean isAuthenticated = false;
-
-                //TODO Remove this when needed
-                if (!email.equals("admin")) {
-
-                    //Check the email is valid
-                    if (!validateEmail(email)) {
-                        return;
-                    }
-
-                    String password = PasswordHasher.hashPassword(new String(loginPasswordlTxt.getPassword()));
-
-                    isAuthenticated = Controller.authenticate(email, password);
-                } else {
-                    isAuthenticated = true;
-                }
-
-                if (isAuthenticated) {
-                    Controller.email = email;
-                    new MainScreen(frame);
-                } else {
-                    errorTxt.setText("Error: Unable to login, email or password not recognised");
-                }
-
+                onLogin();
             }
         });
 
         registerBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
-                //Reset the error text
-                errorTxt.setText("");
-
-                String name = registerNameTxt.getText().trim().toLowerCase();
-                String email = registerEmailTxt.getText().trim().toLowerCase();
-                String password = PasswordHasher.hashPassword(new String(registerPasswordTxt.getPassword()));
-                String city = registerCityTxt.getText().trim();
-
-                //Check what has been inputted is valid
-                if (!checkRegisterInfo(name, email, city)) {
-                    return;
-                }
-
-                boolean isRegistered = Controller.register(name, email, password, city);
-
-                if (isRegistered) {
-                    Controller.email = email;
-                    new MainScreen(frame);
-                } else {
-                    errorTxt.setText("Error: Unable to register, please check details and try again");
-                }
+                onRegister();
             }
         });
     }
 
+    /**
+     * Method called when the login button pressed. Will read in the values given, check the email and password
+     * with the server. If the authentication is correct then will load the mainscreen.
+     *
+     * Currently a bypass put in for an 'admin' user for during development.
+     */
+    private void onLogin(){
+        //Reset the error text
+        errorTxt.setText("");
+
+        String email = loginEmailTxt.getText().trim().toLowerCase();
+
+        boolean isAuthenticated = false;
+
+        //TODO Remove this when needed
+        if (!email.equals("admin")) {
+
+            //Check the email is valid
+            if (!validateEmail(email)) {
+                return;
+            }
+
+            String password = PasswordHasher.hashPassword(new String(loginPasswordlTxt.getPassword()));
+
+            isAuthenticated = Controller.authenticate(email, password);
+        } else {
+            isAuthenticated = true;
+        }
+
+        if (isAuthenticated) {
+            Controller.email = email;
+            new MainScreen(frame);
+        } else {
+            errorTxt.setText("Error: Unable to login, email or password not recognised");
+        }
+    }
+
+    /**
+     * Method called when the register button pressed. Will read in the data, check the data is valid, hash the password
+     * and then send it to the controller for registering with the server. If registration correct then will load
+     * the main screen.
+     */
+    private void onRegister(){
+        //Reset the error text
+        errorTxt.setText("");
+
+        String name = registerNameTxt.getText().trim().toLowerCase();
+        String email = registerEmailTxt.getText().trim().toLowerCase();
+        String password = PasswordHasher.hashPassword(new String(registerPasswordTxt.getPassword()));
+        String city = registerCityTxt.getText().trim();
+
+        //Check what has been inputted is valid
+        if (!checkRegisterInfo(name, email, city)) {
+            return;
+        }
+
+        boolean isRegistered = Controller.register(name, email, password, city);
+
+        if (isRegistered) {
+            Controller.email = email;
+            new MainScreen(frame);
+        } else {
+            errorTxt.setText("Error: Unable to register, please check details and try again");
+        }
+    }
+
+    /**
+     * Uses the apache email validator to check that the email given is of a valid format.
+     * @param email Email to check the format of.
+     * @return True (Email is valid) False (Email is not)
+     */
     private boolean validateEmail(String email) {
 
         EmailValidator validator = EmailValidator.getInstance();
@@ -116,6 +147,15 @@ public class LoginScreen {
         }
     }
 
+    /**
+     * Method to check the registration details of the person. Looks for null values, empty strings and non
+     * alphanumeric characters. Will also validate the email using the method above.
+     * Any issues encountered will set the error text with the corresponding issue.
+     * @param name Name the user inputted
+     * @param email email the user inputted
+     * @param city City the user inputted
+     * @return true (everything validates successfully) false (something fails)
+     */
     private boolean checkRegisterInfo(String name, String email, String city) {
 
         if (name == null || email == null || city == null) {

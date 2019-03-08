@@ -2,6 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Register dialog box which allows the user to input details to register with the service.
+ * Currently deprecated as was used early on in development however will most likely be reused in future development
+ * so have been left.
+ */
 public class Register extends JDialog {
     private JPanel registerPane;
     private JButton buttonOK;
