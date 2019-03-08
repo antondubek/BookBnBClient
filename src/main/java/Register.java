@@ -16,6 +16,11 @@ public class Register extends JDialog {
     private JTextField txtEmail;
     private JTextField txtCity;
 
+    /**
+     * Register Constructor
+     * Sets up the dialog window
+     * @param parent  Parent frame of which the dialog will be centered
+     */
     public Register(Frame parent) {
 
         super(parent, "BookBnB : Register", true);
@@ -30,6 +35,9 @@ public class Register extends JDialog {
         setLocationRelativeTo(parent);
     }
 
+    /**
+     * Sets up listeners for all buttons
+     */
     private void setupListeners() {
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -59,6 +67,10 @@ public class Register extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
+    /**
+     * OK button pressed will get all of the data from the fields and pass it to the controller for registering
+     * with the server.
+     */
     private void onOK() {
         // add your code here
         String name = txtName.getText();
@@ -76,6 +88,9 @@ public class Register extends JDialog {
         }
     }
 
+    /**
+     * Cancel button will close the dialog box.
+     */
     private void onCancel() {
         // add your code here if necessary
         dispose();
