@@ -29,7 +29,7 @@ import java.util.ArrayList;
  */
 public class Controller {
 
-    private static String address = "http://138.251.29.38:8080";
+    private static String address = "http://antondubek-bookbnb.herokuapp.com";
     public static String name;
     public static String email;
     public static String city;
