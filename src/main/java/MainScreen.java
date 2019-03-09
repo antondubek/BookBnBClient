@@ -69,7 +69,6 @@ public class MainScreen implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 AddBook addBookDialog = new AddBook(frame);
                 addBookDialog.setVisible(true);
-                System.out.println("hello");
                 populateTable();
             }
         });
