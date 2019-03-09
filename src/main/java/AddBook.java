@@ -85,6 +85,7 @@ public class AddBook extends JDialog {
         System.out.println(addedCorrectly);
 
         if (addedCorrectly) {
+
             dispose();
         } else {
             errorTxt.setText("Error occurred, please check values or try later");

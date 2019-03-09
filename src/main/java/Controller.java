@@ -108,13 +108,13 @@ public class Controller {
     public static boolean addBook(String ISBN, String author, String title, String edition){
 
         JSONObject data = new JSONObject();
-        data.put("command", "add");
+        data.put("email", email);
         data.put("ISBN", ISBN);
         data.put("author", author);
         data.put("title", title);
         data.put("edition", edition);
 
-        return sendPostGetResponse("/book", data);
+        return sendPostGetResponse("/profile/addBook", data);
     }
 
     /**
@@ -149,7 +149,7 @@ public class Controller {
      */
     public static ArrayList<Book> getAllBooks(){
 
-        StringBuffer response = sendGetRequest("/book?command=all");
+        String response = sendGetRequest("/book?command=all");
 
         JSONArray allBooks = new JSONArray(response.toString());
 
@@ -167,6 +167,12 @@ public class Controller {
 
     }
 
+    /**
+     * Makes a post request to the server with the data.
+     * @param directory Directory of the URL to post to ie /login
+     * @param data Data to send, normally an email
+     * @return Returns True (HTTP OK received) False (HTTP Error)
+     */
     private static boolean sendPostGetResponse(String directory, JSONObject data){
 
         HttpResponse response = sendPOSTRequest(directory, data);
@@ -183,6 +189,12 @@ public class Controller {
 
     }
 
+    /**
+     * Makes a post request to the server with the data.
+     * @param directory Directory of the URL to post to ie /login
+     * @param data  Data to send, normally register data
+     * @return Returns a string of the post response, normally in a JSON format.
+     */
     private static String sendPostGetData(String directory, JSONObject data){
 
         HttpResponse response = sendPOSTRequest(directory, data);
@@ -200,6 +212,13 @@ public class Controller {
     }
 
 
+    /**
+     * Actually connects to the server and deals with the POST request. The connection
+     * has a configurable timeout and is designed to send JSON items.
+     * @param directory Directory of the URL to post to ie /login
+     * @param data Data to send
+     * @return The HttpResponse which can get the content or response codes from.
+     */
     private static HttpResponse sendPOSTRequest(String directory, JSONObject data){
 
         String url = address + directory;
@@ -241,8 +260,12 @@ public class Controller {
     }
 
 
-
-    public static StringBuffer sendGetRequest(String directory){
+    /**
+     * Creates a connection with the server and sends a get request.
+     * @param directory Path of the data that you want ie /book
+     * @return String of the data received from server. Will most likely be JSON formatted.
+     */
+    private static String sendGetRequest(String directory){
 
         StringBuffer response = new StringBuffer();
 
@@ -268,7 +291,7 @@ public class Controller {
                     response.append(readLine);
                 } in.close();
 
-                return response;
+                return response.toString();
             }
 
         } catch (MalformedURLException e) {
@@ -277,7 +300,7 @@ public class Controller {
             e.printStackTrace();
         }
 
-        return response;
+        return "";
     }
 
 }

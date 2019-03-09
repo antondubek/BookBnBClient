@@ -68,6 +68,8 @@ public class MainScreen implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 AddBook addBookDialog = new AddBook(frame);
                 addBookDialog.setVisible(true);
+                System.out.println("hello");
+                populateTable();
             }
         });
     }
@@ -79,7 +81,7 @@ public class MainScreen implements ActionListener {
      * Also adds a popup menu and listener to the browse books table which allows the user to request a book by right
      * clicking on an entry in the table.
      */
-    private void populateTable() {
+    public void populateTable() {
 
         userBooks = Controller.getUserBooks();
         allBooks = Controller.getAllBooks();
@@ -261,6 +263,7 @@ public class MainScreen implements ActionListener {
         public String getColumnName(int column) {
             return headers[column];
         }
+
     }
 
     /**

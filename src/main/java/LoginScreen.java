@@ -68,10 +68,10 @@ public class LoginScreen {
     /**
      * Method called when the login button pressed. Will read in the values given, check the email and password
      * with the server. If the authentication is correct then will load the mainscreen.
-     *
+     * <p>
      * Currently a bypass put in for an 'admin' user for during development.
      */
-    private void onLogin(){
+    private void onLogin() {
         //Reset the error text
         errorTxt.setText("");
 
@@ -79,20 +79,16 @@ public class LoginScreen {
 
         boolean isAuthenticated = false;
 
-        //TODO Remove this when needed
-        if (!email.equals("admin")) {
 
-            //Check the email is valid
-            if (!validateEmail(email)) {
-                return;
-            }
-
-            String password = PasswordHasher.hashPassword(new String(loginPasswordlTxt.getPassword()));
-
-            isAuthenticated = Controller.authenticate(email, password);
-        } else {
-            isAuthenticated = true;
+        //Check the email is valid
+        if (!validateEmail(email)) {
+            return;
         }
+
+        String password = PasswordHasher.hashPassword(new String(loginPasswordlTxt.getPassword()));
+
+        isAuthenticated = Controller.authenticate(email, password);
+
 
         if (isAuthenticated) {
             Controller.email = email;
@@ -107,7 +103,7 @@ public class LoginScreen {
      * and then send it to the controller for registering with the server. If registration correct then will load
      * the main screen.
      */
-    private void onRegister(){
+    private void onRegister() {
         //Reset the error text
         errorTxt.setText("");
 
@@ -133,6 +129,7 @@ public class LoginScreen {
 
     /**
      * Uses the apache email validator to check that the email given is of a valid format.
+     *
      * @param email Email to check the format of.
      * @return True (Email is valid) False (Email is not)
      */
@@ -151,9 +148,10 @@ public class LoginScreen {
      * Method to check the registration details of the person. Looks for null values, empty strings and non
      * alphanumeric characters. Will also validate the email using the method above.
      * Any issues encountered will set the error text with the corresponding issue.
-     * @param name Name the user inputted
+     *
+     * @param name  Name the user inputted
      * @param email email the user inputted
-     * @param city City the user inputted
+     * @param city  City the user inputted
      * @return true (everything validates successfully) false (something fails)
      */
     private boolean checkRegisterInfo(String name, String email, String city) {
