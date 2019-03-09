@@ -46,7 +46,12 @@ public class MainScreen implements ActionListener {
         frame.setVisible(true);
         loginFrame.setVisible(false);
 
-        welcomeTxt.setText("Welcome " + Controller.email + " to BookBnB!");
+        if(Controller.getUser()){
+            welcomeTxt.setText("Welcome " + Controller.name + " to BookBnB in " + Controller.city);
+        } else {
+            welcomeTxt.setText("Welcome to BookBnB!");
+        }
+
 
         setupListeners();
 

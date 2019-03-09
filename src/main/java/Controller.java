@@ -1,12 +1,17 @@
 
 
+import jdk.nashorn.internal.parser.JSONParser;
+import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -24,8 +29,13 @@ import java.util.ArrayList;
  */
 public class Controller {
 
-    private static String address = "http://localhost:8080";
+    private static String address = "http://138.251.29.38:8080";
+    public static String name;
     public static String email;
+    public static String city;
+
+    private static CloseableHttpClient client;
+
 
     /**
      * Authenticate method is called to validate the login credentials of the user
@@ -40,13 +50,7 @@ public class Controller {
         data.put("email", email);
         data.put("password", password);
 
-        CloseableHttpResponse response = sendPOSTRequest("/loginfail", data);
-
-        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-            return true;
-        } else {
-            return false;
-        }
+        return sendPostGetResponse("/login", data);
 
     }
 
@@ -72,14 +76,25 @@ public class Controller {
         data.put("city", city);
 
 
-        CloseableHttpResponse response = sendPOSTRequest("/register", data);
+        return sendPostGetResponse("/register", data);
 
-        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-            return true;
-        } else {
-            return false;
-        }
+    }
 
+    /**
+     * Gets the user profile once the user has logged in.
+     * @return boolean whether it successfully got the user info.
+     */
+    public static boolean getUser(){
+
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+
+        JSONObject user = new JSONObject(sendPostGetData("/profile", data));
+
+        name = user.getString("name");
+        city = user.getString("city");
+
+        return true;
     }
 
     /**
@@ -99,13 +114,7 @@ public class Controller {
         data.put("title", title);
         data.put("edition", edition);
 
-        CloseableHttpResponse response = sendPOSTRequest("/book", data);
-
-        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-            return true;
-        } else {
-            return false;
-        }
+        return sendPostGetResponse("/book", data);
     }
 
     /**
@@ -114,27 +123,22 @@ public class Controller {
      */
     public static ArrayList<Book> getUserBooks(){
 
-        //Use either get or post to retrieve the data
+        JSONObject data = new JSONObject();
+        data.put("email", email);
 
-        //Iterate through whatever you get back
-            //Add it to an arraylist
+        String response = sendPostGetData("/profile/books", data);
 
-        //Return the arraylist
+        JSONArray userBooks = new JSONArray(response);
 
-
-        //Post request parsing to get data
-        //System.out.println(response);
-        //System.out.println(EntityUtils.toString(response.getEntity()));
-
-
-        //For testing
-        Book book1 = new Book("1234", "test user books", "hello world");
-        Book book2 = new Book("4567", "JKRowling", "Harry Potter & the half blood prince");
+        System.out.println(response);
 
         ArrayList<Book> books = new ArrayList<Book>();
+        for(int i = 0; i < userBooks.length(); i++){
+            JSONObject currentBook = userBooks.getJSONObject(i);
 
-        books.add(book1);
-        books.add(book2);
+            books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title")
+                    , currentBook.getString("author")));
+        }
 
         return books;
     }
@@ -145,24 +149,58 @@ public class Controller {
      */
     public static ArrayList<Book> getAllBooks(){
 
-        //JSONObject response = sendGetRequest("/searchSpecificUser?command=all");
+        StringBuffer response = sendGetRequest("/book?command=all");
 
-        //System.out.println(response);
+        JSONArray allBooks = new JSONArray(response.toString());
 
-        Book book1 = new Book("1234", "test all books", "hello world");
-        Book book2 = new Book("4567", "JKRowling", "Harry Potter & the chamber of secrets");
+        System.out.println(response);
 
         ArrayList<Book> books = new ArrayList<Book>();
+        for(int i = 0; i < allBooks.length(); i++){
+            JSONObject currentBook = allBooks.getJSONObject(i);
 
-        books.add(book1);
-        books.add(book2);
+            books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title")
+                    , currentBook.getString("author")));
+        }
 
         return books;
 
     }
 
+    private static boolean sendPostGetResponse(String directory, JSONObject data){
 
-    private static CloseableHttpResponse sendPOSTRequest(String directory, JSONObject data){
+        HttpResponse response = sendPOSTRequest(directory, data);
+
+        boolean successful = response.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
+
+        try {
+            client.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return successful;
+
+    }
+
+    private static String sendPostGetData(String directory, JSONObject data){
+
+        HttpResponse response = sendPOSTRequest(directory, data);
+
+        try {
+            String content = new BasicResponseHandler().handleResponse(response);
+            client.close();
+            return content;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+
+    }
+
+
+    private static HttpResponse sendPOSTRequest(String directory, JSONObject data){
 
         String url = address + directory;
 
@@ -173,7 +211,7 @@ public class Controller {
                 .setConnectionRequestTimeout(timeout * 1000)
                 .setSocketTimeout(timeout * 1000).build();
 
-        CloseableHttpClient client = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+        client = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
 
         HttpPost httpPost = new HttpPost(url);
 
@@ -188,13 +226,9 @@ public class Controller {
         httpPost.setHeader("Accept", "application/json");
         httpPost.setHeader("Content-type", "application/json");
 
-        CloseableHttpResponse response = null;
+        HttpResponse response = null;
         try {
             response = client.execute(httpPost);
-
-            System.out.println(response.toString());
-
-            client.close();
 
             return response;
 
@@ -207,9 +241,10 @@ public class Controller {
     }
 
 
-    public static JSONObject sendGetRequest(String directory){
 
-        JSONObject json = new JSONObject();
+    public static StringBuffer sendGetRequest(String directory){
+
+        StringBuffer response = new StringBuffer();
 
         try {
 
@@ -228,17 +263,12 @@ public class Controller {
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-                StringBuffer response = new StringBuffer();
 
                 while((readLine = in.readLine()) != null){
                     response.append(readLine);
                 } in.close();
 
-                System.out.println(response.toString());
-
-                json = new JSONObject(response.toString());
-
-                return json;
+                return response;
             }
 
         } catch (MalformedURLException e) {
@@ -247,7 +277,7 @@ public class Controller {
             e.printStackTrace();
         }
 
-        return json;
+        return response;
     }
 
 }

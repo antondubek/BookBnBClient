@@ -1,6 +1,10 @@
+import org.mindrot.jbcrypt.BCrypt;
+
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Base64;
 
 /**
  * Simple class to hash a password
@@ -20,18 +24,17 @@ public class PasswordHasher {
             byte[] salt = getSalt();
 
             MessageDigest md = MessageDigest.getInstance("SHA-1");
-            md.update(salt);
-            byte[] bytes = md.digest(password.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            generatedPassword = sb.toString();
+            //md.update(salt);
+            md.update(password.getBytes(StandardCharsets.UTF_8));
+            byte[] bytes = md.digest();
+            generatedPassword = Base64.getEncoder().encodeToString(bytes);
+            System.out.println(generatedPassword);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return generatedPassword;
     }
+
 
     /**
      * Method to generate a salt which is used in the hashing algorithm
