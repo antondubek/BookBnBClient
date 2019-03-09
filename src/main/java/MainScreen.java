@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * The main screen of the application, this is where the majority of the user will interface with the system.
@@ -86,12 +87,12 @@ public class MainScreen implements ActionListener {
         userBooks = Controller.getUserBooks();
         allBooks = Controller.getAllBooks();
 
-        TableModel userBooksTableModel = new TableModel(userBooks);
+        TableModelUser userBooksTableModel = new TableModelUser(userBooks);
 
         yourBooksTable.setModel(userBooksTableModel);
         yourBooksTable.setAutoCreateRowSorter(true);
 
-        TableModel allBooksTableModel = new TableModel(allBooks);
+        TableModelAll allBooksTableModel = new TableModelAll(allBooks);
 
         browseBooksTable.setModel(allBooksTableModel);
         browseBooksTable.setAutoCreateRowSorter(true);
@@ -222,12 +223,12 @@ public class MainScreen implements ActionListener {
     /**
      * Table model class used to define how the table should look and populates it with books.
      */
-    class TableModel extends AbstractTableModel {
+    class TableModelAll extends AbstractTableModel {
 
         private ArrayList<Book> books;
         String headers[] = new String[]{"Title", "Author", "ISBN"};
 
-        public TableModel(ArrayList<Book> books) {
+        public TableModelAll(ArrayList<Book> books) {
             this.books = books;
         }
 
@@ -264,6 +265,79 @@ public class MainScreen implements ActionListener {
             return headers[column];
         }
 
+    }
+
+    /**
+     * Table model class used to define how the table should look and populates it with books.
+     */
+    class TableModelUser extends AbstractTableModel {
+
+        private ArrayList<Book> books;
+        String headers[] = new String[]{"Title", "Author", "ISBN", "Available"};
+
+        public TableModelUser(ArrayList<Book> books) {
+            this.books = books;
+        }
+
+        @Override
+        public int getRowCount() {
+            return books.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return headers.length;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+
+            Book book = books.get(rowIndex);
+
+            switch (columnIndex) {
+                case 0:
+                    return book.getTitle();
+                case 1:
+                    return book.getAuthor();
+                case 2:
+                    return book.getISBN();
+                case 3:
+                    return book.getAvailability();
+                default:
+                    return "";
+            }
+
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            return headers[column];
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            if(columnIndex == 3){
+                return Boolean.class;
+            } else {
+                return String.class;
+            }
+        }
+
+        //Removed the isCell editable functionality so that user cannot check or uncheck the box until
+        //back end functionality has been implemented.
+//        @Override
+//        public boolean isCellEditable(int rowIndex, int columnIndex) {
+//            return columnIndex == 3;
+//        }
+
+        @Override
+        public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+
+            if(aValue instanceof Boolean && columnIndex == 3){
+                books.get(rowIndex).setAvailability((Boolean) aValue);
+                //Controller.updateBookAvailability();
+            }
+        }
     }
 
     /**

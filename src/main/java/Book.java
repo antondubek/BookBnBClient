@@ -6,6 +6,7 @@ public class Book {
     private String ISBN;
     private String author;
     private String title;
+    private boolean availability;
 
     /**
      * Book Constructor
@@ -13,10 +14,12 @@ public class Book {
      * @param author Author of the book
      * @param title Title of the book
      */
-    public Book(String ISBN, String author, String title) {
+    public Book(String ISBN, String author, String title, boolean availability) {
         this.ISBN = ISBN;
         this.author = author;
         this.title = title;
+        this.availability = availability;
+
     }
 
     @Override
@@ -34,5 +37,13 @@ public class Book {
 
     public String getAuthor() {
         return author;
+    }
+
+    public boolean getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
     }
 }

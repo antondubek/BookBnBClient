@@ -137,8 +137,10 @@ public class Controller {
             JSONObject currentBook = userBooks.getJSONObject(i);
 
             books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title")
-                    , currentBook.getString("author")));
+                    , currentBook.getString("author"), currentBook.getBoolean("available")));
+
         }
+
 
         return books;
     }
@@ -160,7 +162,7 @@ public class Controller {
             JSONObject currentBook = allBooks.getJSONObject(i);
 
             books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title")
-                    , currentBook.getString("author")));
+                    , currentBook.getString("author"), false));
         }
 
         return books;
