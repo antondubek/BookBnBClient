@@ -13,6 +13,7 @@ public class PasswordHasherTest {
     public void hashPassword() {
         String hashedPassword = hasher.hashPassword(password);
         assertEquals(this.hasher.hashPassword(password), hashedPassword);
+        assertNotEquals(password, hashedPassword);
     }
 
     @Test
