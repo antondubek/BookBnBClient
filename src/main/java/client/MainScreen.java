@@ -204,7 +204,7 @@ public class MainScreen implements ActionListener {
         gbc.fill = GridBagConstraints.BOTH;
         homeScreen.add(Buttons, gbc);
         addBookBtn = new JButton();
-        addBookBtn.setText("Add client.Book");
+        addBookBtn.setText("Add Book");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;

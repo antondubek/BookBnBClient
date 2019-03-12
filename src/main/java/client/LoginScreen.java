@@ -136,7 +136,7 @@ public class LoginScreen {
      * @param email Email to check the format of.
      * @return True (Email is valid) False (Email is not)
      */
-    private boolean validateEmail(String email) {
+    public boolean validateEmail(String email) {
 
         EmailValidator validator = EmailValidator.getInstance();
 
@@ -157,7 +157,7 @@ public class LoginScreen {
      * @param city  City the user inputted
      * @return true (everything validates successfully) false (something fails)
      */
-    private boolean checkRegisterInfo(String name, String email, String city) {
+    public boolean checkRegisterInfo(String name, String email, String city) {
 
         if (name == null || email == null || city == null) {
             errorTxt.setText("Error: null values are not permitted");

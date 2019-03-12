@@ -5,7 +5,7 @@ import client.PasswordHasher;
 
 public class PasswordHasherTest {
 
-    private String password = "testingthepasswordhasher";
+    private String password = "testingthepasswordhasher123";
 
     PasswordHasher hasher = new PasswordHasher();
 
