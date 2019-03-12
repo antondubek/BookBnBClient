@@ -1,3 +1,7 @@
+package client;
+import client.Book;
+import client.Controller;
+
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
@@ -6,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Vector;
 
 /**
  * The main screen of the application, this is where the majority of the user will interface with the system.
@@ -97,7 +100,7 @@ public class MainScreen implements ActionListener {
         browseBooksTable.setAutoCreateRowSorter(true);
 
         popupMenu = new JPopupMenu();
-        menuItemRequest = new JMenuItem("Request Book");
+        menuItemRequest = new JMenuItem("Request client.Book");
         popupMenu.add(menuItemRequest);
         menuItemRequest.addActionListener(this);
 
@@ -127,7 +130,7 @@ public class MainScreen implements ActionListener {
 
         Book selectedBook = allBooks.get(row);
 
-        System.out.println("Book requested");
+        System.out.println("client.Book requested");
         System.out.println("Title: " + selectedBook.getTitle());
 
     }
@@ -201,7 +204,7 @@ public class MainScreen implements ActionListener {
         gbc.fill = GridBagConstraints.BOTH;
         homeScreen.add(Buttons, gbc);
         addBookBtn = new JButton();
-        addBookBtn.setText("Add Book");
+        addBookBtn.setText("Add client.Book");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -334,7 +337,7 @@ public class MainScreen implements ActionListener {
 
             if(aValue instanceof Boolean && columnIndex == 3){
                 books.get(rowIndex).setAvailability((Boolean) aValue);
-                //Controller.updateBookAvailability();
+                //client.Controller.updateBookAvailability();
             }
         }
     }

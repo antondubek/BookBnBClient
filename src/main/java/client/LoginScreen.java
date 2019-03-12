@@ -1,4 +1,7 @@
-import org.apache.commons.lang3.StringUtils;
+package client;
+
+import client.Controller;
+import client.PasswordHasher;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import javax.swing.*;

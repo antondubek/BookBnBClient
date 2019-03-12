@@ -1,3 +1,7 @@
+package client;
+
+import client.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

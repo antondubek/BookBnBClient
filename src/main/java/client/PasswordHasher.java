@@ -1,3 +1,5 @@
+package client;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.nio.charset.StandardCharsets;

@@ -88,7 +88,7 @@
               <gridbag weightx="1.0" weighty="1.0"/>
             </constraints>
             <properties>
-              <text value="Add Book"/>
+              <text value="Add client.Book"/>
             </properties>
           </component>
         </children>

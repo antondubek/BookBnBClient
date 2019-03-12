@@ -1,3 +1,8 @@
+package client;
+
+import client.Controller;
+import client.PasswordHasher;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
