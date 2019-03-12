@@ -36,7 +36,7 @@ public class MainScreen implements ActionListener {
     ArrayList<Book> allBooks;
 
     /**
-     * COnstructor which will setup the frame, listeners and populate the tables.
+     * Constructor which will setup the frame, listeners and populate the tables.
      * @param loginFrame Frame of the previous window so that it can close it once it has loaded.
      */
     public MainScreen(JFrame loginFrame) {
