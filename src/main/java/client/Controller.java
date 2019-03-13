@@ -1,16 +1,13 @@
+package client;
 
-
-import jdk.nashorn.internal.parser.JSONParser;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,12 +21,13 @@ import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Controller class which does all of the backend jobs, primarily sending and receiving data to and
+ * client.Controller class which does all of the backend jobs, primarily sending and receiving data to and
  * from the server.
  */
 public class Controller {
 
-    private static String address = "http://antondubek-bookbnb.herokuapp.com";
+//    private static String address = "http://antondubek-bookbnb.herokuapp.com";
+    private static String address = "http://localhost:8080";
     public static String name;
     public static String email;
     public static String city;
@@ -141,7 +139,6 @@ public class Controller {
 
         }
 
-
         return books;
     }
 
@@ -226,7 +223,7 @@ public class Controller {
         String url = address + directory;
 
 
-        int timeout = 5;
+        int timeout = 10;
         RequestConfig config = RequestConfig.custom()
                 .setConnectTimeout(timeout * 1000)
                 .setConnectionRequestTimeout(timeout * 1000)

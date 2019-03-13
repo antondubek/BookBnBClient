@@ -1,4 +1,7 @@
-import org.apache.commons.lang3.StringUtils;
+package client;
+
+import client.Controller;
+import client.PasswordHasher;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import javax.swing.*;
@@ -133,7 +136,7 @@ public class LoginScreen {
      * @param email Email to check the format of.
      * @return True (Email is valid) False (Email is not)
      */
-    private boolean validateEmail(String email) {
+    public boolean validateEmail(String email) {
 
         EmailValidator validator = EmailValidator.getInstance();
 
@@ -154,7 +157,7 @@ public class LoginScreen {
      * @param city  City the user inputted
      * @return true (everything validates successfully) false (something fails)
      */
-    private boolean checkRegisterInfo(String name, String email, String city) {
+    public boolean checkRegisterInfo(String name, String email, String city) {
 
         if (name == null || email == null || city == null) {
             errorTxt.setText("Error: null values are not permitted");
@@ -170,10 +173,10 @@ public class LoginScreen {
             return false;
         }
 
-//        if (!StringUtils.isAlphanumeric(name) || StringUtils.isAlphanumeric(city)) {
-//            errorTxt.setText("Error: Please use alphanumeric characters only");
-//            return false;
-//        }
+        if (!name.matches("[a-zA-Z0-9]+") || !city.matches("[a-zA-Z0-9]+")) {
+            errorTxt.setText("Error: Please use alphanumeric characters only");
+            return false;
+        }
 
         return true;
     }

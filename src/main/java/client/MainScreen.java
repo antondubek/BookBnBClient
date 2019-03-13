@@ -1,3 +1,7 @@
+package client;
+import client.Book;
+import client.Controller;
+
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
@@ -6,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Vector;
 
 /**
  * The main screen of the application, this is where the majority of the user will interface with the system.
@@ -33,7 +36,7 @@ public class MainScreen implements ActionListener {
     ArrayList<Book> allBooks;
 
     /**
-     * COnstructor which will setup the frame, listeners and populate the tables.
+     * Constructor which will setup the frame, listeners and populate the tables.
      * @param loginFrame Frame of the previous window so that it can close it once it has loaded.
      */
     public MainScreen(JFrame loginFrame) {
@@ -97,7 +100,7 @@ public class MainScreen implements ActionListener {
         browseBooksTable.setAutoCreateRowSorter(true);
 
         popupMenu = new JPopupMenu();
-        menuItemRequest = new JMenuItem("Request Book");
+        menuItemRequest = new JMenuItem("Request client.Book");
         popupMenu.add(menuItemRequest);
         menuItemRequest.addActionListener(this);
 
@@ -127,7 +130,7 @@ public class MainScreen implements ActionListener {
 
         Book selectedBook = allBooks.get(row);
 
-        System.out.println("Book requested");
+        System.out.println("client.Book requested");
         System.out.println("Title: " + selectedBook.getTitle());
 
     }
@@ -334,7 +337,7 @@ public class MainScreen implements ActionListener {
 
             if(aValue instanceof Boolean && columnIndex == 3){
                 books.get(rowIndex).setAvailability((Boolean) aValue);
-                //Controller.updateBookAvailability();
+                //client.Controller.updateBookAvailability();
             }
         }
     }
