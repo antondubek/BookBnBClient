@@ -33,7 +33,7 @@ dependencies {
 jar {
     manifest {
         attributes(
-                'Main-Class': 'MortyMain'
+                'Main-Class': 'client/MortyMain'
         )
     }
 }
