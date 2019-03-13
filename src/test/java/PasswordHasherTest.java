@@ -2,6 +2,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import client.PasswordHasher;
 
+/**
+ * Testing that the Password Hashing function works correctly. Also testing that the same two
+ * values generate the same hash digest.
+ */
+
 public class PasswordHasherTest {
 
     private String password = "testingthepasswordhasher123";

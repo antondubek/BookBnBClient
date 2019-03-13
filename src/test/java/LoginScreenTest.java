@@ -2,6 +2,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import client.LoginScreen;
 
+/**
+ * Testing the Login Screen. Checking the email validation by feeding in valid and invalid emails.
+ * Also checking that the registration fields don't accept  invalid inputs.
+ */
+
 public class LoginScreenTest {
 
     private static final String[] VALID_EMAILS = {"email@domain.com", "firstname.lastname@domain.com", "email@subdomain.domain.com",

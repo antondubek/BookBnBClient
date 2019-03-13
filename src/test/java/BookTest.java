@@ -2,6 +2,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import client.Book;
 
+/**
+ * Tests for the Book class. Testing that all fields are assigned correctly when creating a new book object.
+ * Also testing getters and setters methods.
+ */
+
 public class BookTest {
 
     private String ISBN = "9788532530837";
