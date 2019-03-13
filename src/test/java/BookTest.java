@@ -1,10 +1,9 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
-
 import client.Book;
+
 public class BookTest {
 
-    // Creating a Book object
     private String ISBN = "9788532530837";
     private String author = "J. K. Rowling";
     private String title = "Harry Potter and the Half-Blood Prince";

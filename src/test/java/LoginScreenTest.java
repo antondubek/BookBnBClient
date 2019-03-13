@@ -1,6 +1,5 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
-
 import client.LoginScreen;
 
 public class LoginScreenTest {
@@ -21,6 +20,7 @@ public class LoginScreenTest {
 
         assertTrue(this.loginScreen.checkRegisterInfo("Test", "test@Emailgmail.com", "London"));
         assertFalse(this.loginScreen.checkRegisterInfo("", "", ""));
+        assertFalse(this.loginScreen.checkRegisterInfo("Joh%%n", "hello@google.com", "Bristol"));
 
     }
 

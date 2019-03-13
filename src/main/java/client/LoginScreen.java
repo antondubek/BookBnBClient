@@ -173,10 +173,10 @@ public class LoginScreen {
             return false;
         }
 
-//        if (!StringUtils.isAlphanumeric(name) || StringUtils.isAlphanumeric(city)) {
-//            errorTxt.setText("Error: Please use alphanumeric characters only");
-//            return false;
-//        }
+        if (!name.matches("[a-zA-Z0-9]+") || !city.matches("[a-zA-Z0-9]+")) {
+            errorTxt.setText("Error: Please use alphanumeric characters only");
+            return false;
+        }
 
         return true;
     }
