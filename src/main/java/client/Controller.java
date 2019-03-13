@@ -26,7 +26,8 @@ import java.util.ArrayList;
  */
 public class Controller {
 
-    private static String address = "http://antondubek-bookbnb.herokuapp.com";
+//    private static String address = "http://antondubek-bookbnb.herokuapp.com";
+    private static String address = "http://localhost:8080";
     public static String name;
     public static String email;
     public static String city;
