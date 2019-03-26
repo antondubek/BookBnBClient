@@ -2,6 +2,8 @@ package client;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -19,21 +21,20 @@ public class PasswordHasher {
      * @return Hashed password
      */
     public static String hashPassword(String password) {
-        String generatedPassword = null;
+
+        String generatedPassword = "";
 
         try {
-
-            byte[] salt = getSalt();
-
             MessageDigest md = MessageDigest.getInstance("SHA-1");
-            //md.update(salt);
-            md.update(password.getBytes(StandardCharsets.UTF_8));
-            byte[] bytes = md.digest();
-            generatedPassword = Base64.getEncoder().encodeToString(bytes);
-            System.out.println(generatedPassword);
-        } catch (NoSuchAlgorithmException e) {
+            md.reset();
+            md.update(password.getBytes("utf8"));
+            generatedPassword = String.format("%040x", new BigInteger(1, md.digest()));
+        } catch (Exception e){
             e.printStackTrace();
         }
+
+        System.out.println( generatedPassword );
+
         return generatedPassword;
     }
 
