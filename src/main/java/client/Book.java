@@ -13,10 +13,11 @@ public class Book {
     /**
      * client.Book Constructor
      * @param ISBN ISBN number of the book
-     * @param author Author of the book
      * @param title Title of the book
+     * @param author Author of the book
+     *
      */
-    public Book(String ISBN, String author, String title, boolean availability) {
+    public Book(String ISBN, String title, String author, boolean availability) {
         this.ISBN = ISBN;
         this.author = author;
         this.title = title;
