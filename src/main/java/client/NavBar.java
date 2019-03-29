@@ -39,37 +39,64 @@ public class NavBar extends javax.swing.JPanel {
 
         profileBtn = new javax.swing.JButton();
         welcomeBtn = new javax.swing.JButton();
-        browseBtn = new javax.swing.JButton();
+        mybooksBtn = new javax.swing.JButton();
         loginRegisterBtn = new javax.swing.JButton();
+        browseBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 204, 255));
 
         profileBtn.setBackground(new java.awt.Color(0, 204, 255));
+        profileBtn.setFont(new java.awt.Font("Lantinghei SC", 0, 14)); // NOI18N
+        profileBtn.setForeground(new java.awt.Color(255, 255, 255));
         profileBtn.setText("Profile");
+        profileBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
         profileBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 profileBtnActionPerformed(evt);
             }
         });
 
+        welcomeBtn.setBackground(new java.awt.Color(0, 204, 255));
+        welcomeBtn.setFont(new java.awt.Font("Lantinghei SC", 0, 14)); // NOI18N
+        welcomeBtn.setForeground(new java.awt.Color(255, 255, 255));
         welcomeBtn.setText("Welcome");
+        welcomeBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
         welcomeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 welcomeBtnActionPerformed(evt);
             }
         });
 
-        browseBtn.setText("Browse");
-        browseBtn.addActionListener(new java.awt.event.ActionListener() {
+        mybooksBtn.setBackground(new java.awt.Color(0, 204, 255));
+        mybooksBtn.setFont(new java.awt.Font("Lantinghei SC", 0, 14)); // NOI18N
+        mybooksBtn.setForeground(new java.awt.Color(255, 255, 255));
+        mybooksBtn.setText("myBooks");
+        mybooksBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        mybooksBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                browseBtnActionPerformed(evt);
+                mybooksBtnActionPerformed(evt);
             }
         });
 
+        loginRegisterBtn.setBackground(new java.awt.Color(0, 204, 255));
+        loginRegisterBtn.setFont(new java.awt.Font("Lantinghei SC", 0, 14)); // NOI18N
+        loginRegisterBtn.setForeground(new java.awt.Color(255, 255, 255));
         loginRegisterBtn.setText("Register/Login");
+        loginRegisterBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
         loginRegisterBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginRegisterBtnActionPerformed(evt);
+            }
+        });
+
+        browseBtn.setBackground(new java.awt.Color(0, 204, 255));
+        browseBtn.setFont(new java.awt.Font("Lantinghei SC", 0, 14)); // NOI18N
+        browseBtn.setForeground(new java.awt.Color(255, 255, 255));
+        browseBtn.setText("Browse");
+        browseBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        browseBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                browseBtnActionPerformed(evt);
             }
         });
 
@@ -80,25 +107,36 @@ public class NavBar extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(75, 75, 75)
                 .addComponent(welcomeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(browseBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
-                .addComponent(loginRegisterBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(profileBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(107, 107, 107)
+                .addComponent(mybooksBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                .addComponent(loginRegisterBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(profileBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(218, 218, 218)
+                    .addComponent(browseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(507, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(welcomeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(welcomeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                        .addComponent(mybooksBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(profileBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(browseBtn)
                         .addComponent(loginRegisterBtn)))
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(browseBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -111,18 +149,23 @@ public class NavBar extends javax.swing.JPanel {
         cardLayout.show(cards, "PROFILE");
     }//GEN-LAST:event_profileBtnActionPerformed
 
-    private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
-        cardLayout.show(cards, "BROWSE");
-    }//GEN-LAST:event_browseBtnActionPerformed
+    private void mybooksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mybooksBtnActionPerformed
+        cardLayout.show(cards, "MYBOOKS");
+    }//GEN-LAST:event_mybooksBtnActionPerformed
 
     private void loginRegisterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginRegisterBtnActionPerformed
         cardLayout.show(cards, "LOGIN");
     }//GEN-LAST:event_loginRegisterBtnActionPerformed
 
+    private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
+        cardLayout.show(cards, "BROWSE");
+    }//GEN-LAST:event_browseBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton browseBtn;
     private javax.swing.JButton loginRegisterBtn;
+    private javax.swing.JButton mybooksBtn;
     private javax.swing.JButton profileBtn;
     private javax.swing.JButton welcomeBtn;
     // End of variables declaration//GEN-END:variables

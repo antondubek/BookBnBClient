@@ -5,6 +5,11 @@
  */
 package client;
 
+import client.Screens.BrowseScreen;
+import client.Screens.ProfileScreen;
+import client.Screens.WelcomeScreen;
+import client.Screens.LoginRegisterScreen;
+import client.Screens.MyBooksScreen;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -23,24 +28,30 @@ import javax.swing.JTextField;
  */
 public class MainLayout extends JFrame{
     
-        JPanel cards; //a panel that uses CardLayout
-         CardLayout cardLayout;
+    private static JPanel cards; //a panel that uses CardLayout
+    private static CardLayout cardLayout;
+    private static JPanel profileCard;
+    private static JPanel welcomeCard;
+    private static JPanel browseCard;
+    private static JPanel loginCard;
+    private static JPanel myBooksCard;
         // button commands
     
     public MainLayout(){
         setupStuff();
     }
     
-    private void setupStuff(){
+    private static void setupStuff(){
 
         //Create a new JFrame
         JFrame frame = new JFrame("BookBnB");
  
         //Create the screens.
-        JPanel profileCard = new ProfileScreen();
-        JPanel welcomeCard = new WelcomeScreen();
-        JPanel browseCard = new BrowseScreen();
-        JPanel loginCard = new LoginRegisterScreen();
+        profileCard = new ProfileScreen();
+        welcomeCard = new WelcomeScreen();
+        browseCard = new BrowseScreen();
+        loginCard = new LoginRegisterScreen();
+        myBooksCard = new MyBooksScreen();
         
         //Define a new cardlayout
         cardLayout = new CardLayout();
@@ -51,6 +62,7 @@ public class MainLayout extends JFrame{
         cards.add(welcomeCard, "WELCOME");
         cards.add(browseCard, "BROWSE");
         cards.add(loginCard, "LOGIN");
+        cards.add(myBooksCard, "MYBOOKS");
 
         //Create a new navigation bar
         JPanel navBar = new NavBar(cardLayout, cards);
@@ -67,5 +79,11 @@ public class MainLayout extends JFrame{
         frame.setSize(700, 400);
         frame.setVisible(true);
     }
+    
+    public static void setCurrentScreen(String cardName){
+        cardLayout.show(cards, cardName);
+    }
+    
+    
     
 }
