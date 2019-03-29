@@ -8,7 +8,7 @@ public class MortyMain {
      * @param args No arguments are required
      */
     public static void main(String[] args) {
-        new LoginScreen();
+        new MainLayout();
     }
 
 
