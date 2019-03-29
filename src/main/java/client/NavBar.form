@@ -26,7 +26,9 @@
               <Component id="welcomeBtn" min="-2" pref="121" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="browseBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="375" max="32767" attributes="0"/>
+              <EmptySpace pref="226" max="32767" attributes="0"/>
+              <Component id="loginRegisterBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="profileBtn" min="-2" pref="121" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -41,6 +43,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="profileBtn" alignment="3" max="32767" attributes="0"/>
                       <Component id="browseBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="loginRegisterBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -74,6 +77,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="browseBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="loginRegisterBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Register/Login"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginRegisterBtnActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

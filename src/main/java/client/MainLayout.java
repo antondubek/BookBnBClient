@@ -23,7 +23,7 @@ import javax.swing.JTextField;
  */
 public class MainLayout extends JFrame{
     
-         JPanel cards; //a panel that uses CardLayout
+        JPanel cards; //a panel that uses CardLayout
          CardLayout cardLayout;
         // button commands
     
@@ -40,6 +40,7 @@ public class MainLayout extends JFrame{
         JPanel profileCard = new ProfileScreen();
         JPanel welcomeCard = new WelcomeScreen();
         JPanel browseCard = new BrowseScreen();
+        JPanel loginCard = new LoginRegisterScreen();
         
         //Define a new cardlayout
         cardLayout = new CardLayout();
@@ -49,6 +50,7 @@ public class MainLayout extends JFrame{
         cards.add(profileCard, "PROFILE");
         cards.add(welcomeCard, "WELCOME");
         cards.add(browseCard, "BROWSE");
+        cards.add(loginCard, "LOGIN");
 
         //Create a new navigation bar
         JPanel navBar = new NavBar(cardLayout, cards);

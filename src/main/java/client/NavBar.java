@@ -6,7 +6,10 @@
 package client;
 
 import java.awt.CardLayout;
+import java.awt.Frame;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -37,6 +40,7 @@ public class NavBar extends javax.swing.JPanel {
         profileBtn = new javax.swing.JButton();
         welcomeBtn = new javax.swing.JButton();
         browseBtn = new javax.swing.JButton();
+        loginRegisterBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 204, 255));
 
@@ -62,6 +66,13 @@ public class NavBar extends javax.swing.JPanel {
             }
         });
 
+        loginRegisterBtn.setText("Register/Login");
+        loginRegisterBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginRegisterBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,7 +82,9 @@ public class NavBar extends javax.swing.JPanel {
                 .addComponent(welcomeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(browseBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 375, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
+                .addComponent(loginRegisterBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(profileBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -83,7 +96,8 @@ public class NavBar extends javax.swing.JPanel {
                     .addComponent(welcomeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(profileBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(browseBtn)))
+                        .addComponent(browseBtn)
+                        .addComponent(loginRegisterBtn)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -101,9 +115,14 @@ public class NavBar extends javax.swing.JPanel {
         cardLayout.show(cards, "BROWSE");
     }//GEN-LAST:event_browseBtnActionPerformed
 
+    private void loginRegisterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginRegisterBtnActionPerformed
+        cardLayout.show(cards, "LOGIN");
+    }//GEN-LAST:event_loginRegisterBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton browseBtn;
+    private javax.swing.JButton loginRegisterBtn;
     private javax.swing.JButton profileBtn;
     private javax.swing.JButton welcomeBtn;
     // End of variables declaration//GEN-END:variables
