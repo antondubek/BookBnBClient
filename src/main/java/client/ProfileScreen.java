@@ -36,7 +36,7 @@ public class ProfileScreen extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(313, Short.MAX_VALUE)
+                .addContainerGap(317, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(310, 310, 310))
         );
@@ -45,7 +45,7 @@ public class ProfileScreen extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jLabel1)
-                .addContainerGap(378, Short.MAX_VALUE))
+                .addContainerGap(298, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

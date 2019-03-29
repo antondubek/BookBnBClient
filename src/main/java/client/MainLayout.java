@@ -39,6 +39,7 @@ public class MainLayout extends JFrame{
         //Create the screens.
         JPanel profileCard = new ProfileScreen();
         JPanel welcomeCard = new WelcomeScreen();
+        JPanel browseCard = new BrowseScreen();
         
         //Define a new cardlayout
         cardLayout = new CardLayout();
@@ -47,6 +48,7 @@ public class MainLayout extends JFrame{
         cards = new JPanel(cardLayout);
         cards.add(profileCard, "PROFILE");
         cards.add(welcomeCard, "WELCOME");
+        cards.add(browseCard, "BROWSE");
 
         //Create a new navigation bar
         JPanel navBar = new NavBar(cardLayout, cards);
