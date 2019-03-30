@@ -76,6 +76,7 @@ public class MainLayout extends JFrame{
         //Set the size of the window and show it
         frame.setSize(700, 450);
         frame.setVisible(true);
+        frame.setResizable(false);
     }
     
     /**

@@ -18,7 +18,7 @@ public class AddBookDialog extends javax.swing.JDialog {
      * @param parent Parent Frame of the dialog, only used to center the box on top of the parent frame.
      */
     public AddBookDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, "Add a New Book", modal);
+        super(parent, "Add New Book", modal);
         initComponents();
         setResizable(false);
         setLocationRelativeTo(parent);
@@ -86,42 +86,42 @@ public class AddBookDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 204, 255));
-        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setForeground(new java.awt.Color(102, 102, 102));
 
         jLabel1.setFont(new java.awt.Font("Lantinghei SC", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Please input the details of the book you would like to add");
 
         jLabel2.setFont(new java.awt.Font("Lantinghei SC", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(0, 204, 255));
         jLabel2.setText("Add Book");
 
         jLabel3.setFont(new java.awt.Font("Lantinghei SC", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setText("Labels marked with * are mandatory");
 
         jLabel4.setFont(new java.awt.Font("Lantinghei SC", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("ISBN*");
 
         jLabel5.setFont(new java.awt.Font("Lantinghei SC", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText("Author*");
 
         jLabel6.setFont(new java.awt.Font("Lantinghei SC", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
         jLabel6.setText("Title*");
 
         jLabel7.setFont(new java.awt.Font("Lantinghei SC", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
         jLabel7.setText("Edition*");
 
         buttonOK.setBackground(new java.awt.Color(0, 204, 255));
         buttonOK.setFont(new java.awt.Font("Lantinghei SC", 1, 13)); // NOI18N
-        buttonOK.setForeground(new java.awt.Color(255, 255, 255));
+        buttonOK.setForeground(new java.awt.Color(102, 102, 102));
         buttonOK.setText("Add");
-        buttonOK.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        buttonOK.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 255), 2, true));
         buttonOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOKActionPerformed(evt);
@@ -130,9 +130,9 @@ public class AddBookDialog extends javax.swing.JDialog {
 
         buttonCancel.setBackground(new java.awt.Color(0, 204, 255));
         buttonCancel.setFont(new java.awt.Font("Lantinghei SC", 1, 13)); // NOI18N
-        buttonCancel.setForeground(new java.awt.Color(255, 255, 255));
+        buttonCancel.setForeground(new java.awt.Color(102, 102, 102));
         buttonCancel.setText("Cancel");
-        buttonCancel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        buttonCancel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 255), 2, true));
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);

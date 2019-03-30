@@ -48,8 +48,18 @@ public class Controller {
 
         data.put("email", email);
         data.put("password", password);
+        
+        System.out.println("LOG: Sending authentication request");
 
-        return sendPostGetResponse("/login", data);
+        boolean successful = sendPostGetResponse("/login", data);
+        
+        if (successful){
+            System.out.println("LOG: Authentication successful");
+        } else {
+            System.out.println("LOG: Authentication denied");
+        }
+        
+        return successful;
 
     }
 
@@ -74,8 +84,17 @@ public class Controller {
         data.put("password", password);
         data.put("city", city);
 
-
-        return sendPostGetResponse("/register", data);
+        System.out.println("LOG: Sending registration request");
+        
+        boolean successful = sendPostGetResponse("/register", data);
+        
+        if (successful){
+            System.out.println("LOG: Registration successful");
+        } else {
+            System.out.println("LOG: Registration denied");
+        }
+        
+        return successful;
 
     }
 
