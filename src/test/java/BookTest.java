@@ -14,7 +14,7 @@ public class BookTest {
     private String title = "Harry Potter and the Half-Blood Prince";
     private boolean availability = true;
 
-    private Book testBook = new Book(ISBN, author, title, availability);
+    private Book testBook = new Book(ISBN,  title, author, availability);
 
     @Test
     public void createBook() {
