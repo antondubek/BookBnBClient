@@ -29,8 +29,9 @@ public class Controller {
     private static String address = "http://antondubek-bookbnb.herokuapp.com";
     //private static String address = "http://localhost:8080";
     public static String name;
-    public static String email = "test@amakepeace.com";
+    public static String email;
     public static String city;
+    public static boolean loggedIn = false;
 
     private static CloseableHttpClient client;
 
@@ -138,7 +139,7 @@ public class Controller {
                     , currentBook.getString("author"), currentBook.getBoolean("available")));
 
         }
-
+        
         return books;
     }
 

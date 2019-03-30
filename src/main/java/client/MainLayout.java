@@ -12,15 +12,9 @@ import client.Screens.LoginRegisterScreen;
 import client.Screens.MyBooksScreen;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  *
@@ -30,11 +24,13 @@ public class MainLayout extends JFrame{
     
     private static JPanel cards; //a panel that uses CardLayout
     private static CardLayout cardLayout;
-    private static JPanel profileCard;
-    private static JPanel welcomeCard;
-    private static JPanel browseCard;
-    private static JPanel loginCard;
-    private static JPanel myBooksCard;
+    private static ProfileScreen profileCard;
+    private static WelcomeScreen welcomeCard;
+    private static BrowseScreen browseCard;
+    private static LoginRegisterScreen loginCard;
+    private static MyBooksScreen myBooksCard;
+    private static NavBar navBar;
+    private static Container pane;
         // button commands
     
     public MainLayout(){
@@ -65,23 +61,40 @@ public class MainLayout extends JFrame{
         cards.add(myBooksCard, "MYBOOKS");
 
         //Create a new navigation bar
-        JPanel navBar = new NavBar(cardLayout, cards);
+        navBar = new NavBar(cardLayout, cards);
  
         //Add the card layout and navbar to the container
-        Container pane = frame.getContentPane();
+        pane = frame.getContentPane();
         pane.add(cards, BorderLayout.CENTER);
         pane.add(navBar, BorderLayout.PAGE_START);
  
         //Set the default close button to close the app
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
+        setCurrentScreen("WELCOME");
+        
         //Set the size of the window and show it
         frame.setSize(700, 400);
         frame.setVisible(true);
     }
     
+    /**
+     * Sets the current card that is showing on the screen
+     * 
+     */
     public static void setCurrentScreen(String cardName){
         cardLayout.show(cards, cardName);
+    }
+    
+    
+    public static void loginUpdate() {
+//        pane.remove(navBar);
+//        navBar = new NavBar(cardLayout, cards);
+//        pane.add(navBar, BorderLayout.PAGE_START);
+
+        navBar.loginUpdate();
+        
+        myBooksCard.populateTable();
     }
     
     

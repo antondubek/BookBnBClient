@@ -26,6 +26,21 @@ public class NavBar extends javax.swing.JPanel {
         this.cardLayout = cardLayout;
         this.cards = cards;
         initComponents();
+        loginUpdate();
+    }
+    
+    /**
+     * Login Update method will show or hide elements in the navbar depending on
+     * whether the user is logged in or not.
+     */
+    public void loginUpdate(){
+        
+        boolean loggedIn = Controller.loggedIn;
+        
+        profileBtn.setVisible(loggedIn);
+        mybooksBtn.setVisible(loggedIn);
+        loginRegisterBtn.setVisible(!loggedIn);
+       
     }
 
     /**
@@ -43,57 +58,58 @@ public class NavBar extends javax.swing.JPanel {
         loginRegisterBtn = new javax.swing.JButton();
         browseBtn = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(0, 204, 255));
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        profileBtn.setBackground(new java.awt.Color(0, 204, 255));
+        profileBtn.setBackground(new java.awt.Color(255, 255, 255));
         profileBtn.setFont(new java.awt.Font("Lantinghei SC", 0, 14)); // NOI18N
-        profileBtn.setForeground(new java.awt.Color(255, 255, 255));
+        profileBtn.setForeground(new java.awt.Color(102, 102, 102));
         profileBtn.setText("Profile");
-        profileBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        profileBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 255), 2, true));
         profileBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 profileBtnActionPerformed(evt);
             }
         });
 
-        welcomeBtn.setBackground(new java.awt.Color(0, 204, 255));
+        welcomeBtn.setBackground(new java.awt.Color(255, 255, 255));
         welcomeBtn.setFont(new java.awt.Font("Lantinghei SC", 0, 14)); // NOI18N
-        welcomeBtn.setForeground(new java.awt.Color(255, 255, 255));
+        welcomeBtn.setForeground(new java.awt.Color(102, 102, 102));
         welcomeBtn.setText("Welcome");
-        welcomeBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        welcomeBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 255), 2, true));
         welcomeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 welcomeBtnActionPerformed(evt);
             }
         });
 
-        mybooksBtn.setBackground(new java.awt.Color(0, 204, 255));
+        mybooksBtn.setBackground(new java.awt.Color(255, 255, 255));
         mybooksBtn.setFont(new java.awt.Font("Lantinghei SC", 0, 14)); // NOI18N
-        mybooksBtn.setForeground(new java.awt.Color(255, 255, 255));
+        mybooksBtn.setForeground(new java.awt.Color(102, 102, 102));
         mybooksBtn.setText("myBooks");
-        mybooksBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        mybooksBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 255), 2, true));
         mybooksBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mybooksBtnActionPerformed(evt);
             }
         });
 
-        loginRegisterBtn.setBackground(new java.awt.Color(0, 204, 255));
+        loginRegisterBtn.setBackground(new java.awt.Color(255, 255, 255));
         loginRegisterBtn.setFont(new java.awt.Font("Lantinghei SC", 0, 14)); // NOI18N
-        loginRegisterBtn.setForeground(new java.awt.Color(255, 255, 255));
+        loginRegisterBtn.setForeground(new java.awt.Color(102, 102, 102));
         loginRegisterBtn.setText("Register/Login");
-        loginRegisterBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        loginRegisterBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 255), 2, true));
         loginRegisterBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginRegisterBtnActionPerformed(evt);
             }
         });
 
-        browseBtn.setBackground(new java.awt.Color(0, 204, 255));
+        browseBtn.setBackground(new java.awt.Color(255, 255, 255));
         browseBtn.setFont(new java.awt.Font("Lantinghei SC", 0, 14)); // NOI18N
-        browseBtn.setForeground(new java.awt.Color(255, 255, 255));
+        browseBtn.setForeground(new java.awt.Color(102, 102, 102));
         browseBtn.setText("Browse");
-        browseBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        browseBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 255), 2, true));
+        browseBtn.setPreferredSize(new java.awt.Dimension(69, 25));
         browseBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 browseBtnActionPerformed(evt);
@@ -107,36 +123,29 @@ public class NavBar extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(75, 75, 75)
                 .addComponent(welcomeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 107, 107)
-                .addComponent(mybooksBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
-                .addComponent(loginRegisterBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(browseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(mybooksBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(loginRegisterBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
-                .addComponent(profileBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(profileBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(218, 218, 218)
-                    .addComponent(browseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(507, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(welcomeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                        .addComponent(mybooksBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(profileBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(loginRegisterBtn)))
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(welcomeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(loginRegisterBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(browseBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addComponent(mybooksBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(profileBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 

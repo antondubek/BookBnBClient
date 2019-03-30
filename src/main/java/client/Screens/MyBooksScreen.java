@@ -34,7 +34,11 @@ public class MyBooksScreen extends javax.swing.JPanel {
      */
     public void populateTable() {
 
-        userBooks = Controller.getUserBooks();
+        if(Controller.loggedIn){
+            userBooks = Controller.getUserBooks();
+        } else {
+            userBooks = new ArrayList<>();
+        }
 
         TableModelUser userBooksTableModel = new TableModelUser(userBooks);
 
@@ -131,7 +135,15 @@ public class MyBooksScreen extends javax.swing.JPanel {
         yourBooksTable = new javax.swing.JTable();
         addBookBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(0, 204, 255));
+
+        jLabel1.setBackground(new java.awt.Color(0, 204, 255));
+        jLabel1.setFont(new java.awt.Font("Lantinghei SC", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("MyBooks");
+
+        jPanel1.setBackground(new java.awt.Color(0, 204, 255));
+        jPanel1.setForeground(new java.awt.Color(102, 102, 102));
 
         yourBooksTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -146,7 +158,11 @@ public class MyBooksScreen extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(yourBooksTable);
 
+        addBookBtn.setBackground(new java.awt.Color(255, 255, 255));
+        addBookBtn.setFont(new java.awt.Font("Lantinghei SC", 0, 14)); // NOI18N
+        addBookBtn.setForeground(new java.awt.Color(255, 255, 255));
         addBookBtn.setText("Add Book");
+        addBookBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
         addBookBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBookBtnActionPerformed(evt);
@@ -163,8 +179,8 @@ public class MyBooksScreen extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(254, 254, 254)
-                        .addComponent(addBookBtn)))
+                        .addGap(167, 167, 167)
+                        .addComponent(addBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -172,9 +188,9 @@ public class MyBooksScreen extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(addBookBtn)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
