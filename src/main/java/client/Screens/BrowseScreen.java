@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package client.Screens;
 
 import client.Book;
@@ -19,8 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 /**
- *
- * @author amakepeace
+ * Class loads a screen where a user can browse all the books in the repository
  */
 public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
 
@@ -38,7 +33,7 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
     }
     
     /**
-     * Sets the modelf for the browse books table and the user books table. This will also populate the tables
+     * Sets the model for the browse books table and the user books table. This will also populate the tables
      * with data collected from the server via the controller.
      * Also adds a popup menu and listener to the browse books table which allows the user to request a book by right
      * clicking on an entry in the table.

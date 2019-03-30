@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package client.Screens;
 
 import client.Controller;
@@ -11,8 +7,7 @@ import client.PasswordHasher;
 import org.apache.commons.validator.routines.EmailValidator;
 
 /**
- *
- * @author amakepeace
+ * Class for the login / register screen allowing the user to login and register
  */
 public class LoginRegisterScreen extends javax.swing.JPanel {
 
@@ -75,6 +70,12 @@ public class LoginRegisterScreen extends javax.swing.JPanel {
         processAuthenticationResult(isRegistered, email);
     }
     
+    /**
+     * Takes the email and the response from the server and will either
+     * log the user in or show an error message.
+     * @param result Whether the user is logged in or not
+     * @param email email the user tried to login with
+     **/
     private void processAuthenticationResult(boolean result, String email){
         if (result) {
             Controller.email = email;

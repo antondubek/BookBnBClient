@@ -13,15 +13,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
- *
- * @author amakepeace
+ * Navigation bar class allowing the user to change between the different
+ * screens of the application.
  */
 public class NavBar extends javax.swing.JPanel {
 
     CardLayout cardLayout;
     JPanel cards;
+    
     /**
-     * Creates new form NavBar
+     * NavBar constructor
+     * @param cardLayout The cardlayout of the parent frame.
+     * @param cards The parent panel which the navbar controls
      */
     public NavBar(CardLayout cardLayout, JPanel cards) {
         this.cardLayout = cardLayout;

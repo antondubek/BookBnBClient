@@ -167,8 +167,8 @@ public class Controller {
         for(int i = 0; i < userBooks.length(); i++){
             JSONObject currentBook = userBooks.getJSONObject(i);
 
-            books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title")
-                    , currentBook.getString("author"), currentBook.getBoolean("available")));
+            books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("author"), currentBook.getString("title")
+                    , currentBook.getBoolean("available")));
 
         }
         
@@ -191,8 +191,8 @@ public class Controller {
         for(int i = 0; i < allBooks.length(); i++){
             JSONObject currentBook = allBooks.getJSONObject(i);
 
-            books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title")
-                    , currentBook.getString("author"), false));
+            books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("author"), 
+                    currentBook.getString("title"), false));
         }
 
         return books;
