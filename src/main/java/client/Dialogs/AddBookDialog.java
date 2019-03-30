@@ -55,7 +55,6 @@ public class AddBookDialog extends javax.swing.JDialog {
      * Simply closes the dialog box.
      */
     private void onCancel() {
-        // add your code here if necessary
         dispose();
     }
 

@@ -17,8 +17,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- *
- * @author amakepeace
+ * Class that creates the main layout for the whole application.
+ * This implements a card layout to allow the switching between screens and 
+ * puts a navbar at the top of the frame.
+ * 
  */
 public class MainLayout extends JFrame{
     
@@ -34,10 +36,14 @@ public class MainLayout extends JFrame{
         // button commands
     
     public MainLayout(){
-        setupStuff();
+        setupFrame();
     }
     
-    private static void setupStuff(){
+    /**
+     * Setup method which creates the frame, loads screens and initialises the
+     * card layout used.
+     **/
+    private static void setupFrame(){
 
         //Create a new JFrame
         JFrame frame = new JFrame("BookBnB");
@@ -81,20 +87,17 @@ public class MainLayout extends JFrame{
     
     /**
      * Sets the current card that is showing on the screen
-     * 
      */
     public static void setCurrentScreen(String cardName){
         cardLayout.show(cards, cardName);
     }
     
-    
+    /**
+     * Updates the navigation bar and loads data for the myBooks table once
+     * the user logs in.
+     */
     public static void loginUpdate() {
-//        pane.remove(navBar);
-//        navBar = new NavBar(cardLayout, cards);
-//        pane.add(navBar, BorderLayout.PAGE_START);
-
         navBar.loginUpdate();
-        
         myBooksCard.populateTable();
     }
     
