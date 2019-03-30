@@ -7,7 +7,11 @@ package client.Screens;
 
 import client.Book;
 import client.Controller;
+import client.Dialogs.AddBookDialog;
+import java.awt.Frame;
 import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -219,9 +223,10 @@ public class MyBooksScreen extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookBtnActionPerformed
-//        AddBook addBookDialog = new AddBook(frame);
-//        addBookDialog.setVisible(true);
-//        populateTable();
+        Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+        AddBookDialog addBookDialog = new AddBookDialog(topFrame, true);
+        addBookDialog.setVisible(true);
+        populateTable();
     }//GEN-LAST:event_addBookBtnActionPerformed
 
 

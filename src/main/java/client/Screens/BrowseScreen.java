@@ -182,6 +182,10 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(0, 204, 255));
+
+        jScrollPane1.setBackground(new java.awt.Color(0, 204, 255));
+
         browseBooksTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -195,8 +199,12 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
         ));
         jScrollPane1.setViewportView(browseBooksTable);
 
+        jLabel1.setFont(new java.awt.Font("Lantinghei SC", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Browse Books");
 
+        jLabel2.setFont(new java.awt.Font("Lantinghei SC", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Please right click to request a book");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -211,17 +219,18 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
                         .addGap(37, 37, 37))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(306, 306, 306))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(227, 227, 227))))
+                        .addGap(261, 261, 261))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(189, 189, 189)
+                .addComponent(jLabel2)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+                .addContainerGap(8, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
