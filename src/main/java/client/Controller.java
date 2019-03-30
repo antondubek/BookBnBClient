@@ -106,6 +106,8 @@ public class Controller {
 
         JSONObject data = new JSONObject();
         data.put("email", email);
+        
+        System.out.println("LOG: Requesting user data");
 
         JSONObject user = new JSONObject(sendPostGetData("/profile", data));
 
@@ -132,7 +134,18 @@ public class Controller {
         data.put("title", title);
         data.put("edition", edition);
 
-        return sendPostGetResponse("/profile/addBook", data);
+        System.out.println("LOG: Registering new book with server");
+        
+        boolean successful = sendPostGetResponse("/profile/addBook", data);
+        
+        if (successful){
+            System.out.println("LOG: Book registration successful");
+        } else {
+            System.out.println("LOG: Book registration failed");
+        }
+        
+        
+        return successful;
     }
 
     /**
@@ -143,12 +156,12 @@ public class Controller {
 
         JSONObject data = new JSONObject();
         data.put("email", email);
+        
+        System.out.println("LOG: Retrieving user books from server");
 
         String response = sendPostGetData("/profile/books", data);
 
         JSONArray userBooks = new JSONArray(response);
-
-        System.out.println(response);
 
         ArrayList<Book> books = new ArrayList<Book>();
         for(int i = 0; i < userBooks.length(); i++){
@@ -169,10 +182,10 @@ public class Controller {
     public static ArrayList<Book> getAllBooks(){
 
         String response = sendGetRequest("/book?command=all");
+        
+        System.out.println("LOG: Retrieving all books from server");
 
         JSONArray allBooks = new JSONArray(response.toString());
-
-        System.out.println(response);
 
         ArrayList<Book> books = new ArrayList<Book>();
         for(int i = 0; i < allBooks.length(); i++){
