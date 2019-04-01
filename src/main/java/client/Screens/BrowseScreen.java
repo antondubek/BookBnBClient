@@ -252,6 +252,8 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTxtKeyReleased
+        
+        //Sets the row filter to the text, regardless of case
         rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchTxt.getText()));
     }//GEN-LAST:event_searchTxtKeyReleased
 
