@@ -5,6 +5,13 @@
  */
 package client.Dialogs;
 
+import client.Book;
+import client.Controller;
+import client.Screens.MyBooksScreen;
+import java.util.ArrayList;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author er205
@@ -24,6 +31,7 @@ public class FriendDetails extends javax.swing.JDialog {
         setResizable(false);
         setLocationRelativeTo(parent);
         setUsersDetails(user);
+        populateTable(user.email);
         
     }
 
@@ -31,6 +39,99 @@ public class FriendDetails extends javax.swing.JDialog {
         name.setText("Name: " + user.name);
         email.setText("Email: "+user.email);
         city.setText("City: "+user.city);
+    }
+    
+    /**
+     * Sets the modelf for the browse books table and the user books table. This will also populate the tables
+     * with data collected from the server via the controller.
+     * Also adds a popup menu and listener to the browse books table which allows the user to request a book by right
+     * clicking on an entry in the table.
+     */
+    public void populateTable(String email) {
+        ArrayList<Book> userBooks;
+        //userBooks = Controller.getSearchedUserBooks(email);
+        userBooks = Controller.getUserBooks();
+
+
+        TableModelUser userBooksTableModel = new TableModelUser(userBooks);
+
+        bookTable.setModel(userBooksTableModel);
+        bookTable.setAutoCreateRowSorter(true);
+
+    }
+    
+    
+    /**
+     * Table model class used to define how the table should look and populates it with books.
+     */
+    class TableModelUser extends AbstractTableModel {
+
+        private ArrayList<Book> books;
+        String headers[] = new String[]{"Title", "Author", "ISBN", "Available"};
+
+        public TableModelUser(ArrayList<Book> books) {
+            this.books = books;
+        }
+
+        @Override
+        public int getRowCount() {
+            return books.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return headers.length;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+
+            Book book = books.get(rowIndex);
+
+            switch (columnIndex) {
+                case 0:
+                    return book.getTitle();
+                case 1:
+                    return book.getAuthor();
+                case 2:
+                    return book.getISBN();
+                case 3:
+                    return book.getAvailability();
+                default:
+                    return "";
+            }
+
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            return headers[column];
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            if(columnIndex == 3){
+                return Boolean.class;
+            } else {
+                return String.class;
+            }
+        }
+
+        //Removed the isCell editable functionality so that user cannot check or uncheck the box until
+        //back end functionality has been implemented.
+//        @Override
+//        public boolean isCellEditable(int rowIndex, int columnIndex) {
+//            return columnIndex == 3;
+//        }
+
+        @Override
+        public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+
+            if(aValue instanceof Boolean && columnIndex == 3){
+                books.get(rowIndex).setAvailability((Boolean) aValue);
+                //client.Controller.updateBookAvailability();
+            }
+        }
     }
     
     /**
@@ -47,7 +148,7 @@ public class FriendDetails extends javax.swing.JDialog {
         email = new javax.swing.JLabel();
         city = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        yourBooksTable = new javax.swing.JTable();
+        bookTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -65,7 +166,7 @@ public class FriendDetails extends javax.swing.JDialog {
         city.setForeground(new java.awt.Color(102, 102, 102));
         city.setText("City");
 
-        yourBooksTable.setModel(new javax.swing.table.DefaultTableModel(
+        bookTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -76,7 +177,7 @@ public class FriendDetails extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(yourBooksTable);
+        jScrollPane1.setViewportView(bookTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -121,11 +222,11 @@ public class FriendDetails extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable bookTable;
     private javax.swing.JLabel city;
     private javax.swing.JLabel email;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel name;
-    private javax.swing.JTable yourBooksTable;
     // End of variables declaration//GEN-END:variables
 }

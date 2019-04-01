@@ -201,6 +201,32 @@ public class Controller {
     }
 
     /**
+     * Gets the books belonging to the user
+     * @return An arraylist of all the book objects which belong to the user
+     */
+    public static ArrayList<Book> getSearchedUserBooks(String email){
+
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+        
+        System.out.println("LOG: Retrieving user books from server");
+
+        String response = sendPostGetData("/profile/books", data);
+
+        JSONArray userBooks = new JSONArray(response);
+
+        ArrayList<Book> books = new ArrayList<Book>();
+        for(int i = 0; i < userBooks.length(); i++){
+            JSONObject currentBook = userBooks.getJSONObject(i);
+
+            books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"), currentBook.getString("author"),false));
+
+        }
+        
+        return books;
+    }
+    
+    /**
      * Retrieve all of the browsable books of the system
      * @return Arraylist containing all the book objects
      */
