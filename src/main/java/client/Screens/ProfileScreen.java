@@ -17,7 +17,7 @@ public class ProfileScreen extends javax.swing.JPanel {
      */
     public ProfileScreen() {
         initComponents();
-        System.out.print("Porco Dio"+client.Controller.name);
+        
         name.setText(client.Controller.name);
         email.setText(client.Controller.email);
         city.setText(client.Controller.city);
@@ -29,9 +29,14 @@ public class ProfileScreen extends javax.swing.JPanel {
         String email = searchBox.getText().trim();
         System.out.print("1");
         client.User friendUser = Controller.getUserSearch(email);
-        Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
-        FriendDetails friendDetails = new FriendDetails(topFrame, true, friendUser);
-        friendDetails.setVisible(true);
+        if (friendUser.email.equals("")) {
+            userNotFound.setText("User not found");
+        } else {
+            Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+            FriendDetails friendDetails = new FriendDetails(topFrame, true, friendUser);
+            friendDetails.setVisible(true);
+        }
+        
     }
 
     /**
@@ -53,6 +58,7 @@ public class ProfileScreen extends javax.swing.JPanel {
         email = new javax.swing.JLabel();
         city = new javax.swing.JLabel();
         name = new javax.swing.JLabel();
+        userNotFound = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -88,6 +94,10 @@ public class ProfileScreen extends javax.swing.JPanel {
         name.setForeground(new java.awt.Color(102, 102, 102));
         name.setText("Name");
 
+        userNotFound.setForeground(new java.awt.Color(204, 0, 0));
+        userNotFound.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        userNotFound.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,14 +108,14 @@ public class ProfileScreen extends javax.swing.JPanel {
                     .addComponent(email)
                     .addComponent(city)
                     .addComponent(name))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 257, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 251, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel3)
@@ -117,6 +127,9 @@ public class ProfileScreen extends javax.swing.JPanel {
                                         .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(buttonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap())
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(userNotFound, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())))))
         );
         layout.setVerticalGroup(
@@ -137,7 +150,9 @@ public class ProfileScreen extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(buttonOK))
-                                .addGap(35, 35, 35)
+                                .addGap(8, 8, 8)
+                                .addComponent(userNotFound)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3))
@@ -168,5 +183,6 @@ public class ProfileScreen extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel name;
     private javax.swing.JTextField searchBox;
+    private javax.swing.JLabel userNotFound;
     // End of variables declaration//GEN-END:variables
 }
