@@ -161,6 +161,10 @@ public class Controller {
         System.out.println("LOG: Retrieving user books from server");
 
         String response = sendPostGetData("/profile/books", data);
+        
+        
+        System.out.println("LOG: Books received");
+        
 
         JSONArray userBooks = new JSONArray(response);
 
@@ -187,6 +191,8 @@ public class Controller {
         System.out.println("LOG: Retrieving all books from server");
 
         JSONArray allBooks = new JSONArray(response.toString());
+        
+        System.out.println("All books response = " + response.toString());
 
         ArrayList<Book> books = new ArrayList<Book>();
         for(int i = 0; i < allBooks.length(); i++){
