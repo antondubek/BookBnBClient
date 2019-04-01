@@ -1,6 +1,11 @@
 
 package client.Screens;
 
+import client.Controller;
+import java.awt.Frame;
+import javax.swing.SwingUtilities;
+import client.Dialogs.FriendDetails;
+
 /**
  * Profile screen
  * 
@@ -12,6 +17,15 @@ public class ProfileScreen extends javax.swing.JPanel {
      */
     public ProfileScreen() {
         initComponents();
+    }
+    
+    public void onSearch() {
+        String email = searchBox.getText().trim();
+        System.out.print("1");
+        client.User friendUser = Controller.getUserSearch(email);
+        Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+        FriendDetails friendDetails = new FriendDetails(topFrame, true, friendUser);
+        friendDetails.setVisible(true);
     }
 
     /**
@@ -25,7 +39,7 @@ public class ProfileScreen extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        searchBox = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -70,7 +84,7 @@ public class ProfileScreen extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1)))
                         .addGap(24, 24, 24))))
@@ -85,14 +99,14 @@ public class ProfileScreen extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addGap(259, 259, 259))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        onSearch();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -101,6 +115,6 @@ public class ProfileScreen extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField searchBox;
     // End of variables declaration//GEN-END:variables
 }

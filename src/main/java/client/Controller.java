@@ -119,6 +119,30 @@ public class Controller {
     }
 
     /**
+     * 
+     * @param email
+     * @return 
+     */
+    public static User getUserSearch(String email){
+        System.out.print("2");
+
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+        
+        System.out.println("LOG: Requesting user data");
+
+        JSONObject userDetails = new JSONObject(sendPostGetData("/profile", data));
+        
+        name = userDetails.getString("name");
+        city = userDetails.getString("city");
+
+        User user = new User(name, email, city);
+        System.out.print("3");
+
+        return user;
+    }
+    
+    /**
      * Adds a book to the servers collection
      * @param ISBN ISBN of the book
      * @param author Author of the book

@@ -11,16 +11,28 @@ package client.Dialogs;
  */
 public class FriendDetails extends javax.swing.JDialog {
 
+    
     /**
-     * Creates new form FriendDetails
+     * 
+     * @param parent
+     * @param modal
+     * @param user 
      */
-    public FriendDetails(java.awt.Frame parent, boolean modal) {
+    public FriendDetails(java.awt.Frame parent, boolean modal, client.User user) {
         super(parent, "Friend Profile", modal);
         initComponents();
         setResizable(false);
         setLocationRelativeTo(parent);
+        setUsersDetails(user);
+        
     }
 
+    public void setUsersDetails(client.User user){
+        name.setText("Name " + user.name);
+        email.setText("Email "+user.email);
+        city.setText("City "+user.city);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,9 +43,9 @@ public class FriendDetails extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        name = new javax.swing.JLabel();
+        email = new javax.swing.JLabel();
+        city = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         yourBooksTable = new javax.swing.JTable();
 
@@ -41,17 +53,17 @@ public class FriendDetails extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel4.setFont(new java.awt.Font("Lantinghei SC", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel4.setText("Name");
+        name.setFont(new java.awt.Font("Lantinghei SC", 1, 14)); // NOI18N
+        name.setForeground(new java.awt.Color(102, 102, 102));
+        name.setText("Name");
 
-        jLabel5.setFont(new java.awt.Font("Lantinghei SC", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel5.setText("Email");
+        email.setFont(new java.awt.Font("Lantinghei SC", 1, 14)); // NOI18N
+        email.setForeground(new java.awt.Color(102, 102, 102));
+        email.setText("Email");
 
-        jLabel6.setFont(new java.awt.Font("Lantinghei SC", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel6.setText("City");
+        city.setFont(new java.awt.Font("Lantinghei SC", 1, 14)); // NOI18N
+        city.setForeground(new java.awt.Color(102, 102, 102));
+        city.setText("City");
 
         yourBooksTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -74,20 +86,20 @@ public class FriendDetails extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4))
+                    .addComponent(city)
+                    .addComponent(email)
+                    .addComponent(name))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(55, 55, 55)
-                .addComponent(jLabel4)
+                .addComponent(name)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
+                .addComponent(email)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
+                .addComponent(city)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -109,11 +121,11 @@ public class FriendDetails extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel city;
+    private javax.swing.JLabel email;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel name;
     private javax.swing.JTable yourBooksTable;
     // End of variables declaration//GEN-END:variables
 }
