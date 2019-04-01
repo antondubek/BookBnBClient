@@ -28,9 +28,9 @@ public class FriendDetails extends javax.swing.JDialog {
     }
 
     public void setUsersDetails(client.User user){
-        name.setText("Name " + user.name);
-        email.setText("Email "+user.email);
-        city.setText("City "+user.city);
+        name.setText("Name: " + user.name);
+        email.setText("Email: "+user.email);
+        city.setText("City: "+user.city);
     }
     
     /**
