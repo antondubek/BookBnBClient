@@ -31,7 +31,9 @@ public class FriendDetails extends javax.swing.JDialog {
         setResizable(false);
         setLocationRelativeTo(parent);
         setUsersDetails(user);
-        populateTable(user.email);
+        if (!user.email.equals("")){
+            populateTable(user.email);
+        }
         
     }
 

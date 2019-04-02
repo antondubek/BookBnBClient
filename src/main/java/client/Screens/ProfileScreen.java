@@ -18,16 +18,15 @@ public class ProfileScreen extends javax.swing.JPanel {
     public ProfileScreen() {
         initComponents();
         
-        name.setText(client.Controller.name);
-        email.setText(client.Controller.email);
-        city.setText(client.Controller.city);
-        name.setVisible(true);
+        //name.setText(client.Controller.name);
+        //email.setText(client.Controller.email);
+        //city.setText(client.Controller.city);
+        //name.setVisible(true);
 
     }
     
     public void onSearch() {
         String email = searchBox.getText().trim();
-        System.out.print("1");
         client.User friendUser = Controller.getUserSearch(email);
         if (friendUser.email.equals("")) {
             userNotFound.setText("User not found");

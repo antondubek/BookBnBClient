@@ -26,8 +26,8 @@ import java.util.ArrayList;
  */
 public class Controller {
 
-    private static String address = "http://antondubek-bookbnb.herokuapp.com";
-    //private static String address = "http://localhost:8080";
+    //private static String address = "http://antondubek-bookbnb.herokuapp.com";
+    private static String address = "http://localhost:8080";
 
     public static String name;
     public static String email;
@@ -124,7 +124,6 @@ public class Controller {
      * @return 
      */
     public static User getUserSearch(String email){
-        System.out.print("2");
 
         JSONObject data = new JSONObject();
         data.put("email", email);
@@ -132,12 +131,10 @@ public class Controller {
         System.out.println("LOG: Requesting user data");
 
         JSONObject userDetails = new JSONObject(sendPostGetData("/profile", data));
-        
         name = userDetails.getString("name");
         city = userDetails.getString("city");
-
+        email = userDetails.getString("email");
         User user = new User(name, email, city);
-        System.out.print("3");
 
         return user;
     }
@@ -178,7 +175,6 @@ public class Controller {
      * @return An arraylist of all the book objects which belong to the user
      */
     public static ArrayList<Book> getUserBooks(){
-
         JSONObject data = new JSONObject();
         data.put("email", email);
         
@@ -205,7 +201,6 @@ public class Controller {
      * @return An arraylist of all the book objects which belong to the user
      */
     public static ArrayList<Book> getSearchedUserBooks(String email){
-
         JSONObject data = new JSONObject();
         data.put("email", email);
         
@@ -231,7 +226,6 @@ public class Controller {
      * @return Arraylist containing all the book objects
      */
     public static ArrayList<Book> getAllBooks(){
-
         String response = sendGetRequest("/book?command=all");
         
         System.out.println("LOG: Retrieving all books from server");
