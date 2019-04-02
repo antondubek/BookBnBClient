@@ -26,8 +26,9 @@ import java.util.ArrayList;
  */
 public class Controller {
 
-    private static String address = "http://antondubek-bookbnb.herokuapp.com";
-    //private static String address = "http://localhost:8080";
+    //private static String address = "http://antondubek-bookbnb.herokuapp.com";
+    private static String address = "http://localhost:8080";
+    //private static String address = "http://138.251.29.33:8080";
 
     public static String name;
     public static String email;
@@ -119,6 +120,27 @@ public class Controller {
     }
 
     /**
+     * Gets the user profile searched
+     * @param email of the user to search
+     * @return the user searched
+     */
+    public static User getUserSearch(String email){
+
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+        
+        System.out.println("LOG: Requesting user data");
+
+        JSONObject userDetails = new JSONObject(sendPostGetData("/profile", data));
+        name = userDetails.getString("name");
+        city = userDetails.getString("city");
+        email = userDetails.getString("email");
+        User user = new User(name, email, city);
+
+        return user;
+    }
+    
+    /**
      * Adds a book to the servers collection
      * @param ISBN ISBN of the book
      * @param author Author of the book
@@ -148,20 +170,59 @@ public class Controller {
         
         return successful;
     }
+    
+    
+    /**
+     * Sends a Post Request in order to change the availability status of the book
+     * @param email email of the book that needs to change availability of
+     * @param ISBN ISBN of the book that needs to change availability of
+     * @param availability availability of the book that needs to change availability of
+     */
+    public static void updateBookAvailability(String email, String ISBN, Boolean availability, String copyID){
+         JSONObject data = new JSONObject();
+         data.put("email", email);
+         data.put("ISBN", ISBN);
+         data.put("available", availability);
+         data.put("copyID", copyID);
+         
+         String response = sendPostGetData("/profile/books/availability", data);
+         getUserBooks();
+    }
 
     /**
      * Gets the books belonging to the user
-     * @return An arraylist of all the book objects which belong to the user
+     * @return An arrayList of all the book objects which belong to the user
      */
     public static ArrayList<Book> getUserBooks(){
-
         JSONObject data = new JSONObject();
         data.put("email", email);
         
         System.out.println("LOG: Retrieving user books from server");
 
-        String response = sendPostGetData("/profile/books", data);
+        return getBooks( data);
+    }
 
+    /**
+     * Retrieves the books of a certain searched user
+     * @param email of the searched user
+     * @return books of searched user
+     */
+    public static ArrayList<Book> getSearchedUserBooks(String email){
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+        
+        System.out.println("LOG: Retrieving searched user books from server");
+        return getBooks( data);
+        
+    }
+    /**
+     * Breaks down the logic for retrieving the books of a certain user
+     * @param data contains the email of the user
+     * @return the books of the user
+     */
+    public static ArrayList<Book> getBooks(JSONObject data){
+        
+        String response = sendPostGetData("/profile/books", data);
         JSONArray userBooks = new JSONArray(response);
 
         ArrayList<Book> books = new ArrayList<Book>();
@@ -169,19 +230,18 @@ public class Controller {
             JSONObject currentBook = userBooks.getJSONObject(i);
 
             books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"), currentBook.getString("author")
-                    , currentBook.getBoolean("available")));
+                    ,currentBook.getBoolean("available"),currentBook.getString("copyID")));
 
         }
         
         return books;
     }
-
+    
     /**
      * Retrieve all of the browsable books of the system
-     * @return Arraylist containing all the book objects
+     * @return arrayList containing all the book objects
      */
     public static ArrayList<Book> getAllBooks(){
-
         String response = sendGetRequest("/book?command=all");
         
         System.out.println("LOG: Retrieving all books from server");
@@ -193,7 +253,7 @@ public class Controller {
             JSONObject currentBook = allBooks.getJSONObject(i);
 
             books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"),
-                    currentBook.getString("author"), false));
+                    currentBook.getString("author"), false, null));
         }
 
         return books;

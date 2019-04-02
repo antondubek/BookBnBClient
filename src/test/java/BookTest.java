@@ -13,8 +13,8 @@ public class BookTest {
     private String author = "J. K. Rowling";
     private String title = "Harry Potter and the Half-Blood Prince";
     private boolean availability = true;
-
-    private Book testBook = new Book(ISBN,  title, author, availability);
+    private String copyID = "1";
+    private Book testBook = new Book(ISBN,  title, author, availability, copyID);
 
     @Test
     public void createBook() {
@@ -22,6 +22,7 @@ public class BookTest {
         assertEquals(this.testBook.author, "J. K. Rowling");
         assertEquals(this.testBook.title, "Harry Potter and the Half-Blood Prince");
         assertEquals(this.testBook.availability, true);
+        assertEquals(this.testBook.copyID, "1");
     }
 
     @Test
@@ -30,6 +31,7 @@ public class BookTest {
         assertEquals(this.testBook.getAuthor(), "J. K. Rowling");
         assertEquals(this.testBook.getTitle(), "Harry Potter and the Half-Blood Prince");
         assertTrue(this.testBook.getAvailability());
+        assertEquals(this.testBook.getCopyID(), "1");
     }
 
     @Test
