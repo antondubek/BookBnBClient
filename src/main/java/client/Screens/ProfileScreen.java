@@ -17,20 +17,23 @@ public class ProfileScreen extends javax.swing.JPanel {
      */
     public ProfileScreen() {
         initComponents();
-        
-        //name.setText(client.Controller.name);
-        //email.setText(client.Controller.email);
-        //city.setText(client.Controller.city);
-        //name.setVisible(true);
-
+        displayProfileDetails();
     }
-    
+
+    public void displayProfileDetails(){
+        name.setText(client.Controller.name);
+        email.setText(client.Controller.email);
+        city.setText(client.Controller.city);
+        //name.setVisible(true);
+    }
+
     public void onSearch() {
         String email = searchBox.getText().trim();
         client.User friendUser = Controller.getUserSearch(email);
         if (friendUser.email.equals("")) {
             userNotFound.setText("User not found");
         } else {
+            userNotFound.setText("");
             Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
             FriendDetails friendDetails = new FriendDetails(topFrame, true, friendUser);
             friendDetails.setVisible(true);
