@@ -48,7 +48,7 @@ public class Book {
         return availability;
     }
     
-    public String copyID() {
+    public String getCopyID() {
         return copyID;
     }
 
