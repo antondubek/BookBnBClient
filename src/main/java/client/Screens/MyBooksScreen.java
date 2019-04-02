@@ -113,7 +113,13 @@ public class MyBooksScreen extends javax.swing.JPanel {
         public boolean isCellEditable(int rowIndex, int columnIndex) {
             return columnIndex == 3;
         }
-
+        
+        /**
+         * listener for the tickBox which sets the availability of the selected book
+         * @param aValue
+         * @param rowIndex
+         * @param columnIndex 
+         */
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 
@@ -123,9 +129,10 @@ public class MyBooksScreen extends javax.swing.JPanel {
                 System.out.println("Box ticked" + aValue);
                 String ISBN = books.get(rowIndex).ISBN;
                 Boolean available = books.get(rowIndex).availability;
+                String copyID = books.get(rowIndex).copyID;
                 
      
-                client.Controller.updateBookAvailability(email, ISBN, available);
+                client.Controller.updateBookAvailability(email, ISBN, available, copyID);
             }
         }
     }
@@ -168,7 +175,7 @@ public class MyBooksScreen extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(yourBooksTable);
 
-        addBookBtn.setBackground(new java.awt.Color(255, 255, 255));
+        addBookBtn.setBackground(new java.awt.Color(0, 204, 255));
         addBookBtn.setFont(new java.awt.Font("Lantinghei SC", 0, 24)); // NOI18N
         addBookBtn.setForeground(new java.awt.Color(255, 255, 255));
         addBookBtn.setText("Add Book");

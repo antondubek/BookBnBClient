@@ -9,6 +9,7 @@ public class Book {
     public String author;
     public String title;
     public boolean availability;
+    public String copyID;
 
     /**
      * client.Book Constructor
@@ -17,11 +18,12 @@ public class Book {
      * @param author Author of the book
      *
      */
-    public Book(String ISBN, String title, String author, boolean availability) {
+    public Book(String ISBN, String title, String author, boolean availability, String copyID) {
         this.ISBN = ISBN;
         this.author = author;
         this.title = title;
         this.availability = availability;
+        this.copyID = copyID;
 
     }
 
@@ -44,6 +46,10 @@ public class Book {
 
     public boolean getAvailability() {
         return availability;
+    }
+    
+    public String copyID() {
+        return copyID;
     }
 
     public void setAvailability(boolean availability) {

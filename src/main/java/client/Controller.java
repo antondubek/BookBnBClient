@@ -28,7 +28,7 @@ public class Controller {
 
     //private static String address = "http://antondubek-bookbnb.herokuapp.com";
     //private static String address = "http://localhost:8080";
-    private static String address = "http://138.251.29.36:8080";
+    private static String address = "http://138.251.29.33:8080";
 
     public static String name;
     public static String email;
@@ -171,12 +171,20 @@ public class Controller {
         return successful;
     }
     
-    public static void updateBookAvailability(String email, String ISBN, Boolean availability){
+    
+    /**
+     * Sends a Post Request in order to change the availability status of the book
+     * @param email email of the book that needs to change availability of
+     * @param ISBN ISBN of the book that needs to change availability of
+     * @param availability availability of the book that needs to change availability of
+     */
+    public static void updateBookAvailability(String email, String ISBN, Boolean availability, String copyID){
          JSONObject data = new JSONObject();
          data.put("email", email);
          data.put("ISBN", ISBN);
          data.put("available", availability);
-        
+         data.put("copyID", copyID);
+          System.out.println(data);
          String response = sendPostGetData("/profile/books/availability", data);
          System.out.println("Response = " + response);
     }
@@ -200,7 +208,7 @@ public class Controller {
             JSONObject currentBook = userBooks.getJSONObject(i);
 
             books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"), currentBook.getString("author")
-                    , currentBook.getBoolean("available")));
+                    , currentBook.getBoolean("available"), currentBook.getString("copyID")));
 
         }
         
@@ -225,7 +233,7 @@ public class Controller {
         for(int i = 0; i < userBooks.length(); i++){
             JSONObject currentBook = userBooks.getJSONObject(i);
 
-            books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"), currentBook.getString("author"),false));
+            books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"), currentBook.getString("author"),false,null));
 
         }
         
@@ -248,7 +256,7 @@ public class Controller {
             JSONObject currentBook = allBooks.getJSONObject(i);
 
             books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"),
-                    currentBook.getString("author"), false));
+                    currentBook.getString("author"), false, null));
         }
 
         return books;

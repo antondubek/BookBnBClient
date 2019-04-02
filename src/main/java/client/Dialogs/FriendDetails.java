@@ -116,12 +116,6 @@ public class FriendDetails extends javax.swing.JDialog {
             }
         }
 
-        //Removed the isCell editable functionality so that user cannot check or uncheck the box until
-        //back end functionality has been implemented.
-//        @Override
-//        public boolean isCellEditable(int rowIndex, int columnIndex) {
-//            return columnIndex == 3;
-//        }
 
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
