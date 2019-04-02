@@ -120,9 +120,9 @@ public class Controller {
     }
 
     /**
-     * 
-     * @param email
-     * @return 
+     * Gets the user profile searched
+     * @param email of the user to search
+     * @return the user searched
      */
     public static User getUserSearch(String email){
 

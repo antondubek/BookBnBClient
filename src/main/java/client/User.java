@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package client;
 
 /**
- *
+ * Simple user object which stores the information needed for a user
  * @author er205
  */
 public class User {
@@ -15,10 +10,10 @@ public class User {
     public String city;
 
     /**
-     * 
-     * @param name
-     * @param email
-     * @param city 
+     * user Constructor
+     * @param name of the user
+     * @param email of the user
+     * @param city of the user
      */
     public User(String name, String email, String city) {
         this.name = name;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package client.Dialogs;
 
 import client.Book;
@@ -11,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 /**
- *
+ * Dialog Box which shows the details of the user searched
  * @author er205
  */
 public class FriendDetails extends javax.swing.JDialog {
