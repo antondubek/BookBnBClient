@@ -7,10 +7,8 @@ package client.Dialogs;
 
 import client.Book;
 import client.Controller;
-import client.Screens.MyBooksScreen;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -20,10 +18,9 @@ public class FriendDetails extends javax.swing.JDialog {
 
     
     /**
-     * 
-     * @param parent
-     * @param modal
-     * @param user 
+     * Constructor
+     * @param parent Parent Frame of the dialog, only used to centre the box on top of the parent frame.
+     * @param user user searched
      */
     public FriendDetails(java.awt.Frame parent, boolean modal, client.User user) {
         super(parent, "Friend Profile", modal);
@@ -36,7 +33,10 @@ public class FriendDetails extends javax.swing.JDialog {
         }
         
     }
-
+    /**
+     * Sets the logged in user details
+     * @param user logged in user
+     */
     public void setUsersDetails(client.User user){
         name.setText(user.name + "'s Profile");
         email.setText("Email: "+user.email);
@@ -44,9 +44,9 @@ public class FriendDetails extends javax.swing.JDialog {
     }
     
     /**
-     * Sets the modelf for the browse books table and the user books table. This will also populate the tables
+     * Sets the model for the browse books table and the user books table. This will also populate the tables
      * with data collected from the server via the controller.
-     * Also adds a popup menu and listener to the browse books table which allows the user to request a book by right
+     * Also adds a pop up menu and listener to the browse books table which allows the user to request a book by right
      * clicking on an entry in the table.
      */
     public void populateTable(String email) {

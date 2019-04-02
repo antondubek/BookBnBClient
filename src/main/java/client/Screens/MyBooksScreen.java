@@ -31,9 +31,9 @@ public class MyBooksScreen extends javax.swing.JPanel {
     }
     
     /**
-     * Sets the modelf for the browse books table and the user books table. This will also populate the tables
+     * Sets the model for the browse books table and the user books table. This will also populate the tables
      * with data collected from the server via the controller.
-     * Also adds a popup menu and listener to the browse books table which allows the user to request a book by right
+     * Also adds a pop up menu and listener to the browse books table which allows the user to request a book by right
      * clicking on an entry in the table.
      */
     public void populateTable() {
@@ -125,14 +125,13 @@ public class MyBooksScreen extends javax.swing.JPanel {
 
             if(aValue instanceof Boolean && columnIndex == 3){
                 books.get(rowIndex).setAvailability((Boolean) aValue);
-                System.out.println("Book in position " + rowIndex + " availability = " + books.get(rowIndex).availability);
-                System.out.println("Box ticked" + aValue);
+                
                 String ISBN = books.get(rowIndex).ISBN;
                 Boolean available = books.get(rowIndex).availability;
                 String copyID = books.get(rowIndex).copyID;
                 
-     
                 client.Controller.updateBookAvailability(email, ISBN, available, copyID);
+                populateTable();
             }
         }
     }
