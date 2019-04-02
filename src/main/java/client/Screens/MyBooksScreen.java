@@ -3,6 +3,7 @@ package client.Screens;
 
 import client.Book;
 import client.Controller;
+import static client.Controller.email;
 import client.Dialogs.AddBookDialog;
 import java.awt.Frame;
 import java.awt.Image;
@@ -12,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
+import org.json.JSONObject;
 
 /**
  * Class creates the screen for displaying the user's books
@@ -107,17 +109,23 @@ public class MyBooksScreen extends javax.swing.JPanel {
 
         //Removed the isCell editable functionality so that user cannot check or uncheck the box until
         //back end functionality has been implemented.
-//        @Override
-//        public boolean isCellEditable(int rowIndex, int columnIndex) {
-//            return columnIndex == 3;
-//        }
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return columnIndex == 3;
+        }
 
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 
             if(aValue instanceof Boolean && columnIndex == 3){
                 books.get(rowIndex).setAvailability((Boolean) aValue);
-                //client.Controller.updateBookAvailability();
+                System.out.println("Book in position " + rowIndex + " availability = " + books.get(rowIndex).availability);
+                System.out.println("Box ticked" + aValue);
+                String ISBN = books.get(rowIndex).ISBN;
+                Boolean available = books.get(rowIndex).availability;
+                
+     
+                client.Controller.updateBookAvailability(email, ISBN, available);
             }
         }
     }

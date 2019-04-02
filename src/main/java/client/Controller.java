@@ -26,8 +26,9 @@ import java.util.ArrayList;
  */
 public class Controller {
 
-    private static String address = "http://antondubek-bookbnb.herokuapp.com";
+    //private static String address = "http://antondubek-bookbnb.herokuapp.com";
     //private static String address = "http://localhost:8080";
+    private static String address = "http://138.251.29.36:8080";
 
     public static String name;
     public static String email;
@@ -168,6 +169,16 @@ public class Controller {
         
         
         return successful;
+    }
+    
+    public static void updateBookAvailability(String email, String ISBN, Boolean availability){
+         JSONObject data = new JSONObject();
+         data.put("email", email);
+         data.put("ISBN", ISBN);
+         data.put("available", availability);
+        
+         String response = sendPostGetData("/profile/books/availability", data);
+         System.out.println("Response = " + response);
     }
 
     /**

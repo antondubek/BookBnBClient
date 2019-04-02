@@ -82,7 +82,7 @@ public class ProfileScreen extends javax.swing.JPanel {
         jSeparator1.setBackground(new java.awt.Color(0, 204, 255));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jLabel3.setText("Friends");
+        jLabel3.setText("Followers");
 
         email.setFont(new java.awt.Font("Lantinghei SC", 1, 14)); // NOI18N
         email.setForeground(new java.awt.Color(102, 102, 102));
