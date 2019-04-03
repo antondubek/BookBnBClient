@@ -148,6 +148,7 @@ public class NavBar extends javax.swing.JPanel {
     
     private void profileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileBtnActionPerformed
         cardLayout.show(cards, "PROFILE");
+        client.Screens.ProfileScreen.displayFollows();
     }//GEN-LAST:event_profileBtnActionPerformed
 
     private void mybooksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mybooksBtnActionPerformed

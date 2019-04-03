@@ -19,10 +19,9 @@ public class ProfileScreen extends javax.swing.JPanel {
     public ProfileScreen() {
         initComponents();
         displayProfileDetails();
-        displayFollows();
     }
-
-    public void displayFollows(){
+    
+    public static void displayFollows(){
         ArrayList<String> emails = client.Controller.getFollows();
     }
     
