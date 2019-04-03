@@ -7,6 +7,8 @@ import java.awt.Frame;
 import javax.swing.SwingUtilities;
 import client.Dialogs.FriendDetails;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.table.AbstractTableModel;
@@ -17,33 +19,28 @@ import javax.swing.table.TableRowSorter;
  * 
  */
 public class ProfileScreen extends javax.swing.JPanel {
-    
-    private JMenuItem menuItemRequest;
-    private JPopupMenu popupMenu;
-    private TableRowSorter rowSorter;
 
     /**
      * Creates new form ProfileScreen
      */
     public ProfileScreen() {
         initComponents();
-        displayProfileDetails();
+//        displayProfileDetails();
     }
     
-    public static void displayFollows(){
-        
-        
+    public void displayFollows(){
+         ArrayList<String> allUsers = client.Controller.getFollows();
+         int str = allUsers.size();
+//        followsList = JList<String> list = new JList<>(allUsers.toArray(str));
+         DefaultListModel dlm = new DefaultListModel();
+         for (int i = 0; i < str; i++){
+               dlm.addElement(allUsers.get(i));
+         }
+           
+         followsList.setModel(dlm);
+         System.out.println("Model Set");
     }
-    
-    public void populateTable() {
-        ArrayList<String> allUsers = client.Controller.getFollows();
-        for (int i = 0; i <= allUsers.size(); i++){
-            followersTable.editCellAt(i, 0);
-        }
 
-    }
-    
-    
     public void displayProfileDetails(){
         name.setText(client.Controller.name);
         email.setText(client.Controller.email);
@@ -85,8 +82,8 @@ public class ProfileScreen extends javax.swing.JPanel {
         city = new javax.swing.JLabel();
         name = new javax.swing.JLabel();
         userNotFound = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        followersTable = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        followsList = new javax.swing.JList<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -126,16 +123,7 @@ public class ProfileScreen extends javax.swing.JPanel {
         userNotFound.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         userNotFound.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        followersTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null}
-            },
-            new String [] {
-                "Title 1"
-            }
-        ));
-        jScrollPane2.setViewportView(followersTable);
+        jScrollPane1.setViewportView(followsList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -147,14 +135,18 @@ public class ProfileScreen extends javax.swing.JPanel {
                     .addComponent(email)
                     .addComponent(city)
                     .addComponent(name))
+                .addGap(245, 245, 245)
+                .addComponent(jLabel1))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(307, 307, 307)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(155, 155, 155))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(245, 245, 245)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,21 +154,18 @@ public class ProfileScreen extends javax.swing.JPanel {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGap(45, 45, 45)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(jLabel3)
-                                                .addGap(140, 140, 140))
                                             .addComponent(jLabel2)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(buttonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addContainerGap(24, Short.MAX_VALUE))
+                                .addContainerGap(21, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addContainerGap())))))
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(18, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,11 +183,7 @@ public class ProfileScreen extends javax.swing.JPanel {
                                     .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(buttonOK))
                                 .addGap(8, 8, 8)
-                                .addComponent(userNotFound)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3))
+                                .addComponent(userNotFound))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
                                 .addComponent(name)
@@ -206,8 +191,13 @@ public class ProfileScreen extends javax.swing.JPanel {
                                 .addComponent(email)
                                 .addGap(18, 18, 18)
                                 .addComponent(city)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -224,11 +214,11 @@ public class ProfileScreen extends javax.swing.JPanel {
     private javax.swing.JButton buttonOK;
     private javax.swing.JLabel city;
     private javax.swing.JLabel email;
-    private javax.swing.JTable followersTable;
+    private javax.swing.JList<String> followsList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel name;

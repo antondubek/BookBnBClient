@@ -195,7 +195,7 @@ public class Controller {
         System.out.println("Email: " + email);
         data.put("email", email);
         
-        String response = sendPostGetData("/fetchFollows", data);
+        String response = sendPostGetData("/follow/fetch", data);
         JSONArray userEmail = new JSONArray(response);
         ArrayList<String> users = new ArrayList<String>();
         
