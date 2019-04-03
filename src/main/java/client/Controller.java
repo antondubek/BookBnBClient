@@ -185,8 +185,21 @@ public class Controller {
          data.put("available", availability);
          data.put("copyID", copyID);
          
-         String response = sendPostGetData("/profile/books/availability", data);
+         Boolean response = sendPostGetResponse("/profile/books/availability", data);
          getUserBooks();
+    }
+    
+    public static ArrayList<String> getFollows(){
+        JSONObject data = new JSONObject();
+        System.out.println("Email: " + email);
+        data.put("email", email);
+        
+         String response = sendPostGetData("/fetchFollows", data);
+         System.out.print("response "+response);
+         ArrayList<String> result = new ArrayList<String>();
+         
+         return result;
+         
     }
     
     public static void followUser(String friendEmail){
@@ -194,7 +207,7 @@ public class Controller {
         data.put("email", email);
         data.put("friendEmail", friendEmail);
         
-        String response = sendPostGetData("/follow", data);
+        Boolean response = sendPostGetResponse("/follow", data);
         System.out.println("Response: " + response);
     }
 
