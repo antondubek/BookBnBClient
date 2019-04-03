@@ -27,8 +27,8 @@ import java.util.ArrayList;
 public class Controller {
 
     //private static String address = "http://antondubek-bookbnb.herokuapp.com";
-    private static String address = "http://localhost:8080";
-    //private static String address = "http://138.251.29.33:8080";
+//    private static String address = "http://localhost:8080";
+    private static String address = "http://138.251.29.36:8080";
 
     public static String name;
     public static String email;
@@ -187,6 +187,15 @@ public class Controller {
          
          String response = sendPostGetData("/profile/books/availability", data);
          getUserBooks();
+    }
+    
+    public static void followUser(String friendEmail){
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+        data.put("friendEmail", friendEmail);
+        
+        String response = sendPostGetData("/follow", data);
+        System.out.println("Response: " + response);
     }
 
     /**

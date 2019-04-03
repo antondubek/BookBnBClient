@@ -11,7 +11,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class FriendDetails extends javax.swing.JDialog {
 
-    
+    client.User user;
     /**
      * Constructor
      * @param parent Parent Frame of the dialog, only used to centre the box on top of the parent frame.
@@ -24,6 +24,7 @@ public class FriendDetails extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
         setUsersDetails(user);
         if (!user.email.equals("")){
+            this.user = user;
             populateTable(user.email);
         }
         
@@ -52,6 +53,10 @@ public class FriendDetails extends javax.swing.JDialog {
         bookTable.setModel(userBooksTableModel);
         bookTable.setAutoCreateRowSorter(true);
 
+    }
+    
+    public void onFollow(){
+        client.Controller.followUser(user.email);
     }
     
     
@@ -137,6 +142,7 @@ public class FriendDetails extends javax.swing.JDialog {
         city = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         bookTable = new javax.swing.JTable();
+        follow = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -168,6 +174,17 @@ public class FriendDetails extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(bookTable);
 
+        follow.setBackground(new java.awt.Color(0, 204, 255));
+        follow.setFont(new java.awt.Font("Lantinghei SC", 1, 13)); // NOI18N
+        follow.setForeground(new java.awt.Color(204, 255, 204));
+        follow.setText("FOLLOW");
+        follow.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 255), 2, true));
+        follow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                followActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -176,7 +193,10 @@ public class FriendDetails extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(follow, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(email)
@@ -188,8 +208,10 @@ public class FriendDetails extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(name)
-                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(name)
+                    .addComponent(follow))
+                .addGap(33, 33, 33)
                 .addComponent(email)
                 .addGap(18, 18, 18)
                 .addComponent(city)
@@ -212,11 +234,16 @@ public class FriendDetails extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void followActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_followActionPerformed
+        onFollow();
+    }//GEN-LAST:event_followActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable bookTable;
     private javax.swing.JLabel city;
     private javax.swing.JLabel email;
+    private javax.swing.JButton follow;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel name;
