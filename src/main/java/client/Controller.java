@@ -199,8 +199,9 @@ public class Controller {
         
         System.out.println("LOG: Retrieving user books from server");
 
-        return getBooks( data);
+        return getBooks(data);
     }
+
 
     /**
      * Retrieves the books of a certain searched user
@@ -223,6 +224,7 @@ public class Controller {
     public static ArrayList<Book> getBooks(JSONObject data){
         
         String response = sendPostGetData("/profile/books", data);
+        System.out.println("LOG: Books received");
         JSONArray userBooks = new JSONArray(response);
 
         ArrayList<Book> books = new ArrayList<Book>();
@@ -247,6 +249,8 @@ public class Controller {
         System.out.println("LOG: Retrieving all books from server");
 
         JSONArray allBooks = new JSONArray(response.toString());
+        
+        System.out.println("All books response = " + response.toString());
 
         ArrayList<Book> books = new ArrayList<Book>();
         for(int i = 0; i < allBooks.length(); i++){

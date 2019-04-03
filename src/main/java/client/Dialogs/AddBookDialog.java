@@ -36,13 +36,16 @@ public class AddBookDialog extends javax.swing.JDialog {
         String author = authorTxt.getText().trim();
         String title = titleTxt.getText().trim();
         String edition = editionTxt.getText().trim();
+        
+        if(!checkBookInput(ISBN, author, title, edition)){
+            return;
+        }
 
         boolean addedCorrectly = Controller.addBook(ISBN, author, title, edition);
 
         System.out.println(addedCorrectly);
 
         if (addedCorrectly) {
-
             dispose();
         } else {
             errorTxt.setText("Error occurred, please check values or try later");
@@ -56,6 +59,44 @@ public class AddBookDialog extends javax.swing.JDialog {
      */
     private void onCancel() {
         dispose();
+    }
+    
+    /**
+     * Checks that the input text for adding a book is correct by checking for
+     * null, empty and non alphanumeric characters. Will set error message if
+     * needed to something relevant.
+     * @param ISBN ISBN input text
+     * @param author Author input text
+     * @param title Title input text
+     * @param edition Edition input text
+     * @return True, everything passed and is okay, False there is an error.
+     */
+    public boolean checkBookInput(String ISBN, String author, String title, 
+            String edition) {
+        if (ISBN == null || author == null || title == null || edition == null) {
+            errorTxt.setText("Error: null values are not permitted");
+            return false;
+        }
+
+        if (ISBN.isEmpty() || author.isEmpty() || title.isEmpty()) {
+            errorTxt.setText("Error: Please ensure you have filled in mandatory fields");
+            return false;
+        }
+
+        //TODO: Add in further validation of ISBN / check if this is correct
+        if(!ISBN.matches("[0-9]+")) {
+            errorTxt.setText("Error: Please insert the ISBN as numbers only");
+            return false;
+        }
+
+        
+        if (!author.matches("[a-zA-Z0-9 ]+") || !title.matches("[a-zA-Z0-9 ]+") 
+                || !title.matches("[a-zA-Z0-9 ]+")) {
+            errorTxt.setText("Error: Please use alphanumeric characters only");
+            return false;
+        }
+        
+        return true;
     }
 
     /**
@@ -114,7 +155,7 @@ public class AddBookDialog extends javax.swing.JDialog {
 
         jLabel7.setFont(new java.awt.Font("Lantinghei SC", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel7.setText("Edition*");
+        jLabel7.setText("Edition");
 
         buttonOK.setBackground(new java.awt.Color(0, 204, 255));
         buttonOK.setFont(new java.awt.Font("Lantinghei SC", 1, 13)); // NOI18N
