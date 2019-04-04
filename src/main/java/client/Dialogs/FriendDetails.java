@@ -37,7 +37,6 @@ public class FriendDetails extends javax.swing.JDialog {
     
     public void setButton(){
         isFollowed = client.Controller.isFollowing(user.email);
-        float hsb[] = new float[]{0, 204,255};
         if (this.isFollowed){
             follow.setText("Unfollow");
             follow.setBackground(Color.red);
