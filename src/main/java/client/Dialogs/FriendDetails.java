@@ -11,6 +11,8 @@ import javax.swing.table.AbstractTableModel;
  */
 public class FriendDetails extends javax.swing.JDialog {
 
+    private Boolean isFollowed; 
+    
     client.User user;
     /**
      * Constructor
@@ -23,12 +25,22 @@ public class FriendDetails extends javax.swing.JDialog {
         setResizable(false);
         setLocationRelativeTo(parent);
         setUsersDetails(user);
+        isFollowed = client.Controller.isFollowing(user.email);
+        setButton();
         if (!user.email.equals("")){
             this.user = user;
             populateTable(user.email);
         }
         
     }
+    
+    public void setButton(){
+        if (this.isFollowed){
+            follow.setText("Unfollow");
+        }
+    }
+    
+    
     /**
      * Sets the logged in user details
      * @param user logged in user

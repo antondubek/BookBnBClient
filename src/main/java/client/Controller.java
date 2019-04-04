@@ -27,8 +27,8 @@ import java.util.ArrayList;
 public class Controller {
 
     //private static String address = "http://antondubek-bookbnb.herokuapp.com";
-    //private static String address = "http://localhost:8080";
-    private static String address = "http://138.251.29.36:8080";
+    private static String address = "http://localhost:8080";
+    //private static String address = "http://138.251.29.36:8080";
 
     public static String name;
     public static String email;
@@ -197,6 +197,7 @@ public class Controller {
         
         String response = sendPostGetData("/follow/fetch", data);
         JSONArray userEmail = new JSONArray(response);
+         System.out.println("USER EMAIL:::::"+userEmail);
         ArrayList<String> users = new ArrayList<String>();
         
         for(int i = 0; i < userEmail.length(); i++){
@@ -217,6 +218,17 @@ public class Controller {
         System.out.println("Response: " + response);
     }
 
+    public static Boolean isFollowing(String friendEmail){
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+        data.put("friendEmail", friendEmail);
+        String response = sendPostGetData("/follow/true", data);
+        System.out.println(response);
+        JSONObject booleanJsonObject = new JSONObject(response);
+        System.out.println(booleanJsonObject);
+        return booleanJsonObject.getBoolean("userIsFollowed");
+    }
+    
     /**
      * Gets the books belonging to the user
      * @return An arrayList of all the book objects which belong to the user
