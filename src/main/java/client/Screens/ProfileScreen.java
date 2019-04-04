@@ -20,6 +20,8 @@ import javax.swing.table.TableRowSorter;
  */
 public class ProfileScreen extends javax.swing.JPanel {
 
+    private ArrayList<String> allUsers;
+    
     /**
      * Creates new form ProfileScreen
      */
@@ -29,7 +31,7 @@ public class ProfileScreen extends javax.swing.JPanel {
     }
     
     public void displayFollows(){
-         ArrayList<String> allUsers = client.Controller.getFollows();
+         allUsers = client.Controller.getFollows();
          int str = allUsers.size();
 //        followsList = JList<String> list = new JList<>(allUsers.toArray(str));
          DefaultListModel dlm = new DefaultListModel();
@@ -59,7 +61,14 @@ public class ProfileScreen extends javax.swing.JPanel {
             FriendDetails friendDetails = new FriendDetails(topFrame, true, friendUser);
             friendDetails.setVisible(true);
         }
-        
+    }
+    
+    public void mouseClicked(int index){
+        String emailOfFriend = allUsers.get(index);
+        client.User friendUser = Controller.getUserSearch(emailOfFriend);
+        Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+        FriendDetails friendDetails = new FriendDetails(topFrame, true, friendUser);
+        friendDetails.setVisible(true);
     }
 
     /**
@@ -123,6 +132,11 @@ public class ProfileScreen extends javax.swing.JPanel {
         userNotFound.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         userNotFound.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        followsList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                followsListMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(followsList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -208,6 +222,14 @@ public class ProfileScreen extends javax.swing.JPanel {
     private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
         onSearch();
     }//GEN-LAST:event_buttonOKActionPerformed
+
+    private void followsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_followsListMouseClicked
+        if (evt.getClickCount() == 2) {
+            int index = followsList.locationToIndex(evt.getPoint());
+            mouseClicked(index);
+        }
+       
+    }//GEN-LAST:event_followsListMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
