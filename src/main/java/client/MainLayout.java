@@ -36,7 +36,12 @@ public class MainLayout extends JFrame{
         // button commands
     
     public MainLayout(){
+        checkServerAvailable();
         setupFrame();
+    }
+    
+    private void checkServerAvailable(){
+        Controller.getServerStatus();
     }
     
     /**
