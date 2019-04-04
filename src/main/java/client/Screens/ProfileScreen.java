@@ -25,15 +25,15 @@ public class ProfileScreen extends javax.swing.JPanel {
     /**
      * Creates new form ProfileScreen
      */
-    public ProfileScreen() {
+    public ProfileScreen() { 
         initComponents();
-//        displayProfileDetails();
+        
+        
     }
     
     public void displayFollows(){
          allUsers = client.Controller.getFollows();
          int str = allUsers.size();
-//        followsList = JList<String> list = new JList<>(allUsers.toArray(str));
          DefaultListModel dlm = new DefaultListModel();
          for (int i = 0; i < str; i++){
                dlm.addElement(allUsers.get(i));
@@ -44,10 +44,11 @@ public class ProfileScreen extends javax.swing.JPanel {
     }
 
     public void displayProfileDetails(){
+        client.Controller.getUser();
         name.setText(client.Controller.name);
         email.setText(client.Controller.email);
         city.setText(client.Controller.city);
-        //name.setVisible(true);
+        
     }
 
     public void onSearch() {
@@ -80,7 +81,6 @@ public class ProfileScreen extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         searchBox = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         buttonOK = new javax.swing.JButton();
@@ -93,39 +93,41 @@ public class ProfileScreen extends javax.swing.JPanel {
         userNotFound = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         followsList = new javax.swing.JList<>();
+        jLabel4 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel1.setText("Profile Page");
+        setBackground(new java.awt.Color(0, 204, 255));
+        setPreferredSize(new java.awt.Dimension(740, 335));
 
         jLabel2.setText("Search for new friends");
 
         buttonOK.setBackground(new java.awt.Color(0, 204, 255));
         buttonOK.setFont(new java.awt.Font("Lantinghei SC", 1, 13)); // NOI18N
-        buttonOK.setForeground(new java.awt.Color(102, 102, 102));
+        buttonOK.setForeground(new java.awt.Color(255, 255, 255));
         buttonOK.setText("Search");
-        buttonOK.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 255), 2, true));
+        buttonOK.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
         buttonOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOKActionPerformed(evt);
             }
         });
 
-        jSeparator1.setBackground(new java.awt.Color(0, 204, 255));
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jLabel3.setText("Followers");
+        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setText("Following");
 
         email.setFont(new java.awt.Font("Lantinghei SC", 1, 14)); // NOI18N
-        email.setForeground(new java.awt.Color(102, 102, 102));
+        email.setForeground(new java.awt.Color(255, 255, 255));
         email.setText("Email");
 
         city.setFont(new java.awt.Font("Lantinghei SC", 1, 14)); // NOI18N
-        city.setForeground(new java.awt.Color(102, 102, 102));
+        city.setForeground(new java.awt.Color(255, 255, 255));
         city.setText("City");
 
         name.setFont(new java.awt.Font("Lantinghei SC", 1, 14)); // NOI18N
-        name.setForeground(new java.awt.Color(102, 102, 102));
+        name.setForeground(new java.awt.Color(255, 255, 255));
         name.setText("Name");
 
         userNotFound.setForeground(new java.awt.Color(204, 0, 0));
@@ -139,82 +141,89 @@ public class ProfileScreen extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(followsList);
 
+        jLabel4.setFont(new java.awt.Font("Lantinghei SC", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Profile Page");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(email)
-                    .addComponent(city)
-                    .addComponent(name))
-                .addGap(245, 245, 245)
-                .addComponent(jLabel1))
             .addGroup(layout.createSequentialGroup()
-                .addGap(307, 307, 307)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addGap(155, 155, 155))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(email)
+                            .addComponent(city)
+                            .addComponent(name))
+                        .addGap(70, 70, 70)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(userNotFound, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(45, 45, 45)
+                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
+                                            .addComponent(userNotFound, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(buttonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addContainerGap(21, Short.MAX_VALUE))
+                                                .addGap(6, 6, 6)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(jLabel2)
+                                                        .addGap(0, 0, Short.MAX_VALUE))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGap(0, 0, Short.MAX_VALUE)
+                                                        .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(buttonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addContainerGap(241, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(24, Short.MAX_VALUE))))))
+                                .addGap(161, 161, 161)
+                                .addComponent(jLabel3)
+                                .addContainerGap())))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(buttonOK))
-                                .addGap(8, 8, 8)
+                                .addComponent(buttonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(9, 9, 9)
                                 .addComponent(userNotFound))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(name)
-                                .addGap(18, 18, 18)
-                                .addComponent(email)
-                                .addGap(18, 18, 18)
-                                .addComponent(city)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(name)
+                        .addGap(18, 18, 18)
+                        .addComponent(email)
+                        .addGap(18, 18, 18)
+                        .addComponent(city)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -237,9 +246,9 @@ public class ProfileScreen extends javax.swing.JPanel {
     private javax.swing.JLabel city;
     private javax.swing.JLabel email;
     private javax.swing.JList<String> followsList;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
