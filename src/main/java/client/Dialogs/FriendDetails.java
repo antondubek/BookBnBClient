@@ -2,6 +2,7 @@ package client.Dialogs;
 
 import client.Book;
 import client.Controller;
+import client.MainLayout;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
@@ -263,6 +264,7 @@ public class FriendDetails extends javax.swing.JDialog {
             onUnfollow();
         }
         setButton();
+        MainLayout.profileCard.displayFollows();
     }//GEN-LAST:event_followActionPerformed
 
 
