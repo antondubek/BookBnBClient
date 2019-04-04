@@ -18,6 +18,9 @@ public class WelcomeScreen extends javax.swing.JPanel {
         checkServerStatus();
     }
 
+    /**
+     * Checks whether the server is available and set the status accordingly
+     */
     public void checkServerStatus(){
         
         if(Controller.isAvailable){
