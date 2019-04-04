@@ -25,18 +25,21 @@ public class FriendDetails extends javax.swing.JDialog {
         setResizable(false);
         setLocationRelativeTo(parent);
         setUsersDetails(user);
-        isFollowed = client.Controller.isFollowing(user.email);
-        setButton();
         if (!user.email.equals("")){
             this.user = user;
             populateTable(user.email);
+            setButton();
         }
+        
         
     }
     
     public void setButton(){
+        isFollowed = client.Controller.isFollowing(user.email);
         if (this.isFollowed){
             follow.setText("Unfollow");
+        } else {
+            follow.setText("Follow");
         }
     }
     
@@ -69,6 +72,10 @@ public class FriendDetails extends javax.swing.JDialog {
     
     public void onFollow(){
         client.Controller.followUser(user.email);
+    }
+    
+    public void onUnfollow(){
+        client.Controller.unfollowUser(user.email);
     }
     
     
@@ -247,7 +254,12 @@ public class FriendDetails extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void followActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_followActionPerformed
-        onFollow();
+        if (!isFollowed){
+           onFollow();
+        } else {
+            onUnfollow();
+        }
+        setButton();
     }//GEN-LAST:event_followActionPerformed
 
 

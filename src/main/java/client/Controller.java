@@ -217,6 +217,15 @@ public class Controller {
         Boolean response = sendPostGetResponse("/follow", data);
         System.out.println("Response: " + response);
     }
+    
+    public static void unfollowUser(String friendEmail){
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+        data.put("friendEmail", friendEmail);
+        
+        Boolean response = sendPostGetResponse("/follow/delete", data);
+        System.out.println("Response: " + response);
+    }
 
     public static Boolean isFollowing(String friendEmail){
         JSONObject data = new JSONObject();
