@@ -151,7 +151,7 @@ public class NavBar extends javax.swing.JPanel {
         cardLayout.show(cards, "PROFILE");        
         //client.Screens.ProfileScreen.displayFollows();
         MainLayout.profileCard.displayProfileDetails();
-        MainLayout.profileCard.displayFollows();
+        MainLayout.profileCard.displayFollowing();
         
        
     }//GEN-LAST:event_profileBtnActionPerformed

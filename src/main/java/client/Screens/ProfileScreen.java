@@ -1,18 +1,13 @@
-
 package client.Screens;
 
-import client.Book;
+
 import client.Controller;
 import java.awt.Frame;
 import javax.swing.SwingUtilities;
 import client.Dialogs.FriendDetails;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableRowSorter;
+
 
 /**
  * Profile page of the user
@@ -32,8 +27,8 @@ public class ProfileScreen extends javax.swing.JPanel {
     /**
      * Displays the people followed by the current user logged in
      */
-    public void displayFollows(){
-         allUsers = client.Controller.getFollows();
+    public void displayFollowing(){
+         allUsers = client.Controller.getFollowing();
          int str = allUsers.size();
          DefaultListModel<String> dlm = new DefaultListModel<>();
          for (int i = 0; i < str; i++){

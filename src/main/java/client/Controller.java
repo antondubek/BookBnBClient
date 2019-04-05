@@ -193,7 +193,7 @@ public class Controller {
      * Returns the users followed by the current user logged in
      * @return Array List of users
      */
-    public static ArrayList<String> getFollows(){
+    public static ArrayList<String> getFollowing(){
         JSONObject data = new JSONObject();
         data.put("email", email);
         
@@ -212,7 +212,7 @@ public class Controller {
     /**
      * Sends a post request in order to follow a or unfollow a user
      * @param friendEmail email of the user to follow or unfollow
-     * @param directory Directory of the URL to post to ie /follow
+     * @param directory Directory of the URL to post to  (either /follow or /follow/delete)
      */
     public static void followUnfollowUser(String friendEmail, String directory){
         JSONObject data = new JSONObject();
@@ -223,7 +223,7 @@ public class Controller {
     }
 
     /**
-     * Check if already following a user
+     * Checks if already following a user
      * @param friendEmail email of the user to check
      * @return already following or not following ie true or false
      */
