@@ -27,10 +27,11 @@ public class ProfileScreen extends javax.swing.JPanel {
      */
     public ProfileScreen() { 
         initComponents();
-        
-        
     }
-    
+
+    /**
+     * Displays the people followed by the current user logged in
+     */
     public void displayFollows(){
          allUsers = client.Controller.getFollows();
          int str = allUsers.size();
@@ -42,6 +43,9 @@ public class ProfileScreen extends javax.swing.JPanel {
          followsList.setModel(dlm);
     }
 
+    /**
+     * Displays the details of the current user logged in
+     */
     public void displayProfileDetails(){
         client.Controller.getUser();
         name.setText(client.Controller.name);
@@ -50,6 +54,11 @@ public class ProfileScreen extends javax.swing.JPanel {
         
     }
 
+    /**
+     * Method executed when the Search button is pressed.
+     * Looks for the user searched give its email
+     * If the user is found, the searched user dialog profile pops up
+     */
     public void onSearch() {
         String email = searchBox.getText().trim();
         client.User friendUser = Controller.getUserSearch(email);
@@ -62,7 +71,11 @@ public class ProfileScreen extends javax.swing.JPanel {
             friendDetails.setVisible(true);
         }
     }
-    
+
+    /**
+     * Executed when the user clicks on an element in the 'following' list
+     * @param index the index of the element clicked (row in the list)
+     */
     public void mouseClicked(int index){
         String emailOfFriend = allUsers.get(index);
         client.User friendUser = Controller.getUserSearch(emailOfFriend);
@@ -70,6 +83,17 @@ public class ProfileScreen extends javax.swing.JPanel {
         FriendDetails friendDetails = new FriendDetails(topFrame, true, friendUser);
         friendDetails.setVisible(true);
     }
+
+    /**
+     * Mouse listener for the list which gets the row when an element in the list is clicked
+     */
+    private void followsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_followsListMouseClicked
+        if (evt.getClickCount() == 2) {
+            int index = followsList.locationToIndex(evt.getPoint());
+            mouseClicked(index);
+        }
+
+    }//GEN-LAST:event_followsListMouseClicked
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -231,13 +255,6 @@ public class ProfileScreen extends javax.swing.JPanel {
         onSearch();
     }//GEN-LAST:event_buttonOKActionPerformed
 
-    private void followsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_followsListMouseClicked
-        if (evt.getClickCount() == 2) {
-            int index = followsList.locationToIndex(evt.getPoint());
-            mouseClicked(index);
-        }
-       
-    }//GEN-LAST:event_followsListMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
