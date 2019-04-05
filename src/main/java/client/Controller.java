@@ -8,6 +8,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.HTTP;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -17,6 +18,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -26,16 +28,60 @@ import java.util.ArrayList;
  */
 public class Controller {
 
-    //private static String address = "http://antondubek-bookbnb.herokuapp.com";
-    private static String address = "http://localhost:8080";
+    private static String address = "http://antondubek-bookbnb.herokuapp.com";
+    //private static String address = "http://localhost:8080";
     //private static String address = "http://138.251.29.33:8080";
 
+    public static boolean isAvailable;
     public static String name;
     public static String email;
     public static String city;
     public static boolean loggedIn = false;
 
     private static CloseableHttpClient client;
+
+    
+    /**
+     * Checks whether the server is reachable
+     * Sends a simple get request to the server and returns true if it receives
+     * a correct response.
+     * @return True (Server is contactable) or False (it is not)
+     */
+    public static boolean getServerStatus(){
+
+        String website = address + "/alive";
+
+        URL url = null;
+        try {
+
+            url = new URL(website);
+
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            connection.setRequestMethod("GET");
+
+            int responseCode = connection.getResponseCode();
+
+            if(responseCode == HttpURLConnection.HTTP_OK){
+                isAvailable = true;
+                return true;
+            } else {
+                isAvailable = false;
+                return false;
+            }
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        isAvailable = false;
+        return false;
+
+    }
 
 
     /**
@@ -382,7 +428,6 @@ public class Controller {
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
 
                 while((readLine = in.readLine()) != null){
                     response.append(readLine);

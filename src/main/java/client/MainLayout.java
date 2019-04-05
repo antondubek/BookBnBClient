@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package client;
 
 import client.Screens.BrowseScreen;
@@ -35,8 +31,19 @@ public class MainLayout extends JFrame{
     private static Container pane;
         // button commands
     
+    /**
+     * Main layout constructor, first thing to be called
+     */
     public MainLayout(){
+        checkServerAvailable();
         setupFrame();
+    }
+    
+    /**
+     * Checks that the server is available and updates the value in the controller
+     */
+    private void checkServerAvailable(){
+        Controller.getServerStatus();
     }
     
     /**
