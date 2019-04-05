@@ -34,13 +34,12 @@ public class ProfileScreen extends javax.swing.JPanel {
     public void displayFollows(){
          allUsers = client.Controller.getFollows();
          int str = allUsers.size();
-         DefaultListModel dlm = new DefaultListModel();
+         DefaultListModel<String> dlm = new DefaultListModel<>();
          for (int i = 0; i < str; i++){
                dlm.addElement(allUsers.get(i));
          }
            
          followsList.setModel(dlm);
-         System.out.println("Model Set");
     }
 
     public void displayProfileDetails(){

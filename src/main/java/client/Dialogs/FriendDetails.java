@@ -14,10 +14,8 @@ import javax.swing.table.AbstractTableModel;
 public class FriendDetails extends javax.swing.JDialog {
 
     private Boolean isFollowed;
-    private String followDirectory = "/follow";
-    private String unfollowDirectory = "/follow/delete";
-    
-    client.User user;
+    private client.User user;
+
     /**
      * Constructor
      * @param parent Parent Frame of the dialog, only used to centre the box on top of the parent frame.
@@ -37,7 +35,10 @@ public class FriendDetails extends javax.swing.JDialog {
         
         
     }
-    
+
+    /**
+     * Sets the colour and text of the Follow/Unfollow Button
+     */
     public void setButton(){
         isFollowed = client.Controller.isFollowing(user.email);
         if (this.isFollowed){
@@ -45,7 +46,7 @@ public class FriendDetails extends javax.swing.JDialog {
             follow.setBackground(Color.red);
         } else {
             follow.setText("Follow");
-            follow.setBackground(Color.BLUE);
+            follow.setBackground(new Color(0,204,255));
         }
     }
     
@@ -77,11 +78,11 @@ public class FriendDetails extends javax.swing.JDialog {
     }
     
     public void onFollow(){
-        client.Controller.followUnfollowUser(user.email, followDirectory);
+        client.Controller.followUnfollowUser(user.email, "/follow");
     }
     
     public void onUnfollow(){
-        client.Controller.followUnfollowUser(user.email, unfollowDirectory);
+        client.Controller.followUnfollowUser(user.email, "/follow/delete");
     }
     
     
@@ -201,7 +202,7 @@ public class FriendDetails extends javax.swing.JDialog {
 
         follow.setBackground(new java.awt.Color(0, 204, 255));
         follow.setFont(new java.awt.Font("Lantinghei SC", 1, 13)); // NOI18N
-        follow.setForeground(new java.awt.Color(204, 255, 204));
+        follow.setForeground(new java.awt.Color(255, 255, 255));
         follow.setText("FOLLOW");
         follow.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 255), 2, true));
         follow.addActionListener(new java.awt.event.ActionListener() {
