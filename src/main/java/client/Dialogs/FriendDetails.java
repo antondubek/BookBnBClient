@@ -13,7 +13,9 @@ import javax.swing.table.AbstractTableModel;
  */
 public class FriendDetails extends javax.swing.JDialog {
 
-    private Boolean isFollowed; 
+    private Boolean isFollowed;
+    private String followDirectory = "/follow";
+    private String unfollowDirectory = "/follow/delete";
     
     client.User user;
     /**
@@ -75,11 +77,11 @@ public class FriendDetails extends javax.swing.JDialog {
     }
     
     public void onFollow(){
-        client.Controller.followUser(user.email);
+        client.Controller.followUnfollowUser(user.email, followDirectory);
     }
     
     public void onUnfollow(){
-        client.Controller.unfollowUser(user.email);
+        client.Controller.followUnfollowUser(user.email, unfollowDirectory);
     }
     
     

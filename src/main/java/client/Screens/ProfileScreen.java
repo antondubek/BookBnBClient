@@ -15,8 +15,8 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableRowSorter;
 
 /**
- * Profile screen
- * 
+ * Profile page of the user
+ * @author er205
  */
 public class ProfileScreen extends javax.swing.JPanel {
 
