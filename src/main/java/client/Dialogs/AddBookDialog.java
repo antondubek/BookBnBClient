@@ -3,8 +3,10 @@ package client.Dialogs;
 
 import client.Controller;
 import client.ISBNLookUp;
+import java.awt.Frame;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -61,6 +63,10 @@ public class AddBookDialog extends javax.swing.JDialog {
         System.out.println("TITLE = " + title);
         System.out.println("AUTHOR = " + author);
         System.out.println("URL = "+ url);
+        
+        Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+        BookDetails bookDetails = new BookDetails(topFrame, true, details);
+        bookDetails.setVisible(true);
         
     }
 

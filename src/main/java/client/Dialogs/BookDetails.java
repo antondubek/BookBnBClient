@@ -4,7 +4,15 @@
  * and open the template in the editor.
  */
 package client.Dialogs;
-
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import javax.imageio.ImageIO;
+import java.net.URL;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 /**
  *
  * @author er205
@@ -14,9 +22,33 @@ public class BookDetails extends javax.swing.JDialog {
     /**
      * Creates new form BookDetails
      */
-    public BookDetails(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public BookDetails(java.awt.Frame parent, boolean modal, String[] details) throws MalformedURLException, IOException {
+        super(parent, "Book Details" ,modal);
         initComponents();
+        setResizable(false);
+        setLocationRelativeTo(parent);
+        setBookDetails(details);
+    }
+    
+    public void setBookDetails(String[] details) throws MalformedURLException, IOException{
+        String bookTitle = details[0];
+        String author = details[1];
+        String path = details[2];
+        title.setText(bookTitle);
+        authors.setText(author);
+        
+         URL url = new URL(path);
+         BufferedImage image = ImageIO.read(url);
+         
+//         JLabel picLabel = new JLabel(new ImageIcon(image));
+         ImageIcon icon = new ImageIcon(image);
+         iconLabel.setIcon(icon);
+         iconLabel.setText("");
+        
+//         bookCover.add(iconLabel);
+//         bookCover.repaint();
+//         bookCover.setVisible(true);
+         System.out.println("REPAINTED JPANEL");
     }
 
     /**
@@ -30,9 +62,9 @@ public class BookDetails extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         bookDetails = new javax.swing.JLabel();
-        bookCover = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         authors = new javax.swing.JLabel();
+        iconLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -42,48 +74,48 @@ public class BookDetails extends javax.swing.JDialog {
         bookDetails.setForeground(new java.awt.Color(0, 204, 255));
         bookDetails.setText("Book Details");
 
-        javax.swing.GroupLayout bookCoverLayout = new javax.swing.GroupLayout(bookCover);
-        bookCover.setLayout(bookCoverLayout);
-        bookCoverLayout.setHorizontalGroup(
-            bookCoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 161, Short.MAX_VALUE)
-        );
-        bookCoverLayout.setVerticalGroup(
-            bookCoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 235, Short.MAX_VALUE)
-        );
+        title.setText("Title");
+
+        authors.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        authors.setText("Author");
+
+        iconLabel.setText("jLabel1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(198, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(authors, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                        .addComponent(iconLabel)
+                        .addGap(128, 128, 128))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bookDetails)
                 .addGap(194, 194, 194))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(authors)
-                    .addComponent(title))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bookCover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(bookDetails)
-                .addGap(53, 53, 53)
+                .addGap(58, 58, 58)
+                .addComponent(title)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(title)
-                        .addGap(34, 34, 34)
+                        .addGap(18, 18, 18)
                         .addComponent(authors))
-                    .addComponent(bookCover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(79, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(iconLabel)))
+                .addContainerGap(261, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -103,8 +135,8 @@ public class BookDetails extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel authors;
-    private javax.swing.JPanel bookCover;
     private javax.swing.JLabel bookDetails;
+    private javax.swing.JLabel iconLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
