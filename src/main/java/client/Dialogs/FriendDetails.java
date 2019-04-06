@@ -82,7 +82,12 @@ public class FriendDetails extends javax.swing.JDialog {
      * Will send a post request to the Server in order to follow a given user
      */
     public void onFollow(){
-        client.Controller.followUnfollowUser(user.email, "/follow");
+        Boolean response = client.Controller.followUnfollowUser(user.email, "/follow");
+        if (!response) {
+            errorLabel.setText("An Error occurred");
+        } else {
+            errorLabel.setText("");
+        }
     }
 
     /**
@@ -90,7 +95,13 @@ public class FriendDetails extends javax.swing.JDialog {
      * Will send a post request to the Server in order to unfollow a given user
      */
     public void onUnfollow(){
-        client.Controller.followUnfollowUser(user.email, "/follow/delete");
+        Boolean response = client.Controller.followUnfollowUser(user.email, "/follow/delete");
+        if (!response) {
+            errorLabel.setText("An Error occurred");
+        } else {
+            errorLabel.setText("");
+        }
+        
     }
     
     
@@ -177,6 +188,7 @@ public class FriendDetails extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         bookTable = new javax.swing.JTable();
         follow = new javax.swing.JButton();
+        errorLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -219,6 +231,9 @@ public class FriendDetails extends javax.swing.JDialog {
             }
         });
 
+        errorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        errorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -237,6 +252,10 @@ public class FriendDetails extends javax.swing.JDialog {
                             .addComponent(city))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(errorLabel)
+                .addGap(97, 97, 97))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,12 +264,14 @@ public class FriendDetails extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(name)
                     .addComponent(follow))
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
+                .addComponent(errorLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(email)
                 .addGap(18, 18, 18)
                 .addComponent(city)
                 .addGap(22, 22, 22)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -287,6 +308,7 @@ public class FriendDetails extends javax.swing.JDialog {
     private javax.swing.JTable bookTable;
     private javax.swing.JLabel city;
     private javax.swing.JLabel email;
+    private javax.swing.JLabel errorLabel;
     private javax.swing.JButton follow;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

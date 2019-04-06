@@ -26,8 +26,8 @@ import java.util.ArrayList;
  */
 public class Controller {
 
-    private static String address = "http://antondubek-bookbnb.herokuapp.com";
-//    private static String address = "http://localhost:8080";
+//    private static String address = "http://antondubek-bookbnb.herokuapp.com";
+    private static String address = "http://localhost:8080";
     //private static String address = "http://138.251.29.36:8080";
 
     public static String name;
@@ -213,13 +213,15 @@ public class Controller {
      * Sends a post request in order to follow a or unfollow a user
      * @param friendEmail email of the user to follow or unfollow
      * @param directory Directory of the URL to post to  (either /follow or /follow/delete)
+     * @return response true if the request was successful, false otherwise
      */
-    public static void followUnfollowUser(String friendEmail, String directory){
+    public static Boolean followUnfollowUser(String friendEmail, String directory){
         JSONObject data = new JSONObject();
         data.put("email", email);
         data.put("friendEmail", friendEmail);
 
         Boolean response = sendPostGetResponse(directory, data);
+        return response;
     }
 
     /**
