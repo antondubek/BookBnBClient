@@ -1,6 +1,10 @@
 
 package client.Screens;
 
+import client.Controller;
+
+import java.awt.*;
+
 /**
  * Class that displays the welcome screen blurb to the user.
  */
@@ -11,6 +15,24 @@ public class WelcomeScreen extends javax.swing.JPanel {
      */
     public WelcomeScreen() {
         initComponents();
+        checkServerStatus();
+    }
+
+    /**
+     * Checks whether the server is available and set the status accordingly
+     */
+    public void checkServerStatus(){
+        
+        if(Controller.isAvailable){
+            statusBtn.setText("Available");
+            statusBtn.setBackground(new Color(0,255,0));
+            statusBtn.setForeground(new Color(0,255,0));
+        } else {
+            statusBtn.setText("Unavailable");
+            statusBtn.setBackground(new Color(255,0,0));
+            statusBtn.setForeground(new Color(255,0,0));
+        }
+
     }
 
     /**
@@ -25,6 +47,8 @@ public class WelcomeScreen extends javax.swing.JPanel {
         title = new javax.swing.JLabel();
         blurb = new javax.swing.JLabel();
         blurb1 = new javax.swing.JLabel();
+        statusTxt = new javax.swing.JLabel();
+        statusBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 204, 255));
         setPreferredSize(new java.awt.Dimension(740, 335));
@@ -42,6 +66,13 @@ public class WelcomeScreen extends javax.swing.JPanel {
         blurb1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         blurb1.setText("Please register or login");
 
+        statusTxt.setFont(new java.awt.Font("Lantinghei SC", 1, 18)); // NOI18N
+        statusTxt.setForeground(new java.awt.Color(255, 255, 255));
+        statusTxt.setText("Service Status: ");
+
+        statusBtn.setBackground(new java.awt.Color(255, 102, 102));
+        statusBtn.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -50,11 +81,18 @@ public class WelcomeScreen extends javax.swing.JPanel {
                 .addGap(0, 134, Short.MAX_VALUE)
                 .addComponent(blurb, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(106, 106, 106))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(204, 204, 204)
-                .addComponent(title)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(blurb1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(204, 204, 204)
+                        .addComponent(title))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(230, 230, 230)
+                        .addComponent(statusTxt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(statusBtn)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -63,9 +101,13 @@ public class WelcomeScreen extends javax.swing.JPanel {
                 .addComponent(title)
                 .addGap(26, 26, 26)
                 .addComponent(blurb, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(blurb1, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                .addGap(29, 29, 29))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(blurb1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(statusTxt)
+                    .addComponent(statusBtn))
+                .addGap(23, 23, 23))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -73,6 +115,8 @@ public class WelcomeScreen extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel blurb;
     private javax.swing.JLabel blurb1;
+    private javax.swing.JButton statusBtn;
+    private javax.swing.JLabel statusTxt;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }

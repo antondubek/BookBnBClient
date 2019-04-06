@@ -43,8 +43,12 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
      */
     public void populateTable() {
 
-        //Get all the books from the server
-        allBooks = Controller.getAllBooks();
+        if(Controller.isAvailable){
+            //Get all the books from the server
+            allBooks = Controller.getAllBooks();
+        } else {
+            return;
+        }
 
         //Create a instance of the custom table model from below
         TableModelAll allBooksTableModel = new TableModelAll(allBooks);
