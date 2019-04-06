@@ -110,22 +110,24 @@ public class ISBNLookUp {
         String[] details = {title, info, thumbnailLink};
         return details;
     }
-     public static void searchBook(String ISBN) throws Exception {
-
+     public static String[] searchBook(String ISBN) throws Exception {
+         
         JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 
         String cleanISBN = sanitizeISBN(ISBN);
         String prefix = "isbn:";
         String query = prefix + cleanISBN;
+        String[] details = {};
 
         try {
-             String[] details = queryGoogleBooks(jsonFactory, query);
+             details = queryGoogleBooks(jsonFactory, query);
              System.out.println("=====DETAILS==== " + Arrays.toString(details));
             // Success!
-//            return;
+//            return details;
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+        return details;
     }
      private static String sanitizeISBN(String ISBN) throws Exception{
         

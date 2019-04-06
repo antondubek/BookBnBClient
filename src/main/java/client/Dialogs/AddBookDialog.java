@@ -51,10 +51,16 @@ public class AddBookDialog extends javax.swing.JDialog {
             pack();
         }
     }
+    
     public void onLookUp() throws Exception{
         String ISBN = isbnGoogle.getText().trim();
-        ISBNLookUp.searchBook(ISBN);
-        
+        String[] details = ISBNLookUp.searchBook(ISBN);
+        String title = details[0];
+        String author = details[1];
+        String url = details[2];
+        System.out.println("TITLE = " + title);
+        System.out.println("AUTHOR = " + author);
+        System.out.println("URL = "+ url);
         
     }
 
@@ -262,7 +268,7 @@ public class AddBookDialog extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(317, 317, 317))
+                .addGap(338, 338, 338))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
