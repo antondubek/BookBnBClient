@@ -28,8 +28,8 @@ import java.util.ArrayList;
  */
 public class Controller {
 
-    private static String address = "http://antondubek-bookbnb.herokuapp.com";
-    //private static String address = "http://localhost:8080";
+//    private static String address = "http://antondubek-bookbnb.herokuapp.com";
+    private static String address = "http://localhost:8080";
     //private static String address = "http://138.251.29.33:8080";
 
     public static boolean isAvailable;

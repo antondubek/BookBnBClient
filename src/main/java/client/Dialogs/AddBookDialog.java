@@ -2,6 +2,9 @@
 package client.Dialogs;
 
 import client.Controller;
+import client.ISBNLookUp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -48,7 +51,10 @@ public class AddBookDialog extends javax.swing.JDialog {
             pack();
         }
     }
-    public void onLookUp(){
+    public void onLookUp() throws Exception{
+        String ISBN = isbnGoogle.getText().trim();
+        ISBNLookUp.searchBook(ISBN);
+        
         
     }
 
@@ -125,7 +131,6 @@ public class AddBookDialog extends javax.swing.JDialog {
         isbnGoogle = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         lookUp = new javax.swing.JButton();
-        buttonOK1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -295,24 +300,13 @@ public class AddBookDialog extends javax.swing.JDialog {
                             .addComponent(jLabel7)
                             .addComponent(editionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonOK, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(errorTxt)
                 .addGap(18, 20, Short.MAX_VALUE))
         );
-
-        buttonOK1.setBackground(new java.awt.Color(0, 204, 255));
-        buttonOK1.setFont(new java.awt.Font("Lantinghei SC", 1, 13)); // NOI18N
-        buttonOK1.setForeground(new java.awt.Color(102, 102, 102));
-        buttonOK1.setText("Add");
-        buttonOK1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 255), 2, true));
-        buttonOK1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonOK1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -321,20 +315,10 @@ public class AddBookDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 12, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(331, 331, 331)
-                    .addComponent(buttonOK1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(331, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(122, 122, 122)
-                    .addComponent(buttonOK1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(150, Short.MAX_VALUE)))
         );
 
         pack();
@@ -352,12 +336,12 @@ public class AddBookDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_titleTxtActionPerformed
 
-    private void buttonOK1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOK1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonOK1ActionPerformed
-
     private void lookUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lookUpActionPerformed
-       onLookUp();
+        try {
+            onLookUp();
+        } catch (Exception ex) {
+            Logger.getLogger(AddBookDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_lookUpActionPerformed
 
 
@@ -366,7 +350,6 @@ public class AddBookDialog extends javax.swing.JDialog {
     private javax.swing.JTextField authorTxt;
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonOK;
-    private javax.swing.JButton buttonOK1;
     private javax.swing.JTextField editionTxt;
     private javax.swing.JLabel errorTxt;
     private javax.swing.JTextField isbnGoogle;
