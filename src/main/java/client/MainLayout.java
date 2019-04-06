@@ -22,7 +22,7 @@ public class MainLayout extends JFrame{
     
     private static JPanel cards; //a panel that uses CardLayout
     private static CardLayout cardLayout;
-    private static ProfileScreen profileCard;
+    public static ProfileScreen profileCard;
     private static WelcomeScreen welcomeCard;
     private static BrowseScreen browseCard;
     private static LoginRegisterScreen loginCard;

@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -143,11 +144,17 @@ public class NavBar extends javax.swing.JPanel {
 
     
     private void profileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileBtnActionPerformed
-        cardLayout.show(cards, "PROFILE");
+        cardLayout.show(cards, "PROFILE");        
+        //client.Screens.ProfileScreen.displayFollows();
+        MainLayout.profileCard.displayProfileDetails();
+        MainLayout.profileCard.displayFollowing();
+        
+       
     }//GEN-LAST:event_profileBtnActionPerformed
 
     private void mybooksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mybooksBtnActionPerformed
         cardLayout.show(cards, "MYBOOKS");
+        
     }//GEN-LAST:event_mybooksBtnActionPerformed
 
     private void loginRegisterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginRegisterBtnActionPerformed

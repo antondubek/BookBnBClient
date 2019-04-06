@@ -152,6 +152,7 @@ public class MyBooksScreen extends javax.swing.JPanel {
         addBookBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 204, 255));
+        setPreferredSize(new java.awt.Dimension(740, 335));
 
         jLabel1.setBackground(new java.awt.Color(0, 204, 255));
         jLabel1.setFont(new java.awt.Font("Lantinghei SC", 1, 24)); // NOI18N

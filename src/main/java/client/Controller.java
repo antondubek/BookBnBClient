@@ -231,10 +231,62 @@ public class Controller {
          data.put("available", availability);
          data.put("copyID", copyID);
          
-         String response = sendPostGetData("/profile/books/availability", data);
+         Boolean response = sendPostGetResponse("/profile/books/availability", data);
          getUserBooks();
     }
 
+    /**
+     * Returns the users followed by the current user logged in
+     * @return Array List of users
+     */
+    public static ArrayList<String> getFollowing(){
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+        
+        String response = sendPostGetData("/follow/fetch", data);
+        JSONArray userEmail = new JSONArray(response);
+
+        ArrayList<String> users = new ArrayList<String>();
+        
+        for(int i = 0; i < userEmail.length(); i++){
+            JSONObject currentUser = userEmail.getJSONObject(i);
+            users.add(currentUser.getString("email"));
+        }
+        return users;
+         
+    }
+    /**
+     * Sends a post request in order to follow a or unfollow a user
+     * @param friendEmail email of the user to follow or unfollow
+     * @param directory Directory of the URL to post to  (either /follow or /follow/delete)
+     * @return response true if the request was successful, false otherwise
+     */
+    public static Boolean followUnfollowUser(String friendEmail, String directory){
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+        data.put("friendEmail", friendEmail);
+
+        Boolean response = sendPostGetResponse(directory, data);
+        return response;
+    }
+
+    /**
+     * Checks if already following a user
+     * @param friendEmail email of the user to check
+     * @return already following or not following ie true or false
+     */
+    public static Boolean isFollowing(String friendEmail){
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+        data.put("friendEmail", friendEmail);
+
+        String response = sendPostGetData("/follow/true", data);
+
+        JSONObject booleanJsonObject = new JSONObject(response);
+
+        return booleanJsonObject.getBoolean("userIsFollowed");
+    }
+    
     /**
      * Gets the books belonging to the user
      * @return An arrayList of all the book objects which belong to the user
@@ -296,7 +348,7 @@ public class Controller {
 
         JSONArray allBooks = new JSONArray(response.toString());
         
-        System.out.println("All books response = " + response.toString());
+        //System.out.println("All books response = " + response.toString());
 
         ArrayList<Book> books = new ArrayList<Book>();
         for(int i = 0; i < allBooks.length(); i++){

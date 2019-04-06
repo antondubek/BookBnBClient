@@ -2,7 +2,11 @@ package client.Dialogs;
 
 import client.Book;
 import client.Controller;
+import client.MainLayout;
+import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -11,7 +15,9 @@ import javax.swing.table.AbstractTableModel;
  */
 public class FriendDetails extends javax.swing.JDialog {
 
-    
+    private Boolean isFollowed;
+    private client.User user;
+
     /**
      * Constructor
      * @param parent Parent Frame of the dialog, only used to centre the box on top of the parent frame.
@@ -24,10 +30,29 @@ public class FriendDetails extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
         setUsersDetails(user);
         if (!user.email.equals("")){
+            this.user = user;
             populateTable(user.email);
+            setButton();
         }
-        
     }
+
+    /**
+     * Sets the colour and text of the Follow/Unfollow Button
+     */
+    public void setButton(){
+        isFollowed = client.Controller.isFollowing(user.email);
+        if (this.isFollowed){
+            follow.setText("Unfollow");
+            follow.setBackground(Color.red);
+            follow.setBorder(new LineBorder(Color.black));
+        } else {
+            follow.setText("Follow");
+            follow.setBackground(new Color(0,204,255));
+            follow.setBorder(new LineBorder(new Color(0,204,255)));
+        }
+    }
+    
+    
     /**
      * Sets the logged in user details
      * @param user logged in user
@@ -41,8 +66,6 @@ public class FriendDetails extends javax.swing.JDialog {
     /**
      * Sets the model for the browse books table and the user books table. This will also populate the tables
      * with data collected from the server via the controller.
-     * Also adds a pop up menu and listener to the browse books table which allows the user to request a book by right
-     * clicking on an entry in the table.
      */
     public void populateTable(String email) {
         ArrayList<Book> userBooks;
@@ -52,6 +75,33 @@ public class FriendDetails extends javax.swing.JDialog {
         bookTable.setModel(userBooksTableModel);
         bookTable.setAutoCreateRowSorter(true);
 
+    }
+
+    /**
+     * Method executed when the Follow button is pressed.
+     * Will send a post request to the Server in order to follow a given user
+     */
+    public void onFollow(){
+        Boolean response = client.Controller.followUnfollowUser(user.email, "/follow");
+        if (!response) {
+            errorLabel.setText("An Error occurred");
+        } else {
+            errorLabel.setText("");
+        }
+    }
+
+    /**
+     * Method executed when the Unfollow button is pressed.
+     * Will send a post request to the Server in order to unfollow a given user
+     */
+    public void onUnfollow(){
+        Boolean response = client.Controller.followUnfollowUser(user.email, "/follow/delete");
+        if (!response) {
+            errorLabel.setText("An Error occurred");
+        } else {
+            errorLabel.setText("");
+        }
+        
     }
     
     
@@ -137,6 +187,8 @@ public class FriendDetails extends javax.swing.JDialog {
         city = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         bookTable = new javax.swing.JTable();
+        follow = new javax.swing.JButton();
+        errorLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -168,6 +220,20 @@ public class FriendDetails extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(bookTable);
 
+        follow.setBackground(new java.awt.Color(0, 204, 255));
+        follow.setFont(new java.awt.Font("Lantinghei SC", 1, 13)); // NOI18N
+        follow.setForeground(new java.awt.Color(255, 255, 255));
+        follow.setText("FOLLOW");
+        follow.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        follow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                followActionPerformed(evt);
+            }
+        });
+
+        errorLabel.setForeground(new java.awt.Color(204, 0, 0));
+        errorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -176,25 +242,36 @@ public class FriendDetails extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(follow, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(email)
                             .addComponent(city))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(errorLabel)
+                .addGap(97, 97, 97))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(name)
-                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(name)
+                    .addComponent(follow))
+                .addGap(18, 18, 18)
+                .addComponent(errorLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(email)
                 .addGap(18, 18, 18)
                 .addComponent(city)
                 .addGap(22, 22, 22)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -212,11 +289,27 @@ public class FriendDetails extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Action listener which deals with the clicking on the Follow/Unfollow Button
+     * @param evt Event evt, generated by the action listener.
+     */
+    private void followActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_followActionPerformed
+        if (!isFollowed){
+           onFollow();
+        } else {
+            onUnfollow();
+        }
+        setButton();
+        MainLayout.profileCard.displayFollowing();
+    }//GEN-LAST:event_followActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable bookTable;
     private javax.swing.JLabel city;
     private javax.swing.JLabel email;
+    private javax.swing.JLabel errorLabel;
+    private javax.swing.JButton follow;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel name;

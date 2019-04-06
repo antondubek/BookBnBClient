@@ -184,6 +184,7 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
         searchTxt = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(0, 204, 255));
+        setPreferredSize(new java.awt.Dimension(740, 335));
 
         jScrollPane1.setBackground(new java.awt.Color(0, 204, 255));
 
