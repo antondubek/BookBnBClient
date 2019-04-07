@@ -315,7 +315,6 @@ public class MyBooksScreen extends javax.swing.JPanel {
         borrowedBooksPanel2.setBackground(new java.awt.Color(255, 255, 255));
         borrowedBooksPanel2.setForeground(new java.awt.Color(102, 102, 102));
 
-        borrowedBooksTable.setForeground(new java.awt.Color(102, 102, 102));
         borrowedBooksTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -352,7 +351,6 @@ public class MyBooksScreen extends javax.swing.JPanel {
         LoanedBooksTab.setBackground(new java.awt.Color(255, 255, 255));
         LoanedBooksTab.setForeground(new java.awt.Color(102, 102, 102));
 
-        loanedBooksTable.setForeground(new java.awt.Color(102, 102, 102));
         loanedBooksTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
