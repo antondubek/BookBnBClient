@@ -85,14 +85,14 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
         JMenuItem menu = (JMenuItem) e.getSource();
 
         if (menu == menuItemInfo) {
-            processBookRequest();
+            processBookInfo();
         }
     }
 
     /**
      * Deals with the retrieval of the book to request and sending it to the controller.
      */
-    private void processBookRequest() {
+    private void processBookInfo() {
         int row = browseBooksTable.getSelectedRow();
 
         Book selectedBook = allBooks.get(row);

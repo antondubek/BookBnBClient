@@ -385,10 +385,21 @@ public class Controller {
             JSONObject currentLender = bookLenders.getJSONObject(i);
             
             lenders.add(new Lender(currentLender.getString("name"), currentLender.getString("loanLength")
-            , currentLender.getString("city"), currentLender.getString("id")));
+            , currentLender.getString("city"), currentLender.getString("id"), currentLender.getString("copyID")));
         }
         
         return lenders;
+        
+    }
+    
+    public static boolean sendBorrowRequest(String email, String lenderID, String copyID){
+        
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+        data.put("lenderID", lenderID);
+        data.put("copyID", copyID);
+        
+        return sendPostGetResponse("/request", data);
         
     }
 

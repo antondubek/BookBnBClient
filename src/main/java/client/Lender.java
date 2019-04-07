@@ -15,12 +15,14 @@ public class Lender {
     private String loanLength;
     private String city;
     private String ID;
+    private String copyID;
 
-    public Lender(String name, String loanLength, String city, String ID) {
+    public Lender(String name, String loanLength, String city, String ID, String copyID) {
         this.name = name;
         this.loanLength = loanLength;
         this.city = city;
         this.ID = ID;
+        this.copyID = copyID;
     }
 
     public String getName() {
@@ -37,6 +39,10 @@ public class Lender {
 
     public String getID() {
         return ID;
+    }
+    
+    public String getCopyID(){
+        return copyID;
     }
     
     
