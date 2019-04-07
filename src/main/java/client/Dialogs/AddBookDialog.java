@@ -18,7 +18,7 @@ public class AddBookDialog extends javax.swing.JDialog {
 
     /**
      * Constructor
-     * @param parent Parent Frame of the dialog, only used to center the box on top of the parent frame.
+     * @param parent Parent Frame of the dialog, only used to centre the box on top of the parent frame.
      */
     public AddBookDialog(java.awt.Frame parent, boolean modal) {
         super(parent, "Add New Book", modal);
@@ -56,9 +56,15 @@ public class AddBookDialog extends javax.swing.JDialog {
         }
     }
     
+    /**
+     * This method will call the ISBNLookUp search book by sending the ISBN 
+     * entered in the text field by the user
+     * @throws Exception 
+     */
     public void onLookUp() throws Exception{
         String ISBN = isbnGoogle.getText().trim();
         String[] details = ISBNLookUp.searchBook(ISBN);
+        
         if (!details[0].equals("NO MATCHES FOUND")) {
         
             Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);

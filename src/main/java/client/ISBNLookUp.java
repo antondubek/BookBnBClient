@@ -23,9 +23,6 @@ public class ISBNLookUp {
     private static final String APPLICATION_NAME = "GoogleAPI-Test";
     private static final String API_KEY = "AIzaSyDV9t8ZAEoVx1H31Pgub3FyIJSHjYJ_rmk";
     
-//    private static final NumberFormat CURRENCY_FORMATTER = NumberFormat.getCurrencyInstance();
-//    private static final NumberFormat PERCENT_FORMATTER = NumberFormat.getPercentInstance();
-    
     /**
      * Given a ISBN number this class returns the Title, Author and Description found on Google Books
      * @param jsonFactory  used for constructing a JSON parser
@@ -40,7 +37,6 @@ public class ISBNLookUp {
         String info;
         String description = "";
         String[] details = {""};
-        //ClientCredentials.errorIfNotSpecified();
 
         // Set up Google Books client.
         final Books books = new Books.Builder(GoogleNetHttpTransport.newTrustedTransport(), jsonFactory, null)
@@ -64,7 +60,6 @@ public class ISBNLookUp {
         // Output results.
         for (Volume volume : volumes.getItems()) {
             Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();
-//            Volume.SaleInfo saleInfo = volume.getSaleInfo();
             
             // Title.
             title = volumeInfo.getTitle();
@@ -76,7 +71,6 @@ public class ISBNLookUp {
             // Author(s).
             authors = volumeInfo.getAuthors();
             if (authors != null && !authors.isEmpty()) {
-//                System.out.print("Author(s): ");
                 for (int i = 0; i < authors.size(); ++i) {
                     System.out.print(authors.get(i));
                     if (i < authors.size() - 1) {
@@ -96,6 +90,7 @@ public class ISBNLookUp {
         String[] detailS = {title, info, thumbnailLink, description};
         return detailS;
     }
+    
     /**
      * Method which constructs the query after sanitising the ISBN 
      * @param ISBN parameter entered by the user
@@ -118,6 +113,7 @@ public class ISBNLookUp {
         }
         return details;
     }
+     
      /**
       * Sanitises the ISBN getting rid of spaces and making sure that the its 
       * length is equal to 10 or 13
