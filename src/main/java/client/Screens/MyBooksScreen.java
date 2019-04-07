@@ -258,6 +258,7 @@ public class MyBooksScreen extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        yourBooksTable.setGridColor(new java.awt.Color(0, 204, 255));
         jScrollPane1.setViewportView(yourBooksTable);
 
         addBookBtn.setBackground(new java.awt.Color(0, 204, 255));
@@ -299,6 +300,7 @@ public class MyBooksScreen extends javax.swing.JPanel {
         borrowedBooksPanel2.setBackground(new java.awt.Color(255, 255, 255));
         borrowedBooksPanel2.setForeground(new java.awt.Color(102, 102, 102));
 
+        borrowedBooksTable.setForeground(new java.awt.Color(102, 102, 102));
         borrowedBooksTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -310,27 +312,32 @@ public class MyBooksScreen extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        borrowedBooksTable.setGridColor(new java.awt.Color(0, 204, 255));
         jScrollPane2.setViewportView(borrowedBooksTable);
 
         javax.swing.GroupLayout borrowedBooksPanel2Layout = new javax.swing.GroupLayout(borrowedBooksPanel2);
         borrowedBooksPanel2.setLayout(borrowedBooksPanel2Layout);
         borrowedBooksPanel2Layout.setHorizontalGroup(
             borrowedBooksPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(borrowedBooksPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, borrowedBooksPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                .addContainerGap())
         );
         borrowedBooksPanel2Layout.setVerticalGroup(
             borrowedBooksPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(borrowedBooksPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, borrowedBooksPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Borrowed Books", borrowedBooksPanel2);
 
+        LoanedBooksTab.setBackground(new java.awt.Color(255, 255, 255));
+        LoanedBooksTab.setForeground(new java.awt.Color(102, 102, 102));
+
+        loanedBooksTable.setForeground(new java.awt.Color(102, 102, 102));
         loanedBooksTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -342,17 +349,21 @@ public class MyBooksScreen extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        loanedBooksTable.setGridColor(new java.awt.Color(0, 204, 255));
         jScrollPane3.setViewportView(loanedBooksTable);
 
         javax.swing.GroupLayout LoanedBooksTabLayout = new javax.swing.GroupLayout(LoanedBooksTab);
         LoanedBooksTab.setLayout(LoanedBooksTabLayout);
         LoanedBooksTabLayout.setHorizontalGroup(
             LoanedBooksTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3)
+            .addGroup(LoanedBooksTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                .addContainerGap())
         );
         LoanedBooksTabLayout.setVerticalGroup(
             LoanedBooksTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LoanedBooksTabLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoanedBooksTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                 .addContainerGap())
