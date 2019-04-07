@@ -50,14 +50,11 @@ public class BookDetails extends javax.swing.JDialog {
         String author = details[1];
         String path = details[2];
         String description = "<html> " + details[3];
+        
         title.setText(bookTitle);
         authors.setText(author);
-        
         descriptionLabel.setText(description);
         
-//        bookDescription.setEditable(false);
-//        bookDescription.setLineWrap(true);
-//        jScrollPane1.setLineWrap(true);
         
          URL url = new URL(path);
          BufferedImage image = ImageIO.read(url);
@@ -66,11 +63,6 @@ public class BookDetails extends javax.swing.JDialog {
          ImageIcon icon = new ImageIcon(image);
          iconLabel.setIcon(icon);
          iconLabel.setText("");
-        
-//         bookCover.add(iconLabel);
-//         bookCover.repaint();
-//         bookCover.setVisible(true);
-         System.out.println("REPAINTED JPANEL");
     }
     private void onCancel() {
         dispose();

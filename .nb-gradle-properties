@@ -5,5 +5,9 @@
     <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
       <word>browsable</word>
     </spellchecker-wordlist>
+    <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+      <word>Book's</word>
+      <word>Google</word>
+    </spellchecker-wordlist>
   </auxiliary>
 </gradle-project-properties>

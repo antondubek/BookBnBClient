@@ -60,16 +60,11 @@ public class AddBookDialog extends javax.swing.JDialog {
         String ISBN = isbnGoogle.getText().trim();
         String[] details = ISBNLookUp.searchBook(ISBN);
         if (!details[0].equals("NO MATCHES FOUND")) {
-            String title = details[0];
-            String author = details[1];
-            String url = details[2];
-            System.out.println("TITLE = " + title);
-            System.out.println("AUTHOR = " + author);
-            System.out.println("URL = "+ url);
         
             Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
             BookDetails bookDetails = new BookDetails(topFrame, true, details, ISBN);
             bookDetails.setVisible(true);
+            
         } else {
             JPanel panel = new JPanel();
             JOptionPane.showMessageDialog(panel, "Book not found, you can add the book manually ", "Error", JOptionPane.ERROR_MESSAGE);

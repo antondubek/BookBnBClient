@@ -13,22 +13,31 @@ import java.net.URLEncoder;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 /**
- *
+ * Class which uses Google Book's API to retrieve information about a book given its ISBN
  * @author er205
  */
 public class ISBNLookUp {
     private static final String APPLICATION_NAME = "GoogleAPI-Test";
     private static final String API_KEY = "AIzaSyDV9t8ZAEoVx1H31Pgub3FyIJSHjYJ_rmk";
     
-     private static final NumberFormat CURRENCY_FORMATTER = NumberFormat.getCurrencyInstance();
-    private static final NumberFormat PERCENT_FORMATTER = NumberFormat.getPercentInstance();
+//    private static final NumberFormat CURRENCY_FORMATTER = NumberFormat.getCurrencyInstance();
+//    private static final NumberFormat PERCENT_FORMATTER = NumberFormat.getPercentInstance();
     
+    /**
+     * Given a ISBN number this class returns the Title, Author and Description found on Google Books
+     * @param jsonFactory  used for constructing a JSON parser
+     * @param query contains the ISBN of the book to look up
+     * @return details of the book if any are found
+     * @throws Exception 
+     */
     private static String[] queryGoogleBooks(JsonFactory jsonFactory, String query) throws Exception {
         String title = "";
         java.util.List<String> authors = new ArrayList<String>();
         String thumbnailLink = "";
-        String info = "";
+        String info;
         String description = "";
         String[] details = {""};
         //ClientCredentials.errorIfNotSpecified();
@@ -47,7 +56,6 @@ public class ISBNLookUp {
         // Execute the query.
         Volumes volumes = volumesList.execute();
         if (volumes.getTotalItems() == 0 || volumes.getItems() == null) {
-            System.out.println("No matches found.");
             details[0] = "NO MATCHES FOUND";
             return details;
             
@@ -56,22 +64,19 @@ public class ISBNLookUp {
         // Output results.
         for (Volume volume : volumes.getItems()) {
             Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();
-            Volume.SaleInfo saleInfo = volume.getSaleInfo();
-            System.out.println("==========");
+//            Volume.SaleInfo saleInfo = volume.getSaleInfo();
+            
             // Title.
             title = volumeInfo.getTitle();
 
             // Getting the url to the thumbnail
             Volume.VolumeInfo.ImageLinks thumbnail = volumeInfo.getImageLinks();
             thumbnailLink = (thumbnail).getThumbnail();
-            System.out.println("Link: " + thumbnailLink);
-
-//           System.out.println("Title: " + volumeInfo.getTitle());
-            System.out.println("Title: " + title);
+           
             // Author(s).
             authors = volumeInfo.getAuthors();
             if (authors != null && !authors.isEmpty()) {
-                System.out.print("Author(s): ");
+//                System.out.print("Author(s): ");
                 for (int i = 0; i < authors.size(); ++i) {
                     System.out.print(authors.get(i));
                     if (i < authors.size() - 1) {
@@ -84,67 +89,50 @@ public class ISBNLookUp {
         // Description (if any).
         if (volumeInfo.getDescription() != null && volumeInfo.getDescription().length() > 0) {
             description = volumeInfo.getDescription();
-            
         }
-        // Ratings (if any).
-        if (volumeInfo.getRatingsCount() != null && volumeInfo.getRatingsCount() > 0) {
-            int fullRating = (int) Math.round(volumeInfo.getAverageRating());
-            System.out.print("User Rating: ");
-            for (int i = 0; i < fullRating; ++i) {
-                System.out.print("*");
-            }
-            System.out.println(" (" + volumeInfo.getRatingsCount() + " rating(s))");
-        }
-        // Price (if any).
-        if (saleInfo != null && "FOR_SALE".equals(saleInfo.getSaleability())) {
-            double save = saleInfo.getListPrice().getAmount() - saleInfo.getRetailPrice().getAmount();
-            if (save > 0.0) {
-                System.out.print("List: " + CURRENCY_FORMATTER.format(saleInfo.getListPrice().getAmount())
-                        + "  ");
-            }
-            System.out.print("Google eBooks Price: "
-                    + CURRENCY_FORMATTER.format(saleInfo.getRetailPrice().getAmount()));
-            if (save > 0.0) {
-                System.out.print("  You Save: " + CURRENCY_FORMATTER.format(save) + " ("
-                        + PERCENT_FORMATTER.format(save / saleInfo.getListPrice().getAmount()) + ")");
-            }
-            System.out.println();
-        }
-        }
+       }
+        
         info = String.join(",", authors);
-//        details[0] = title;
-//        details[1] = info;
-//        details[2] = thumbnailLink;
-//        details[3] = description;
         String[] detailS = {title, info, thumbnailLink, description};
         return detailS;
     }
+    /**
+     * Method which constructs the query after sanitising the ISBN 
+     * @param ISBN parameter entered by the user
+     * @return details of the book associated with the ISBN
+     * @throws Exception 
+     */
      public static String[] searchBook(String ISBN) throws Exception {
          
         JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-
-        String cleanISBN = sanitizeISBN(ISBN);
-        String prefix = "isbn:";
-        String query = prefix + cleanISBN;
+        String cleanISBN = "";
+      
+        cleanISBN = sanitizeISBN(ISBN);
+        String query = "isbn:" + cleanISBN;
         String[] details = {};
 
         try {
              details = queryGoogleBooks(jsonFactory, query);
-             System.out.println("=====DETAILS==== " + Arrays.toString(details));
-            // Success!
-//            return details;
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
         return details;
     }
+     /**
+      * Sanitises the ISBN getting rid of spaces and making sure that the its 
+      * length is equal to 10 or 13
+      * @param ISBN entered by the user
+      * @return cleanISBN sanitised ISBN
+      * @throws Exception 
+      */
      private static String sanitizeISBN(String ISBN) throws Exception{
         
         final String isbn = ISBN.replaceAll("[^\\d]", "");
 
+        // A message error will pup up on screen
         if (isbn.length() != 10 && isbn.length() != 13) {
-
-            throw new Exception("ISBN must be 10 or 13 characters long");
+            JPanel panel = new JPanel();
+            JOptionPane.showMessageDialog(panel, "ISBN must be 10 or 13 characters long", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         return isbn;
