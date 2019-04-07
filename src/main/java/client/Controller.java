@@ -28,9 +28,9 @@ import java.util.ArrayList;
  */
 public class Controller {
 
-    private static String address = "http://antondubek-bookbnb.herokuapp.com";
+    //private static String address = "http://antondubek-bookbnb.herokuapp.com";
     //private static String address = "http://localhost:8080";
-    //private static String address = "http://138.251.29.33:8080";
+    private static String address = "http://138.251.29.158:8080";
 
     public static boolean isAvailable;
     public static String name;
@@ -360,6 +360,32 @@ public class Controller {
 
         return books;
 
+    }
+    
+    public static ArrayList<Lender> getLenders(String ISBN){
+        
+        String response = sendGetRequest("/book/lenders?ISBN=" + ISBN);
+        
+        System.out.println("LOG: Retrieving lenders for ISBN = " + ISBN);
+        
+        System.out.println(response);
+        
+        if(response.length() == 0){
+            return new ArrayList<>();
+        }
+        
+        JSONArray bookLenders = new JSONArray(response.toString());
+        
+        ArrayList<Lender> lenders = new ArrayList<Lender>();
+        for(int i = 0; i < bookLenders.length(); i++){
+            JSONObject currentLender = bookLenders.getJSONObject(i);
+            
+            lenders.add(new Lender(currentLender.getString("name"), currentLender.getString("loanLength")
+            , currentLender.getString("city"), currentLender.getString("ID")));
+        }
+        
+        return lenders;
+        
     }
 
     /**

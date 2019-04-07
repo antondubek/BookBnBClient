@@ -3,6 +3,9 @@ package client.Screens;
 
 import client.Book;
 import client.Controller;
+import client.Dialogs.AddBookDialog;
+import client.Dialogs.BookInfoDialog;
+import java.awt.Frame;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -23,7 +27,7 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
 
     private ArrayList<Book> allBooks;
     
-    private JMenuItem menuItemRequest;
+    private JMenuItem menuItemInfo;
     private JPopupMenu popupMenu;
     private TableRowSorter rowSorter;
     
@@ -59,9 +63,9 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
 
         //Add a popup menu with the request book item and add a listener
         popupMenu = new JPopupMenu();
-        menuItemRequest = new JMenuItem("Request Book");
-        popupMenu.add(menuItemRequest);
-        menuItemRequest.addActionListener(this);
+        menuItemInfo = new JMenuItem("View Info");
+        popupMenu.add(menuItemInfo);
+        menuItemInfo.addActionListener(this);
 
         browseBooksTable.setComponentPopupMenu(popupMenu);
         browseBooksTable.addMouseListener(new TableMouseListener(browseBooksTable));
@@ -80,7 +84,7 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JMenuItem menu = (JMenuItem) e.getSource();
 
-        if (menu == menuItemRequest) {
+        if (menu == menuItemInfo) {
             processBookRequest();
         }
     }
@@ -93,8 +97,13 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
 
         Book selectedBook = allBooks.get(row);
 
-        System.out.println("client.Book requested");
+        System.out.println("View info clicked");
         System.out.println("Title: " + selectedBook.getTitle());
+        
+        //Launch a new bookInfoDialog
+        Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+        BookInfoDialog bookInfoDialog = new BookInfoDialog(topFrame, true, selectedBook);
+        bookInfoDialog.setVisible(true);
 
     }
   
