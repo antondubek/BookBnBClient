@@ -5,9 +5,9 @@ import client.ISBNLookUp;
 import java.awt.Frame;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  * Simple dialog box which will allow the user to input the data of a new book
@@ -55,29 +55,31 @@ public class AddBookDialog extends javax.swing.JDialog {
             pack();
         }
     }
-    
+
     /**
-     * This method will call the ISBNLookUp search book by sending the ISBN 
+     * This method will call the ISBNLookUp search book by sending the ISBN
      * entered in the text field by the user
-     * @throws Exception 
+     *
+     * @throws Exception
      */
-    public void onLookUp() throws Exception{
+    public void onLookUp() throws Exception {
         String ISBN = isbnGoogle.getText().trim();
         String[] details = ISBNLookUp.searchBook(ISBN);
-        
+
         if (!details[0].equals("NO MATCHES FOUND")) {
-        
+
             Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
             BookDetails bookDetails = new BookDetails(topFrame, true, details, ISBN);
             bookDetails.setVisible(true);
-            
+
+            dispose();
+
         } else {
             JPanel panel = new JPanel();
             JOptionPane.showMessageDialog(panel, "Book not found, you can add the book manually ", "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println("NOT FOUND");
         }
-        
-        
+
     }
 
     /**
