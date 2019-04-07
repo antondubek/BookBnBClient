@@ -30,6 +30,7 @@ public class ISBNLookUp {
         String thumbnailLink = "";
         String info = "";
         String description = "";
+        String[] details = {""};
         //ClientCredentials.errorIfNotSpecified();
 
         // Set up Google Books client.
@@ -47,7 +48,9 @@ public class ISBNLookUp {
         Volumes volumes = volumesList.execute();
         if (volumes.getTotalItems() == 0 || volumes.getItems() == null) {
             System.out.println("No matches found.");
-            //return;
+            details[0] = "NO MATCHES FOUND";
+            return details;
+            
         }
 
         // Output results.
@@ -81,7 +84,7 @@ public class ISBNLookUp {
         // Description (if any).
         if (volumeInfo.getDescription() != null && volumeInfo.getDescription().length() > 0) {
             description = volumeInfo.getDescription();
-            System.out.println("Description: " + description);
+            
         }
         // Ratings (if any).
         if (volumeInfo.getRatingsCount() != null && volumeInfo.getRatingsCount() > 0) {
@@ -109,8 +112,12 @@ public class ISBNLookUp {
         }
         }
         info = String.join(",", authors);
-        String[] details = {title, info, thumbnailLink, description};
-        return details;
+//        details[0] = title;
+//        details[1] = info;
+//        details[2] = thumbnailLink;
+//        details[3] = description;
+        String[] detailS = {title, info, thumbnailLink, description};
+        return detailS;
     }
      public static String[] searchBook(String ISBN) throws Exception {
          

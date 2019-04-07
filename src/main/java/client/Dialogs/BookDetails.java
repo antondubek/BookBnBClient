@@ -5,6 +5,7 @@
  */
 package client.Dialogs;
 import client.Controller;
+import client.Dialogs.AddBookDialog;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class BookDetails extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
         setBookDetails(details);
     }
-    public void onAdd(){
+    public  void onAdd(){
         String bookTitle = details[0];
         String author = details[1];
         boolean addedCorrectly = Controller.addBook(this.ISBN, author, bookTitle, "");
@@ -51,7 +52,7 @@ public class BookDetails extends javax.swing.JDialog {
         String description = "<html> " + details[3];
         title.setText(bookTitle);
         authors.setText(author);
-        System.out.println("DESCRIPTION = " + description);
+        
         descriptionLabel.setText(description);
         
 //        bookDescription.setEditable(false);
@@ -70,6 +71,9 @@ public class BookDetails extends javax.swing.JDialog {
 //         bookCover.repaint();
 //         bookCover.setVisible(true);
          System.out.println("REPAINTED JPANEL");
+    }
+    private void onCancel() {
+        dispose();
     }
     
 
@@ -107,10 +111,10 @@ public class BookDetails extends javax.swing.JDialog {
         bookDetails.setForeground(new java.awt.Color(0, 204, 255));
         bookDetails.setText("Book Details");
 
-        title.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        title.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         title.setText("Title");
 
-        authors.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        authors.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         authors.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         authors.setText("Author");
 
@@ -123,6 +127,7 @@ public class BookDetails extends javax.swing.JDialog {
         titleLabel1.setText("Author");
 
         descriptionLabel.setText("jLabel1");
+        descriptionLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         descriptionLabel.setAutoscrolls(true);
         descriptionLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -263,10 +268,11 @@ public class BookDetails extends javax.swing.JDialog {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         onAdd();
+        
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        // TODO add your handling code here:
+        onCancel();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
 

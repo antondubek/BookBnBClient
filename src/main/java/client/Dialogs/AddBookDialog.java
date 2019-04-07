@@ -57,16 +57,21 @@ public class AddBookDialog extends javax.swing.JDialog {
     public void onLookUp() throws Exception{
         String ISBN = isbnGoogle.getText().trim();
         String[] details = ISBNLookUp.searchBook(ISBN);
-        String title = details[0];
-        String author = details[1];
-        String url = details[2];
-        System.out.println("TITLE = " + title);
-        System.out.println("AUTHOR = " + author);
-        System.out.println("URL = "+ url);
+        if (!details[0].equals("NO MATCHES FOUND")) {
+            String title = details[0];
+            String author = details[1];
+            String url = details[2];
+            System.out.println("TITLE = " + title);
+            System.out.println("AUTHOR = " + author);
+            System.out.println("URL = "+ url);
         
-        Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
-        BookDetails bookDetails = new BookDetails(topFrame, true, details, ISBN);
-        bookDetails.setVisible(true);
+            Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+            BookDetails bookDetails = new BookDetails(topFrame, true, details, ISBN);
+            bookDetails.setVisible(true);
+        } else {
+            System.out.println("NOT FOUND");
+        }
+        
         
     }
 
@@ -74,7 +79,7 @@ public class AddBookDialog extends javax.swing.JDialog {
      * Method called when the Cancel button is pressed.
      * Simply closes the dialog box.
      */
-    private void onCancel() {
+    public void onCancel() {
         dispose();
     }
     
