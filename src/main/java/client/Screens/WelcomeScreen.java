@@ -1,8 +1,6 @@
-
 package client.Screens;
 
 import client.Controller;
-
 import java.awt.*;
 
 /**
@@ -21,9 +19,9 @@ public class WelcomeScreen extends javax.swing.JPanel {
     /**
      * Checks whether the server is available and set the status accordingly
      */
-    public void checkServerStatus(){
-        
-        if(Controller.isAvailable){
+    public void checkServerStatus() {
+
+        if (Controller.isAvailable) {
             statusBtn.setText("Available");
             statusBtn.setBackground(new Color(0,255,0));
             statusBtn.setForeground(new Color(255,255,255));
@@ -59,7 +57,7 @@ public class WelcomeScreen extends javax.swing.JPanel {
 
         blurb.setFont(new java.awt.Font("Lantinghei SC", 0, 18)); // NOI18N
         blurb.setForeground(new java.awt.Color(255, 255, 255));
-        blurb.setText("<html>BookBnB is a peer to peer book lending platform <br> which allows users in a local area to publish and share books with one another.");
+        blurb.setText("<html>BookBnB is a peer to peer book lending platform which allows users in a local area to publish and share books with one another.");
 
         blurb1.setFont(new java.awt.Font("Lantinghei SC", 1, 18)); // NOI18N
         blurb1.setForeground(new java.awt.Color(255, 255, 255));
@@ -117,7 +115,9 @@ public class WelcomeScreen extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void statusBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusBtnActionPerformed
-        // TODO add your handling code here:
+        //Will refresh the status indicator
+        Controller.getServerStatus();
+        checkServerStatus();
     }//GEN-LAST:event_statusBtnActionPerformed
 
 

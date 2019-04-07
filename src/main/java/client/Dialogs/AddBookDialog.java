@@ -1,4 +1,3 @@
-
 package client.Dialogs;
 
 import client.Controller;
@@ -6,19 +5,21 @@ import client.ISBNLookUp;
 import java.awt.Frame;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
- *
- * @author amakepeace
+ * Simple dialog box which will allow the user to input the data of a new book
+ * they wish to add to their collection.
  */
 public class AddBookDialog extends javax.swing.JDialog {
 
     /**
      * Constructor
-     * @param parent Parent Frame of the dialog, only used to centre the box on top of the parent frame.
+     *
+     * @param parent Parent Frame of the dialog, only used to center the box on
+     * top of the parent frame.
      */
     public AddBookDialog(java.awt.Frame parent, boolean modal) {
         super(parent, "Add New Book", modal);
@@ -26,12 +27,11 @@ public class AddBookDialog extends javax.swing.JDialog {
         setResizable(false);
         setLocationRelativeTo(parent);
     }
-   
 
     /**
-     * Method executed when the OK button is pressed.
-     * Reads in the data and sends it to the controller for sending to the server.
-     * Then disposes itself or gives an error and asks the user to try again.
+     * Method executed when the OK button is pressed. Reads in the data and
+     * sends it to the controller for sending to the server. Then disposes
+     * itself or gives an error and asks the user to try again.
      */
     private void onOK() {
 
@@ -39,8 +39,8 @@ public class AddBookDialog extends javax.swing.JDialog {
         String author = authorTxt.getText().trim();
         String title = titleTxt.getText().trim();
         String edition = editionTxt.getText().trim();
-        
-        if(!checkBookInput(ISBN, author, title, edition)){
+
+        if (!checkBookInput(ISBN, author, title, edition)) {
             return;
         }
 
@@ -55,50 +55,53 @@ public class AddBookDialog extends javax.swing.JDialog {
             pack();
         }
     }
-    
+
     /**
-     * This method will call the ISBNLookUp search book by sending the ISBN 
+     * This method will call the ISBNLookUp search book by sending the ISBN
      * entered in the text field by the user
-     * @throws Exception 
+     *
+     * @throws Exception
      */
-    public void onLookUp() throws Exception{
+    public void onLookUp() throws Exception {
         String ISBN = isbnGoogle.getText().trim();
         String[] details = ISBNLookUp.searchBook(ISBN);
-        
+
         if (!details[0].equals("NO MATCHES FOUND")) {
-        
+
             Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
             BookDetails bookDetails = new BookDetails(topFrame, true, details, ISBN);
             bookDetails.setVisible(true);
-            
+
+            dispose();
+
         } else {
             JPanel panel = new JPanel();
             JOptionPane.showMessageDialog(panel, "Book not found, you can add the book manually ", "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println("NOT FOUND");
         }
-        
-        
+
     }
 
     /**
-     * Method called when the Cancel button is pressed.
-     * Simply closes the dialog box.
+     * Method called when the Cancel button is pressed. Simply closes the dialog
+     * box.
      */
     public void onCancel() {
         dispose();
     }
-    
+
     /**
      * Checks that the input text for adding a book is correct by checking for
      * null, empty and non alphanumeric characters. Will set error message if
      * needed to something relevant.
+     *
      * @param ISBN ISBN input text
      * @param author Author input text
      * @param title Title input text
      * @param edition Edition input text
      * @return True, everything passed and is okay, False there is an error.
      */
-    public boolean checkBookInput(String ISBN, String author, String title, 
+    public boolean checkBookInput(String ISBN, String author, String title,
             String edition) {
         if (ISBN == null || author == null || title == null || edition == null) {
             errorTxt.setText("Error: null values are not permitted");
@@ -111,18 +114,17 @@ public class AddBookDialog extends javax.swing.JDialog {
         }
 
         //TODO: Add in further validation of ISBN / check if this is correct
-        if(!ISBN.matches("[0-9]+")) {
+        if (!ISBN.matches("[0-9]+")) {
             errorTxt.setText("Error: Please insert the ISBN as numbers only");
             return false;
         }
 
-        
-        if (!author.matches("[a-zA-Z0-9 ]+") || !title.matches("[a-zA-Z0-9 ]+") 
+        if (!author.matches("[a-zA-Z0-9 ]+") || !title.matches("[a-zA-Z0-9 ]+")
                 || !title.matches("[a-zA-Z0-9 ]+")) {
             errorTxt.setText("Error: Please use alphanumeric characters only");
             return false;
         }
-        
+
         return true;
     }
 
@@ -353,7 +355,6 @@ public class AddBookDialog extends javax.swing.JDialog {
             Logger.getLogger(AddBookDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_lookUpActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ISBNTxt;

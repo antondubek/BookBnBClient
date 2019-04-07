@@ -1,19 +1,14 @@
-
 package client.Screens;
 
 import client.Book;
+import client.BorrowedBook;
 import client.Controller;
-import static client.Controller.email;
 import client.Dialogs.AddBookDialog;
+import client.TabelModels.BorrowedBooksTableModel;
+import client.TabelModels.MyBooksTableModel;
 import java.awt.Frame;
-import java.awt.Image;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.SwingUtilities;
-import javax.swing.table.AbstractTableModel;
-import org.json.JSONObject;
 
 /**
  * Class creates the screen for displaying the user's books
@@ -21,121 +16,72 @@ import org.json.JSONObject;
 public class MyBooksScreen extends javax.swing.JPanel {
 
     private ArrayList<Book> userBooks;
-    
+    private ArrayList<BorrowedBook> borrowedBooks;
+    private ArrayList<BorrowedBook> loanedBooks;
+
     /**
      * Creates new form MyBooksScreen
      */
     public MyBooksScreen() {
         initComponents();
-        populateTable();
+        populateTables();
     }
-    
-    /**
-     * Sets the model for the browse books table and the user books table. This will also populate the tables
-     * with data collected from the server via the controller.
-     * Also adds a pop up menu and listener to the browse books table which allows the user to request a book by right
-     * clicking on an entry in the table.
-     */
-    public void populateTable() {
 
-        if(Controller.loggedIn){
+    /**
+     * This will run the methods below and populate all the tables. Will be
+     * called once the user logs in.
+     */
+    public void populateTables() {
+        populateMyBooksTable();
+        populateBorrowedBooksTable();
+        //populateLoanedBooksTable();
+    }
+
+    /**
+     * This will populate the my books table with data collected from the server
+     * via the controller and set the table model.
+     */
+    public void populateMyBooksTable() {
+
+        if (Controller.loggedIn) {
             userBooks = Controller.getUserBooks();
         } else {
             userBooks = new ArrayList<>();
         }
 
-        TableModelUser userBooksTableModel = new TableModelUser(userBooks);
+        MyBooksTableModel userBooksTableModel = new MyBooksTableModel(userBooks, this);
 
         yourBooksTable.setModel(userBooksTableModel);
         yourBooksTable.setAutoCreateRowSorter(true);
 
     }
-    
+
     /**
-     * Table model class used to define how the table should look and populates it with books.
+     * This will populate the borrowed book table with data collected from the
+     * server via the controller and set the table model.
      */
-    class TableModelUser extends AbstractTableModel {
+    private void populateBorrowedBooksTable() {
 
-        private ArrayList<Book> books;
-        String headers[] = new String[]{"Title", "Author", "ISBN", "Available"};
-
-        public TableModelUser(ArrayList<Book> books) {
-            this.books = books;
+        if (Controller.loggedIn) {
+            borrowedBooks = Controller.getBorrowedBooks();
+        } else {
+            borrowedBooks = new ArrayList<>();
         }
 
-        @Override
-        public int getRowCount() {
-            return books.size();
-        }
+        BorrowedBooksTableModel borrowedBooksTableModel = new BorrowedBooksTableModel(borrowedBooks);
 
-        @Override
-        public int getColumnCount() {
-            return headers.length;
-        }
+        borrowedBooksTable.setModel(borrowedBooksTableModel);
 
-        @Override
-        public Object getValueAt(int rowIndex, int columnIndex) {
-
-            Book book = books.get(rowIndex);
-
-            switch (columnIndex) {
-                case 0:
-                    return book.getTitle();
-                case 1:
-                    return book.getAuthor();
-                case 2:
-                    return book.getISBN();
-                case 3:
-                    return book.getAvailability();
-                default:
-                    return "";
-            }
-
-        }
-
-        @Override
-        public String getColumnName(int column) {
-            return headers[column];
-        }
-
-        @Override
-        public Class<?> getColumnClass(int columnIndex) {
-            if(columnIndex == 3){
-                return Boolean.class;
-            } else {
-                return String.class;
-            }
-        }
-
-        //Removed the isCell editable functionality so that user cannot check or uncheck the box until
-        //back end functionality has been implemented.
-        @Override
-        public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return columnIndex == 3;
-        }
-        
-        /**
-         * listener for the tickBox which sets the availability of the selected book
-         * @param aValue
-         * @param rowIndex
-         * @param columnIndex 
-         */
-        @Override
-        public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-
-            if(aValue instanceof Boolean && columnIndex == 3){
-                books.get(rowIndex).setAvailability((Boolean) aValue);
-                
-                String ISBN = books.get(rowIndex).ISBN;
-                Boolean available = books.get(rowIndex).availability;
-                String copyID = books.get(rowIndex).copyID;
-                
-                client.Controller.updateBookAvailability(email, ISBN, available, copyID);
-                populateTable();
-            }
-        }
     }
 
+    /**
+     * This will populate the loaned books table with data collected from the
+     * server via the controller and set the table model.
+     */
+//    private void populateLoanedBooksTable() {
+//
+//
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -146,12 +92,20 @@ public class MyBooksScreen extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        myBooksPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         yourBooksTable = new javax.swing.JTable();
         addBookBtn = new javax.swing.JButton();
+        borrowedBooksPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        borrowedBooksTable = new javax.swing.JTable();
+        LoanedBooksTab = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        loanedBooksTable = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(0, 204, 255));
+        setName("MyBooks"); // NOI18N
         setPreferredSize(new java.awt.Dimension(740, 335));
 
         jLabel1.setBackground(new java.awt.Color(0, 204, 255));
@@ -159,8 +113,9 @@ public class MyBooksScreen extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("MyBooks");
 
-        jPanel1.setBackground(new java.awt.Color(0, 204, 255));
-        jPanel1.setForeground(new java.awt.Color(102, 102, 102));
+        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+
+        myBooksPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         yourBooksTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -173,6 +128,7 @@ public class MyBooksScreen extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        yourBooksTable.setGridColor(new java.awt.Color(0, 204, 255));
         jScrollPane1.setViewportView(yourBooksTable);
 
         addBookBtn.setBackground(new java.awt.Color(0, 204, 255));
@@ -186,68 +142,149 @@ public class MyBooksScreen extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(224, 224, 224)
-                        .addComponent(addBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout myBooksPanelLayout = new javax.swing.GroupLayout(myBooksPanel);
+        myBooksPanel.setLayout(myBooksPanelLayout);
+        myBooksPanelLayout.setHorizontalGroup(
+            myBooksPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(myBooksPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(addBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(myBooksPanelLayout.createSequentialGroup()
+                .addGap(204, 204, 204)
+                .addComponent(addBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        myBooksPanelLayout.setVerticalGroup(
+            myBooksPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(myBooksPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(addBookBtn)
+                .addGap(6, 6, 6))
+        );
+
+        jTabbedPane1.addTab("My Books", myBooksPanel);
+
+        borrowedBooksPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        borrowedBooksPanel2.setForeground(new java.awt.Color(102, 102, 102));
+
+        borrowedBooksTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        borrowedBooksTable.setGridColor(new java.awt.Color(0, 204, 255));
+        jScrollPane2.setViewportView(borrowedBooksTable);
+
+        javax.swing.GroupLayout borrowedBooksPanel2Layout = new javax.swing.GroupLayout(borrowedBooksPanel2);
+        borrowedBooksPanel2.setLayout(borrowedBooksPanel2Layout);
+        borrowedBooksPanel2Layout.setHorizontalGroup(
+            borrowedBooksPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, borrowedBooksPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        borrowedBooksPanel2Layout.setVerticalGroup(
+            borrowedBooksPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, borrowedBooksPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Borrowed Books", borrowedBooksPanel2);
+
+        LoanedBooksTab.setBackground(new java.awt.Color(255, 255, 255));
+        LoanedBooksTab.setForeground(new java.awt.Color(102, 102, 102));
+
+        loanedBooksTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        loanedBooksTable.setGridColor(new java.awt.Color(0, 204, 255));
+        jScrollPane3.setViewportView(loanedBooksTable);
+
+        javax.swing.GroupLayout LoanedBooksTabLayout = new javax.swing.GroupLayout(LoanedBooksTab);
+        LoanedBooksTab.setLayout(LoanedBooksTabLayout);
+        LoanedBooksTabLayout.setHorizontalGroup(
+            LoanedBooksTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoanedBooksTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        LoanedBooksTabLayout.setVerticalGroup(
+            LoanedBooksTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoanedBooksTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Loaned Books", LoanedBooksTab);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(288, 288, 288)
-                        .addComponent(jLabel1)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(286, 286, 286)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
+
+        jTabbedPane1.getAccessibleContext().setAccessibleName("MyBooks");
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookBtnActionPerformed
+
         Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
         AddBookDialog addBookDialog = new AddBookDialog(topFrame, true);
         addBookDialog.setVisible(true);
-        populateTable();
+        populateMyBooksTable();
     }//GEN-LAST:event_addBookBtnActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel LoanedBooksTab;
     private javax.swing.JButton addBookBtn;
+    private javax.swing.JPanel borrowedBooksPanel2;
+    private javax.swing.JTable borrowedBooksTable;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable loanedBooksTable;
+    private javax.swing.JPanel myBooksPanel;
     private javax.swing.JTable yourBooksTable;
     // End of variables declaration//GEN-END:variables
 }
