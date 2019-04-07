@@ -23,12 +23,12 @@ public class WelcomeScreen extends javax.swing.JPanel {
 
         if (Controller.isAvailable) {
             statusBtn.setText("Available");
-            statusBtn.setBackground(new Color(0, 255, 0));
-            statusBtn.setForeground(new Color(0, 255, 0));
+            statusBtn.setBackground(new Color(0,255,0));
+            statusBtn.setForeground(new Color(255,255,255));
         } else {
             statusBtn.setText("Unavailable");
-            statusBtn.setBackground(new Color(255, 0, 0));
-            statusBtn.setForeground(new Color(255, 0, 0));
+            statusBtn.setBackground(new Color(255,0,0));
+            statusBtn.setForeground(new Color(255,255,255));
         }
 
     }
@@ -115,11 +115,11 @@ public class WelcomeScreen extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void statusBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusBtnActionPerformed
-
         //Will refresh the status indicator
         Controller.getServerStatus();
         checkServerStatus();
     }//GEN-LAST:event_statusBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel blurb;

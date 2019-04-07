@@ -20,6 +20,10 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+    
+    compile 'com.google.apis:google-api-services-books:v1-rev20181212-1.28.0'
+
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
 
     implementation "org.mindrot:jbcrypt:0.4"
 
