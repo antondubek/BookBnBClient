@@ -7,6 +7,8 @@ import java.awt.Frame;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -69,6 +71,8 @@ public class AddBookDialog extends javax.swing.JDialog {
             BookDetails bookDetails = new BookDetails(topFrame, true, details, ISBN);
             bookDetails.setVisible(true);
         } else {
+            JPanel panel = new JPanel();
+            JOptionPane.showMessageDialog(panel, "BOOK NOT FOUND", "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println("NOT FOUND");
         }
         
