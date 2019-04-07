@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package client;
 
 /**
- *
- * 
+ * Lender class which contains all the information about the lender of a
+ * specific book.
  */
 public class Lender {
-   
+
     private String name;
     private String loanLength;
     private String city;
@@ -40,10 +35,9 @@ public class Lender {
     public String getID() {
         return ID;
     }
-    
-    public String getCopyID(){
+
+    public String getCopyID() {
         return copyID;
     }
-    
-    
+
 }

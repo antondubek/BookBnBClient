@@ -429,6 +429,11 @@ public class Controller {
 
     }
 
+    /**
+     * Requests all the books the user is borrowing from the server
+     *
+     * @return A list of borrowed books
+     */
     public static ArrayList<BorrowedBook> getBorrowedBooks() {
 
         JSONObject data = new JSONObject();

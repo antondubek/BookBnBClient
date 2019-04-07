@@ -1,5 +1,9 @@
 package client;
 
+/**
+ * Class which contains all the information about a book that is borrowed.
+ *
+ */
 public class BorrowedBook extends Book {
 
     private String status;
@@ -35,6 +39,5 @@ public class BorrowedBook extends Book {
     public String getEndDate() {
         return endDate;
     }
-    
-    
+
 }

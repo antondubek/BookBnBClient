@@ -1,17 +1,18 @@
-
 package client.Dialogs;
 
 import client.Controller;
 
 /**
- *
- * @author amakepeace
+ * Simple dialog box which will allow the user to input the data of a new book
+ * they wish to add to their collection.
  */
 public class AddBookDialog extends javax.swing.JDialog {
 
     /**
      * Constructor
-     * @param parent Parent Frame of the dialog, only used to center the box on top of the parent frame.
+     *
+     * @param parent Parent Frame of the dialog, only used to center the box on
+     * top of the parent frame.
      */
     public AddBookDialog(java.awt.Frame parent, boolean modal) {
         super(parent, "Add New Book", modal);
@@ -19,12 +20,11 @@ public class AddBookDialog extends javax.swing.JDialog {
         setResizable(false);
         setLocationRelativeTo(parent);
     }
-   
 
     /**
-     * Method executed when the OK button is pressed.
-     * Reads in the data and sends it to the controller for sending to the server.
-     * Then disposes itself or gives an error and asks the user to try again.
+     * Method executed when the OK button is pressed. Reads in the data and
+     * sends it to the controller for sending to the server. Then disposes
+     * itself or gives an error and asks the user to try again.
      */
     private void onOK() {
 
@@ -32,8 +32,8 @@ public class AddBookDialog extends javax.swing.JDialog {
         String author = authorTxt.getText().trim();
         String title = titleTxt.getText().trim();
         String edition = editionTxt.getText().trim();
-        
-        if(!checkBookInput(ISBN, author, title, edition)){
+
+        if (!checkBookInput(ISBN, author, title, edition)) {
             return;
         }
 
@@ -50,24 +50,25 @@ public class AddBookDialog extends javax.swing.JDialog {
     }
 
     /**
-     * Method called when the Cancel button is pressed.
-     * Simply closes the dialog box.
+     * Method called when the Cancel button is pressed. Simply closes the dialog
+     * box.
      */
     private void onCancel() {
         dispose();
     }
-    
+
     /**
      * Checks that the input text for adding a book is correct by checking for
      * null, empty and non alphanumeric characters. Will set error message if
      * needed to something relevant.
+     *
      * @param ISBN ISBN input text
      * @param author Author input text
      * @param title Title input text
      * @param edition Edition input text
      * @return True, everything passed and is okay, False there is an error.
      */
-    public boolean checkBookInput(String ISBN, String author, String title, 
+    public boolean checkBookInput(String ISBN, String author, String title,
             String edition) {
         if (ISBN == null || author == null || title == null || edition == null) {
             errorTxt.setText("Error: null values are not permitted");
@@ -80,18 +81,17 @@ public class AddBookDialog extends javax.swing.JDialog {
         }
 
         //TODO: Add in further validation of ISBN / check if this is correct
-        if(!ISBN.matches("[0-9]+")) {
+        if (!ISBN.matches("[0-9]+")) {
             errorTxt.setText("Error: Please insert the ISBN as numbers only");
             return false;
         }
 
-        
-        if (!author.matches("[a-zA-Z0-9 ]+") || !title.matches("[a-zA-Z0-9 ]+") 
+        if (!author.matches("[a-zA-Z0-9 ]+") || !title.matches("[a-zA-Z0-9 ]+")
                 || !title.matches("[a-zA-Z0-9 ]+")) {
             errorTxt.setText("Error: Please use alphanumeric characters only");
             return false;
         }
-        
+
         return true;
     }
 
@@ -276,7 +276,6 @@ public class AddBookDialog extends javax.swing.JDialog {
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         onCancel();
     }//GEN-LAST:event_buttonCancelActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ISBNTxt;

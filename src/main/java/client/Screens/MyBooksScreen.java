@@ -3,12 +3,12 @@ package client.Screens;
 import client.Book;
 import client.BorrowedBook;
 import client.Controller;
-import static client.Controller.email;
 import client.Dialogs.AddBookDialog;
+import client.TabelModels.BorrowedBooksTableModel;
+import client.TabelModels.MyBooksTableModel;
 import java.awt.Frame;
 import java.util.ArrayList;
 import javax.swing.SwingUtilities;
-import javax.swing.table.AbstractTableModel;
 
 /**
  * Class creates the screen for displaying the user's books
@@ -27,20 +27,21 @@ public class MyBooksScreen extends javax.swing.JPanel {
         populateTables();
     }
 
+    /**
+     * This will run the methods below and populate all the tables. Will be
+     * called once the user logs in.
+     */
     public void populateTables() {
         populateMyBooksTable();
         populateBorrowedBooksTable();
-        populateLoanedBooksTable();
+        //populateLoanedBooksTable();
     }
 
     /**
-     * Sets the model for the browse books table and the user books table. This
-     * will also populate the tables with data collected from the server via the
-     * controller. Also adds a pop up menu and listener to the browse books
-     * table which allows the user to request a book by right clicking on an
-     * entry in the table.
+     * This will populate the my books table with data collected from the server
+     * via the controller and set the table model.
      */
-    private void populateMyBooksTable() {
+    public void populateMyBooksTable() {
 
         if (Controller.loggedIn) {
             userBooks = Controller.getUserBooks();
@@ -48,13 +49,17 @@ public class MyBooksScreen extends javax.swing.JPanel {
             userBooks = new ArrayList<>();
         }
 
-        MyBooksTableModel userBooksTableModel = new MyBooksTableModel(userBooks);
+        MyBooksTableModel userBooksTableModel = new MyBooksTableModel(userBooks, this);
 
         yourBooksTable.setModel(userBooksTableModel);
         yourBooksTable.setAutoCreateRowSorter(true);
 
     }
 
+    /**
+     * This will populate the borrowed book table with data collected from the
+     * server via the controller and set the table model.
+     */
     private void populateBorrowedBooksTable() {
 
         if (Controller.loggedIn) {
@@ -69,164 +74,14 @@ public class MyBooksScreen extends javax.swing.JPanel {
 
     }
 
-    private void populateLoanedBooksTable() {
-
-        if (Controller.loggedIn) {
-            borrowedBooks = Controller.getBorrowedBooks();
-        } else {
-            borrowedBooks = new ArrayList<>();
-        }
-
-        BorrowedBooksTableModel borrowedBooksTableModel = new BorrowedBooksTableModel(borrowedBooks);
-
-        borrowedBooksTable.setModel(borrowedBooksTableModel);
-    }
-
     /**
-     * Table model class used to define how the table should look and populates
-     * it with books.
+     * This will populate the loaned books table with data collected from the
+     * server via the controller and set the table model.
      */
-    class MyBooksTableModel extends AbstractTableModel {
-
-        private ArrayList<Book> books;
-        String headers[] = new String[]{"Title", "Author", "ISBN", "Available"};
-
-        public MyBooksTableModel(ArrayList<Book> books) {
-            this.books = books;
-        }
-
-        @Override
-        public int getRowCount() {
-            return books.size();
-        }
-
-        @Override
-        public int getColumnCount() {
-            return headers.length;
-        }
-
-        @Override
-        public Object getValueAt(int rowIndex, int columnIndex) {
-
-            Book book = books.get(rowIndex);
-
-            switch (columnIndex) {
-                case 0:
-                    return book.getTitle();
-                case 1:
-                    return book.getAuthor();
-                case 2:
-                    return book.getISBN();
-                case 3:
-                    return book.getAvailability();
-                default:
-                    return "";
-            }
-
-        }
-
-        @Override
-        public String getColumnName(int column) {
-            return headers[column];
-        }
-
-        @Override
-        public Class<?> getColumnClass(int columnIndex) {
-            if (columnIndex == 3) {
-                return Boolean.class;
-            } else {
-                return String.class;
-            }
-        }
-
-        //Removed the isCell editable functionality so that user cannot check or uncheck the box until
-        //back end functionality has been implemented.
-        @Override
-        public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return columnIndex == 3;
-        }
-
-        /**
-         * listener for the tickBox which sets the availability of the selected
-         * book
-         *
-         * @param aValue
-         * @param rowIndex
-         * @param columnIndex
-         */
-        @Override
-        public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-
-            if (aValue instanceof Boolean && columnIndex == 3) {
-                books.get(rowIndex).setAvailability((Boolean) aValue);
-
-                String ISBN = books.get(rowIndex).ISBN;
-                Boolean available = books.get(rowIndex).availability;
-                String copyID = books.get(rowIndex).copyID;
-
-                client.Controller.updateBookAvailability(email, ISBN, available, copyID);
-                populateMyBooksTable();
-            }
-        }
-    }
-
-    /**
-     * Table model class used to define how the table should look and populates
-     * it with books.
-     */
-    class BorrowedBooksTableModel extends AbstractTableModel {
-
-        private ArrayList<BorrowedBook> books;
-        String headers[] = new String[]{"Title", "Author", "Borrowed From", "Status"};
-
-        public BorrowedBooksTableModel(ArrayList<BorrowedBook> books) {
-            this.books = books;
-        }
-
-        @Override
-        public int getRowCount() {
-            return books.size();
-        }
-
-        @Override
-        public int getColumnCount() {
-            return headers.length;
-        }
-
-        @Override
-        public Object getValueAt(int rowIndex, int columnIndex) {
-
-            BorrowedBook book = books.get(rowIndex);
-
-            switch (columnIndex) {
-                case 0:
-                    return book.getTitle();
-                case 1:
-                    return book.getAuthor();
-                case 2:
-                    return book.getLenderName();
-                case 3:
-                    return book.getStatus();
-                default:
-                    return "";
-            }
-
-        }
-
-        @Override
-        public String getColumnName(int column) {
-            return headers[column];
-        }
-
-        @Override
-        public Class<?> getColumnClass(int columnIndex) {
-
-            return String.class;
-
-        }
-
-    }
-
+//    private void populateLoanedBooksTable() {
+//
+//
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

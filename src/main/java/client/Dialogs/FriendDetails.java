@@ -1,10 +1,10 @@
 package client.Dialogs;
 
 import client.Book;
-import client.ClassicBookTableModel;
-import client.ClassicTableMouseListener;
 import client.Controller;
 import client.MainLayout;
+import client.TabelModels.ClassicBookTableModel;
+import client.TabelModels.TableMouseListener;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -97,7 +97,7 @@ public class FriendDetails extends javax.swing.JDialog implements ActionListener
         menuItemInfo.addActionListener(this);
 
         bookTable.setComponentPopupMenu(popupMenu);
-        bookTable.addMouseListener(new ClassicTableMouseListener(bookTable));
+        bookTable.addMouseListener(new TableMouseListener(bookTable));
 
     }
 
