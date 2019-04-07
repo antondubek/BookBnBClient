@@ -26,11 +26,11 @@ public class WelcomeScreen extends javax.swing.JPanel {
         if(Controller.isAvailable){
             statusBtn.setText("Available");
             statusBtn.setBackground(new Color(0,255,0));
-            statusBtn.setForeground(new Color(0,255,0));
+            statusBtn.setForeground(new Color(255,255,255));
         } else {
             statusBtn.setText("Unavailable");
             statusBtn.setBackground(new Color(255,0,0));
-            statusBtn.setForeground(new Color(255,0,0));
+            statusBtn.setForeground(new Color(255,255,255));
         }
 
     }
@@ -72,6 +72,11 @@ public class WelcomeScreen extends javax.swing.JPanel {
 
         statusBtn.setBackground(new java.awt.Color(255, 102, 102));
         statusBtn.setForeground(new java.awt.Color(255, 255, 255));
+        statusBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -104,12 +109,16 @@ public class WelcomeScreen extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(blurb1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(statusTxt)
                     .addComponent(statusBtn))
                 .addGap(23, 23, 23))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void statusBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statusBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
