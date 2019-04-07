@@ -26,11 +26,11 @@ public class WelcomeScreen extends javax.swing.JPanel {
         if(Controller.isAvailable){
             statusBtn.setText("Available");
             statusBtn.setBackground(new Color(0,255,0));
-            statusBtn.setForeground(new Color(0,255,0));
+            statusBtn.setForeground(new Color(255,255,255));
         } else {
             statusBtn.setText("Unavailable");
             statusBtn.setBackground(new Color(255,0,0));
-            statusBtn.setForeground(new Color(255,0,0));
+            statusBtn.setForeground(new Color(255,255,255));
         }
 
     }
@@ -104,7 +104,7 @@ public class WelcomeScreen extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(blurb1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(statusTxt)
                     .addComponent(statusBtn))
                 .addGap(23, 23, 23))

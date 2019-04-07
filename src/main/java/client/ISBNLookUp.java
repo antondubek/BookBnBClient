@@ -29,6 +29,7 @@ public class ISBNLookUp {
         java.util.List<String> authors = new ArrayList<String>();
         String thumbnailLink = "";
         String info = "";
+        String description = "";
         //ClientCredentials.errorIfNotSpecified();
 
         // Set up Google Books client.
@@ -79,7 +80,8 @@ public class ISBNLookUp {
 
         // Description (if any).
         if (volumeInfo.getDescription() != null && volumeInfo.getDescription().length() > 0) {
-            System.out.println("Description: " + volumeInfo.getDescription());
+            description = volumeInfo.getDescription();
+            System.out.println("Description: " + description);
         }
         // Ratings (if any).
         if (volumeInfo.getRatingsCount() != null && volumeInfo.getRatingsCount() > 0) {
@@ -107,7 +109,7 @@ public class ISBNLookUp {
         }
         }
         info = String.join(",", authors);
-        String[] details = {title, info, thumbnailLink};
+        String[] details = {title, info, thumbnailLink, description};
         return details;
     }
      public static String[] searchBook(String ISBN) throws Exception {
