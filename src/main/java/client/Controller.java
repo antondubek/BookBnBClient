@@ -366,6 +366,11 @@ public class Controller {
 
     }
     
+    /**
+     * Retrieves all of the users that you can lend that specific book from
+     * @ISBN ISBN of the book you want to check for lenders
+     * @return An arraylist of lender objects
+     **/
     public static ArrayList<Lender> getLenders(String ISBN){
         
         String response = sendGetRequest("/book/lenders?ISBN=" + ISBN);
@@ -392,6 +397,13 @@ public class Controller {
         
     }
     
+    /**
+     * Sends request to borrow a book
+     * @param email Email of the user who wants to borrow
+     * @param lenderID The ID of the lender you wish to borrow from
+     * @param copyID Copy ID of the book
+     * @return  True (Request successful) False (Request Failed)
+     */
     public static boolean sendBorrowRequest(String email, String lenderID, String copyID){
         
         JSONObject data = new JSONObject();

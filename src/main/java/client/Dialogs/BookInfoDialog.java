@@ -114,7 +114,7 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
             
             if(response){
                 Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
-                JOptionPane.showMessageDialog(topFrame, "Request Sent");
+                JOptionPane.showMessageDialog(topFrame, "Request Sent Successfully");
             } else {
                 Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
                 JOptionPane.showMessageDialog(topFrame, "Request Failed");
