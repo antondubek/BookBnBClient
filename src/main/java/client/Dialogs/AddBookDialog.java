@@ -72,7 +72,7 @@ public class AddBookDialog extends javax.swing.JDialog {
             bookDetails.setVisible(true);
         } else {
             JPanel panel = new JPanel();
-            JOptionPane.showMessageDialog(panel, "BOOK NOT FOUND", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(panel, "Book not found, you can add the book manually ", "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println("NOT FOUND");
         }
         
