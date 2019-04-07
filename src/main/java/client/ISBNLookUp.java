@@ -31,11 +31,7 @@ public class ISBNLookUp {
      * @throws Exception 
      */
     private static String[] queryGoogleBooks(JsonFactory jsonFactory, String query) throws Exception {
-        String title = "";
-        java.util.List<String> authors = new ArrayList<String>();
-        String thumbnailLink = "";
-        String info;
-        String description = "";
+        
         String[] details = {""};
 
         // Set up Google Books client.
@@ -56,39 +52,7 @@ public class ISBNLookUp {
             return details;
             
         }
-
-        // Output results.
-        for (Volume volume : volumes.getItems()) {
-            Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();
-            
-            // Title.
-            title = volumeInfo.getTitle();
-
-            // Getting the url to the thumbnail
-            Volume.VolumeInfo.ImageLinks thumbnail = volumeInfo.getImageLinks();
-            thumbnailLink = (thumbnail).getThumbnail();
-           
-            // Author(s).
-            authors = volumeInfo.getAuthors();
-            if (authors != null && !authors.isEmpty()) {
-                for (int i = 0; i < authors.size(); ++i) {
-                    System.out.print(authors.get(i));
-                    if (i < authors.size() - 1) {
-                        System.out.print(", ");
-                    }
-                }
-                System.out.println();
-            }
-
-        // Description (if any).
-        if (volumeInfo.getDescription() != null && volumeInfo.getDescription().length() > 0) {
-            description = volumeInfo.getDescription();
-        }
-       }
-        
-        info = String.join(",", authors);
-        String[] detailS = {title, info, thumbnailLink, description};
-        return detailS;
+        return getDetails(volumes);
     }
     
     /**
@@ -133,4 +97,48 @@ public class ISBNLookUp {
 
         return isbn;
     }
+     
+     /**
+      * Gets the details of the book from the volumes with the same ISBN
+      * @param volumes books returned by the Query
+      * @return book details (Title, author and Description)
+      */
+     private static String[] getDetails(Volumes volumes){
+        String title = "";
+        java.util.List<String> authors = new ArrayList<String>();
+        String thumbnailLink = "";
+        String description = "";
+        String info;
+         // Output results.
+        for (Volume volume : volumes.getItems()) {
+            Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();
+            
+            // Title.
+            title = volumeInfo.getTitle();
+
+            // Getting the url to the thumbnail
+            Volume.VolumeInfo.ImageLinks thumbnail = volumeInfo.getImageLinks();
+            thumbnailLink = (thumbnail).getThumbnail();
+           
+            // Author(s).
+            authors = volumeInfo.getAuthors();
+            if (authors != null && !authors.isEmpty()) {
+                for (int i = 0; i < authors.size(); ++i) {
+                    System.out.print(authors.get(i));
+                    if (i < authors.size() - 1) {
+                        System.out.print(", ");
+                    }
+                }
+                System.out.println();
+            }
+
+            // Description (if any).
+            if (volumeInfo.getDescription() != null && volumeInfo.getDescription().length() > 0) {
+                description = volumeInfo.getDescription();
+            }
+       }
+        info = String.join(",", authors);
+        String[] details = {title, info, thumbnailLink, description};
+        return details;
+     }
 }

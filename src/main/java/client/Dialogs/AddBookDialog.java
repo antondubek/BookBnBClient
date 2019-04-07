@@ -209,12 +209,6 @@ public class AddBookDialog extends javax.swing.JDialog {
             }
         });
 
-        titleTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                titleTxtActionPerformed(evt);
-            }
-        });
-
         errorTxt.setFont(new java.awt.Font("Lantinghei SC", 0, 13)); // NOI18N
         errorTxt.setForeground(new java.awt.Color(255, 0, 0));
         errorTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -351,10 +345,6 @@ public class AddBookDialog extends javax.swing.JDialog {
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         onCancel();
     }//GEN-LAST:event_buttonCancelActionPerformed
-
-    private void titleTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titleTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_titleTxtActionPerformed
 
     private void lookUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lookUpActionPerformed
         try {
