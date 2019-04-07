@@ -59,7 +59,7 @@ public class WelcomeScreen extends javax.swing.JPanel {
 
         blurb.setFont(new java.awt.Font("Lantinghei SC", 0, 18)); // NOI18N
         blurb.setForeground(new java.awt.Color(255, 255, 255));
-        blurb.setText("<html>BookBnB is a peer to peer book lending platform <br> which allows users in a local area to publish and share books with one another.");
+        blurb.setText("<html>BookBnB is a peer to peer book lending platform which allows users in a local area to publish and share books with one another.");
 
         blurb1.setFont(new java.awt.Font("Lantinghei SC", 1, 18)); // NOI18N
         blurb1.setForeground(new java.awt.Color(255, 255, 255));
@@ -104,7 +104,7 @@ public class WelcomeScreen extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(blurb1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(statusTxt)
                     .addComponent(statusBtn))
                 .addGap(23, 23, 23))

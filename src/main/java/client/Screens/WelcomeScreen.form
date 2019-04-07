@@ -57,7 +57,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="blurb1" max="32767" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="statusTxt" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="statusBtn" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -86,7 +86,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;BookBnB is a peer to peer book lending platform &lt;br&gt; which allows users in a local area to publish and share books with one another."/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;BookBnB is a peer to peer book lending platform which allows users in a local area to publish and share books with one another."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="blurb1">

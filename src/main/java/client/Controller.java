@@ -346,6 +346,10 @@ public class Controller {
         
         System.out.println("LOG: Retrieving all books from server");
 
+        if(response.length() == 0){
+            return new ArrayList<Book>();
+        }
+            
         JSONArray allBooks = new JSONArray(response.toString());
         
         //System.out.println("All books response = " + response.toString());
@@ -381,7 +385,7 @@ public class Controller {
             JSONObject currentLender = bookLenders.getJSONObject(i);
             
             lenders.add(new Lender(currentLender.getString("name"), currentLender.getString("loanLength")
-            , currentLender.getString("city"), currentLender.getString("ID")));
+            , currentLender.getString("city"), currentLender.getString("id")));
         }
         
         return lenders;
