@@ -1,8 +1,6 @@
-
 package client.Screens;
 
 import client.Controller;
-
 import java.awt.*;
 
 /**
@@ -21,16 +19,16 @@ public class WelcomeScreen extends javax.swing.JPanel {
     /**
      * Checks whether the server is available and set the status accordingly
      */
-    public void checkServerStatus(){
-        
-        if(Controller.isAvailable){
+    public void checkServerStatus() {
+
+        if (Controller.isAvailable) {
             statusBtn.setText("Available");
-            statusBtn.setBackground(new Color(0,255,0));
-            statusBtn.setForeground(new Color(0,255,0));
+            statusBtn.setBackground(new Color(0, 255, 0));
+            statusBtn.setForeground(new Color(0, 255, 0));
         } else {
             statusBtn.setText("Unavailable");
-            statusBtn.setBackground(new Color(255,0,0));
-            statusBtn.setForeground(new Color(255,0,0));
+            statusBtn.setBackground(new Color(255, 0, 0));
+            statusBtn.setForeground(new Color(255, 0, 0));
         }
 
     }
@@ -72,6 +70,11 @@ public class WelcomeScreen extends javax.swing.JPanel {
 
         statusBtn.setBackground(new java.awt.Color(255, 102, 102));
         statusBtn.setForeground(new java.awt.Color(255, 255, 255));
+        statusBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -111,6 +114,12 @@ public class WelcomeScreen extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void statusBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusBtnActionPerformed
+
+        //Will refresh the status indicator
+        Controller.getServerStatus();
+        checkServerStatus();
+    }//GEN-LAST:event_statusBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel blurb;

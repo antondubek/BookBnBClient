@@ -1,22 +1,19 @@
 package client.Dialogs;
 
 import client.Book;
+import client.ClassicBookTableModel;
+import client.ClassicTableMouseListener;
 import client.Controller;
 import client.MainLayout;
 import java.awt.Color;
 import java.awt.Frame;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
-import javax.swing.table.AbstractTableModel;
 
 /**
  * Dialog Box which shows the details of the user searched
@@ -88,7 +85,7 @@ public class FriendDetails extends javax.swing.JDialog implements ActionListener
     public void populateTable(String email) {
 
         userBooks = Controller.getSearchedUserBooks(email);
-        TableModelUser userBooksTableModel = new TableModelUser(userBooks);
+        ClassicBookTableModel userBooksTableModel = new ClassicBookTableModel(userBooks);
 
         bookTable.setModel(userBooksTableModel);
         bookTable.setAutoCreateRowSorter(true);
@@ -100,7 +97,7 @@ public class FriendDetails extends javax.swing.JDialog implements ActionListener
         menuItemInfo.addActionListener(this);
 
         bookTable.setComponentPopupMenu(popupMenu);
-        bookTable.addMouseListener(new TableMouseListener(bookTable));
+        bookTable.addMouseListener(new ClassicTableMouseListener(bookTable));
 
     }
 
@@ -162,93 +159,6 @@ public class FriendDetails extends javax.swing.JDialog implements ActionListener
             errorLabel.setText("");
         }
 
-    }
-
-    /**
-     * Table model class used to define how the table should look and populates
-     * it with books.
-     */
-    class TableModelUser extends AbstractTableModel {
-
-        private ArrayList<Book> books;
-        String headers[] = new String[]{"Title", "Author", "ISBN", "Available"};
-
-        public TableModelUser(ArrayList<Book> books) {
-            this.books = books;
-        }
-
-        @Override
-        public int getRowCount() {
-            return books.size();
-        }
-
-        @Override
-        public int getColumnCount() {
-            return headers.length;
-        }
-
-        @Override
-        public Object getValueAt(int rowIndex, int columnIndex) {
-
-            Book book = books.get(rowIndex);
-
-            switch (columnIndex) {
-                case 0:
-                    return book.getTitle();
-                case 1:
-                    return book.getAuthor();
-                case 2:
-                    return book.getISBN();
-                case 3:
-                    return book.getAvailability();
-                default:
-                    return "";
-            }
-
-        }
-
-        @Override
-        public String getColumnName(int column) {
-            return headers[column];
-        }
-
-        @Override
-        public Class<?> getColumnClass(int columnIndex) {
-            if (columnIndex == 3) {
-                return Boolean.class;
-            } else {
-                return String.class;
-            }
-        }
-
-        @Override
-        public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-
-            if (aValue instanceof Boolean && columnIndex == 3) {
-                books.get(rowIndex).setAvailability((Boolean) aValue);
-                //client.Controller.updateBookAvailability();
-            }
-        }
-    }
-
-    /**
-     * Mouse listener for the tables which gets the row when a row is clicked
-     * on.
-     */
-    class TableMouseListener extends MouseAdapter {
-
-        private JTable table;
-
-        TableMouseListener(JTable table) {
-            this.table = table;
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-            Point point = e.getPoint();
-            int currentRow = table.rowAtPoint(point);
-            table.setRowSelectionInterval(currentRow, currentRow);
-        }
     }
 
     /**

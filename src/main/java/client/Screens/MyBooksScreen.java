@@ -17,6 +17,7 @@ public class MyBooksScreen extends javax.swing.JPanel {
 
     private ArrayList<Book> userBooks;
     private ArrayList<BorrowedBook> borrowedBooks;
+    private ArrayList<BorrowedBook> loanedBooks;
 
     /**
      * Creates new form MyBooksScreen
@@ -29,6 +30,7 @@ public class MyBooksScreen extends javax.swing.JPanel {
     public void populateTables() {
         populateMyBooksTable();
         populateBorrowedBooksTable();
+        populateLoanedBooksTable();
     }
 
     /**
@@ -65,6 +67,19 @@ public class MyBooksScreen extends javax.swing.JPanel {
 
         borrowedBooksTable.setModel(borrowedBooksTableModel);
 
+    }
+
+    private void populateLoanedBooksTable() {
+
+        if (Controller.loggedIn) {
+            borrowedBooks = Controller.getBorrowedBooks();
+        } else {
+            borrowedBooks = new ArrayList<>();
+        }
+
+        BorrowedBooksTableModel borrowedBooksTableModel = new BorrowedBooksTableModel(borrowedBooks);
+
+        borrowedBooksTable.setModel(borrowedBooksTableModel);
     }
 
     /**
