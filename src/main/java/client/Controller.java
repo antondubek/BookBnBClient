@@ -450,6 +450,47 @@ public class Controller {
             return new ArrayList<>();
         }
 
+        ArrayList<BorrowedBook> books = loadBorrowedBooks(response);
+
+        return books;
+
+    }
+
+    /**
+     * Requests all the books the user is loaning from the server
+     *
+     * @return A list of borrowed books
+     */
+    public static ArrayList<BorrowedBook> getLoanedBooks() {
+
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+
+        String response = sendPostGetData("/request/loan", data);
+
+        System.out.println("LOG: Retrieving loaned books");
+
+        System.out.println("Loaned Books: " + response);
+
+        if (response.length() == 0) {
+            return new ArrayList<>();
+        }
+
+        ArrayList<BorrowedBook> books = loadBorrowedBooks(response);
+
+        return books;
+
+    }
+
+    /**
+     * Takes in a response from the server in a JSON format and create an
+     * arraylist of borrowed books from that.
+     *
+     * @param response JSON formatted string of borrowed books
+     * @return An arraylist of borrowed books
+     */
+    private static ArrayList<BorrowedBook> loadBorrowedBooks(String response) {
+
         JSONArray borrowedBooks = new JSONArray(response.toString());
 
         ArrayList<BorrowedBook> books = new ArrayList<BorrowedBook>();

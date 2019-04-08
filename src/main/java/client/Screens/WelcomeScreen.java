@@ -23,10 +23,10 @@ public class WelcomeScreen extends javax.swing.JPanel {
 
         if (Controller.isAvailable) {
             statusBtn.setText("Available");
-            statusBtn.setForeground(new Color(0,255,0));
+            statusBtn.setForeground(new Color(0, 200, 0));
         } else {
             statusBtn.setText("Unavailable");
-            statusBtn.setForeground(new Color(255,0,0));
+            statusBtn.setForeground(new Color(255, 0, 0));
         }
 
     }
@@ -117,7 +117,6 @@ public class WelcomeScreen extends javax.swing.JPanel {
         Controller.getServerStatus();
         checkServerStatus();
     }//GEN-LAST:event_statusBtnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel blurb;

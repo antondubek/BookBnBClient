@@ -16,10 +16,16 @@ import javax.swing.table.AbstractTableModel;
 public class BorrowedBooksTableModel extends AbstractTableModel {
 
     private ArrayList<BorrowedBook> books;
-    String headers[] = new String[]{"Title", "Author", "Borrowed From", "Status"};
+    String headers[];
 
     public BorrowedBooksTableModel(ArrayList<BorrowedBook> books) {
         this.books = books;
+        headers = new String[]{"Title", "Author", "Borrowed From", "Status"};
+    }
+
+    public BorrowedBooksTableModel(ArrayList<BorrowedBook> books, Boolean isFollower) {
+        this.books = books;
+        headers = new String[]{"Title", "Author", "Loaned To", "Status"};
     }
 
     @Override
@@ -84,8 +90,6 @@ public class BorrowedBooksTableModel extends AbstractTableModel {
             }
 
             int days = daysBetween(currentDate, endDate);
-
-            System.out.println("Days= " + days);
 
             if (days > 0) {
                 return (days + " days remaining");
