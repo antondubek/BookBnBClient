@@ -26,10 +26,10 @@ import org.json.JSONObject;
  */
 public class Controller {
 
-    //private static String address = "http://antondubek-bookbnb.herokuapp.com";
+    private static String address = "http://antondubek-bookbnb.herokuapp.com";
     //private static String address = "http://localhost:8080";
     //private static String address = "http://138.251.29.33:8080";
-    private static String address = "http://138.251.29.158:8080";
+    //private static String address = "http://138.251.29.158:8080";
 
     public static boolean isAvailable;
     public static String name;
@@ -456,15 +456,9 @@ public class Controller {
         for (int i = 0; i < borrowedBooks.length(); i++) {
             JSONObject currentBook = borrowedBooks.getJSONObject(i);
 
-            if (currentBook.getString("status").equals("pending")) {
-                books.add(new BorrowedBook(currentBook.getString("ISBN"), currentBook.getString("title"),
-                        currentBook.getString("author"), currentBook.getString("status"),
-                        currentBook.getString("lenderName"), "", ""));
-            } else {
-                books.add(new BorrowedBook(currentBook.getString("ISBN"), currentBook.getString("title"),
-                        currentBook.getString("author"), currentBook.getString("status"), currentBook.getString("lenderName"),
-                        currentBook.getString("startDate"), currentBook.getString("endDate")));
-            }
+            books.add(new BorrowedBook(currentBook.getString("ISBN"), currentBook.getString("title"),
+                    currentBook.getString("author"), currentBook.getString("status"), currentBook.getString("name"),
+                    currentBook.getString("startDate"), currentBook.getString("endDate")));
         }
 
         return books;
