@@ -1,7 +1,12 @@
 package client.TabelModels;
 
 import client.BorrowedBook;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -40,11 +45,54 @@ public class BorrowedBooksTableModel extends AbstractTableModel {
             case 2:
                 return book.getLenderName();
             case 3:
-                return book.getStatus();
+                return getStatus(book);
             default:
                 return "";
         }
 
+    }
+
+    private String getStatus(BorrowedBook book) {
+
+        String status = book.getStatus();
+
+        Date endDate = new Date();
+        Date currentDate = new Date();
+
+        if (status.equals("pending")) {
+            return status;
+        } else {
+
+            //Get the end date of the book
+            String end = book.getEndDate();
+
+            //Set the date format
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+            try {
+                endDate = sdf.parse(end);
+            } catch (ParseException ex) {
+                Logger.getLogger(BorrowedBooksTableModel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            int days = daysBetween(currentDate, endDate);
+
+            System.out.println("Days= " + days);
+
+            if (days > 0) {
+                return (days + " days remaining");
+            } else if (days == 0) {
+                return ("Return today");
+            } else {
+                return (days + " days overdue");
+            }
+
+        }
+
+    }
+
+    public int daysBetween(Date d1, Date d2) {
+        return (int) ((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
     }
 
     @Override
