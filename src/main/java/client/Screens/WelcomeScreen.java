@@ -23,12 +23,10 @@ public class WelcomeScreen extends javax.swing.JPanel {
 
         if (Controller.isAvailable) {
             statusBtn.setText("Available");
-            statusBtn.setBackground(new Color(0,255,0));
-            statusBtn.setForeground(new Color(255,255,255));
+            statusBtn.setForeground(new Color(0,255,0));
         } else {
             statusBtn.setText("Unavailable");
-            statusBtn.setBackground(new Color(255,0,0));
-            statusBtn.setForeground(new Color(255,255,255));
+            statusBtn.setForeground(new Color(255,0,0));
         }
 
     }
