@@ -358,6 +358,7 @@ public class Controller {
         String response = sendGetRequest("/book?command=all");
 
         System.out.println("LOG: Retrieving all books from server");
+        System.out.println(response);
 
         if (response.length() == 0) {
             return new ArrayList<Book>();

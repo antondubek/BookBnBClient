@@ -10,7 +10,7 @@ import javax.swing.table.AbstractTableModel;
 public class ClassicBookTableModel extends AbstractTableModel {
 
     private ArrayList<Book> books;
-    String headers[] = new String[]{"Title", "Author", "ISBN", "Available"};
+    String headers[] = new String[]{"Title", "Author", "ISBN"};
 
     public ClassicBookTableModel(ArrayList<Book> books) {
         this.books = books;
@@ -38,8 +38,6 @@ public class ClassicBookTableModel extends AbstractTableModel {
                 return book.getAuthor();
             case 2:
                 return book.getISBN();
-            case 3:
-                return book.getAvailability();
             default:
                 return "";
         }
@@ -53,11 +51,7 @@ public class ClassicBookTableModel extends AbstractTableModel {
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        if (columnIndex == 3) {
-            return Boolean.class;
-        } else {
-            return String.class;
-        }
+        return String.class;
     }
 
     @Override

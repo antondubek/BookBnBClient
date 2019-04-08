@@ -219,9 +219,9 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
 
         addBookBtn.setBackground(new java.awt.Color(0, 204, 255));
         addBookBtn.setFont(new java.awt.Font("Lantinghei SC", 0, 24)); // NOI18N
-        addBookBtn.setForeground(new java.awt.Color(255, 255, 255));
+        addBookBtn.setForeground(new java.awt.Color(0, 204, 255));
         addBookBtn.setText("Add Book");
-        addBookBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        addBookBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 255), 2, true));
         addBookBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBookBtnActionPerformed(evt);
@@ -234,10 +234,10 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
             myBooksPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(myBooksPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(myBooksPanelLayout.createSequentialGroup()
-                .addGap(204, 204, 204)
+                .addGap(201, 201, 201)
                 .addComponent(addBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -245,10 +245,10 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
             myBooksPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(myBooksPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addBookBtn)
-                .addGap(6, 6, 6))
+                .addGap(12, 12, 12))
         );
 
         jTabbedPane1.addTab("My Books", myBooksPanel);
