@@ -52,6 +52,14 @@ public class BorrowedBooksTableModel extends AbstractTableModel {
 
     }
 
+    /**
+     * Will return the status of the book. This looks at whether the book is
+     * pending or it is actually been borrowed and will return either pending of
+     * the number of days remaining/overdue.
+     *
+     * @param book Borrowed book object
+     * @return A string which shows the status of the book
+     */
     private String getStatus(BorrowedBook book) {
 
         String status = book.getStatus();
@@ -91,8 +99,15 @@ public class BorrowedBooksTableModel extends AbstractTableModel {
 
     }
 
-    public int daysBetween(Date d1, Date d2) {
-        return (int) ((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
+    /**
+     * Calculates the number of days difference between two dates.
+     *
+     * @param dateOne First date
+     * @param dateTwo Second date to compare against
+     * @return number of days difference
+     */
+    public int daysBetween(Date dateOne, Date dateTwo) {
+        return (int) ((dateTwo.getTime() - dateOne.getTime()) / (1000 * 60 * 60 * 24));
     }
 
     @Override
