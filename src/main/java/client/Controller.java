@@ -8,7 +8,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
@@ -26,10 +28,10 @@ import org.json.JSONObject;
  */
 public class Controller {
 
-    private static String address = "http://antondubek-bookbnb.herokuapp.com";
+    //private static String address = "http://antondubek-bookbnb.herokuapp.com";
     //private static String address = "http://localhost:8080";
     //private static String address = "http://138.251.29.33:8080";
-    //private static String address = "http://138.251.29.158:8080";
+    private static String address = "http://138.251.29.19:8080";
 
     public static boolean isAvailable;
     public static String name;
@@ -500,10 +502,31 @@ public class Controller {
 
             books.add(new BorrowedBook(currentBook.getString("ISBN"), currentBook.getString("title"),
                     currentBook.getString("author"), currentBook.getString("status"), currentBook.getString("name"),
-                    currentBook.getString("startDate"), currentBook.getString("endDate")));
+                    currentBook.getString("startDate"), currentBook.getString("endDate"), currentBook.getString("requestNumber")));
         }
 
         return books;
+
+    }
+
+    public static boolean processRequest(BorrowedBook book) {
+
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+        data.put("status", book.getStatus());
+        data.put("copyID", book.getCopyID());
+        data.put("requestNumber", book.getRequestNo());
+
+        System.out.println(data);
+
+        Date currentDate = new Date();
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(currentDate);
+
+        data.put("startDate", date);
+
+        boolean response = sendPostGetResponse("/request/approveOrDenyRequest", data);
+
+        return response;
 
     }
 

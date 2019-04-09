@@ -6,6 +6,7 @@
 package client.Dialogs;
 
 import client.BorrowedBook;
+import client.Controller;
 
 /**
  *
@@ -39,6 +40,7 @@ public class ProcessBookRequestDialog extends javax.swing.JDialog {
         denyBtn = new javax.swing.JButton();
         approveBtn = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        errTxt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -68,7 +70,6 @@ public class ProcessBookRequestDialog extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setForeground(new java.awt.Color(51, 51, 51));
         jButton1.setText("Cancel");
         jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 255), 2, true));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +77,9 @@ public class ProcessBookRequestDialog extends javax.swing.JDialog {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        errTxt.setForeground(new java.awt.Color(255, 0, 0));
+        errTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -85,6 +89,8 @@ public class ProcessBookRequestDialog extends javax.swing.JDialog {
                 .addContainerGap(37, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(errTxt)
+                        .addGap(188, 188, 188)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -93,7 +99,7 @@ public class ProcessBookRequestDialog extends javax.swing.JDialog {
                                 .addComponent(approveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(denyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(87, 87, 87))
+                                .addGap(133, 133, 133))
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(17, 17, 17))))
         );
@@ -107,7 +113,9 @@ public class ProcessBookRequestDialog extends javax.swing.JDialog {
                     .addComponent(approveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(denyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(errTxt))
                 .addContainerGap())
         );
 
@@ -127,11 +135,26 @@ public class ProcessBookRequestDialog extends javax.swing.JDialog {
 
     private void denyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_denyBtnActionPerformed
         // TODO add your handling code here:
+        book.setStatus("denied");
+        boolean response = Controller.processRequest(book);
 
+        if (response) {
+            dispose();
+        } else {
+            errTxt.setText("Failed");
+        }
     }//GEN-LAST:event_denyBtnActionPerformed
 
     private void approveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveBtnActionPerformed
         // TODO add your handling code here:
+        book.setStatus("approved");
+        boolean response = Controller.processRequest(book);
+
+        if (response) {
+            dispose();
+        } else {
+            errTxt.setText("Failed");
+        }
     }//GEN-LAST:event_approveBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -142,6 +165,7 @@ public class ProcessBookRequestDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton approveBtn;
     private javax.swing.JButton denyBtn;
+    private javax.swing.JLabel errTxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

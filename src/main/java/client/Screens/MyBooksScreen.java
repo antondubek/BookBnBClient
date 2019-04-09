@@ -98,7 +98,7 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
             loanedBooks = new ArrayList<>();
         }
 
-        BorrowedBooksTableModel loanedBooksTableModel = new BorrowedBooksTableModel(borrowedBooks, true);
+        BorrowedBooksTableModel loanedBooksTableModel = new BorrowedBooksTableModel(loanedBooks, true);
         loanedBooksTable.setModel(loanedBooksTableModel);
 
         //Add a popup menu with the request book item and add a listener
