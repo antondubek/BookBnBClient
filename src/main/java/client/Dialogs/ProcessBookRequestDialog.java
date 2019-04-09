@@ -5,8 +5,8 @@
  */
 package client.Dialogs;
 
+import Controller.ControllerUser;
 import client.BorrowedBook;
-import client.Controller;
 
 /**
  *
@@ -136,7 +136,7 @@ public class ProcessBookRequestDialog extends javax.swing.JDialog {
     private void denyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_denyBtnActionPerformed
         // TODO add your handling code here:
         book.setStatus("denied");
-        boolean response = Controller.processRequest(book);
+        boolean response = ControllerUser.processRequest(book);
 
         if (response) {
             dispose();
@@ -148,7 +148,7 @@ public class ProcessBookRequestDialog extends javax.swing.JDialog {
     private void approveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveBtnActionPerformed
         // TODO add your handling code here:
         book.setStatus("approved");
-        boolean response = Controller.processRequest(book);
+        boolean response = ControllerUser.processRequest(book);
 
         if (response) {
             dispose();

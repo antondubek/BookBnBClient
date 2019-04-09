@@ -1,7 +1,8 @@
 package client.Dialogs;
 
+import Controller.ControllerMain;
+import Controller.ControllerUser;
 import client.Book;
-import client.Controller;
 import client.Lender;
 import java.awt.Frame;
 import java.awt.Point;
@@ -57,9 +58,9 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
      */
     private void populateLenderTable() {
 
-        if (Controller.isAvailable) {
+        if (ControllerMain.isAvailable) {
             //Get all the books from the server
-            lenders = Controller.getLenders(ISBN);
+            lenders = ControllerUser.getLenders(ISBN);
         } else {
             return;
         }
@@ -105,13 +106,13 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
 
         System.out.println("Register Book Clicked");
         System.out.println("Title: " + selectedBook.getTitle());
-        String email = Controller.email;
+        String email = ControllerMain.email;
         String lenderID = selectedLender.getID();
         String copyID = selectedLender.getCopyID();
 
-        if (Controller.loggedIn) {
+        if (ControllerMain.loggedIn) {
             // send request
-            boolean response = Controller.sendBorrowRequest(email, lenderID, copyID);
+            boolean response = ControllerUser.sendBorrowRequest(email, lenderID, copyID);
 
             if (response) {
                 Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);

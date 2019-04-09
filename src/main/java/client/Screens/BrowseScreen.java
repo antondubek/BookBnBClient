@@ -1,7 +1,8 @@
 package client.Screens;
 
+import Controller.ControllerBook;
+import Controller.ControllerMain;
 import client.Book;
-import client.Controller;
 import client.Dialogs.BookInfoDialog;
 import client.TabelModels.ClassicBookTableModel;
 import client.TabelModels.TableMouseListener;
@@ -43,9 +44,9 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
      */
     public void populateTable() {
 
-        if (Controller.isAvailable) {
+        if (ControllerMain.isAvailable) {
             //Get all the books from the server
-            allBooks = Controller.getAllBooks();
+            allBooks = ControllerBook.getAllBooks();
         } else {
             return;
         }

@@ -12,7 +12,7 @@ public class BorrowedBook extends Book {
     private String endDate;
     private String requestNo;
 
-    BorrowedBook(String ISBN, String title, String author, String status, String lenderName, String requestNo) {
+    public BorrowedBook(String ISBN, String title, String author, String status, String lenderName, String requestNo) {
         super(ISBN, title, author);
         this.status = status;
         this.lenderName = lenderName;
@@ -20,7 +20,7 @@ public class BorrowedBook extends Book {
     }
 
     //overloaded constructor
-    BorrowedBook(String ISBN, String title, String author, String status, String lenderName, String startDate, String endDate, String requestNo) {
+    public BorrowedBook(String ISBN, String title, String author, String status, String lenderName, String startDate, String endDate, String requestNo) {
         this(ISBN, title, author, status, lenderName, requestNo);
         this.startDate = startDate;
         this.endDate = endDate;

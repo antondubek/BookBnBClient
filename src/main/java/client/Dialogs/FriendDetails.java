@@ -1,7 +1,8 @@
 package client.Dialogs;
 
+import Controller.ControllerBook;
+import Controller.ControllerUser;
 import client.Book;
-import client.Controller;
 import client.MainLayout;
 import client.TabelModels.ClassicBookTableModel;
 import client.TabelModels.TableMouseListener;
@@ -54,7 +55,7 @@ public class FriendDetails extends javax.swing.JDialog implements ActionListener
      * Sets the colour and text of the Follow/Unfollow Button
      */
     public void setButton() {
-        isFollowed = client.Controller.isFollowing(user.email);
+        isFollowed = ControllerUser.isFollowing(user.email);
         if (this.isFollowed) {
             follow.setText("Unfollow");
             follow.setBackground(Color.red);
@@ -84,7 +85,7 @@ public class FriendDetails extends javax.swing.JDialog implements ActionListener
      */
     public void populateTable(String email) {
 
-        userBooks = Controller.getSearchedUserBooks(email);
+        userBooks = ControllerBook.getSearchedUserBooks(email);
         ClassicBookTableModel userBooksTableModel = new ClassicBookTableModel(userBooks);
 
         bookTable.setModel(userBooksTableModel);
@@ -139,7 +140,7 @@ public class FriendDetails extends javax.swing.JDialog implements ActionListener
      * request to the Server in order to follow a given user
      */
     public void onFollow() {
-        Boolean response = client.Controller.followUnfollowUser(user.email, "/follow");
+        Boolean response = ControllerUser.followUnfollowUser(user.email, "/follow");
         if (!response) {
             errorLabel.setText("An Error occurred");
         } else {
@@ -152,7 +153,7 @@ public class FriendDetails extends javax.swing.JDialog implements ActionListener
      * request to the Server in order to unfollow a given user
      */
     public void onUnfollow() {
-        Boolean response = client.Controller.followUnfollowUser(user.email, "/follow/delete");
+        Boolean response = ControllerUser.followUnfollowUser(user.email, "/follow/delete");
         if (!response) {
             errorLabel.setText("An Error occurred");
         } else {

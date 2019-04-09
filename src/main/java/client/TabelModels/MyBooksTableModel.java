@@ -1,7 +1,8 @@
 package client.TabelModels;
 
+import Controller.ControllerBook;
+import Controller.ControllerMain;
 import client.Book;
-import static client.Controller.email;
 import client.Screens.MyBooksScreen;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
@@ -88,8 +89,9 @@ public class MyBooksTableModel extends AbstractTableModel {
             String ISBN = books.get(rowIndex).ISBN;
             Boolean available = books.get(rowIndex).availability;
             String copyID = books.get(rowIndex).copyID;
+            String email = ControllerMain.email;
 
-            client.Controller.updateBookAvailability(email, ISBN, available, copyID);
+            ControllerBook.updateBookAvailability(email, ISBN, available, copyID);
             screen.populateMyBooksTable();
         }
     }

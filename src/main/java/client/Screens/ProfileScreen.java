@@ -1,6 +1,7 @@
 package client.Screens;
 
-import client.Controller;
+import Controller.ControllerMain;
+import Controller.ControllerUser;
 import client.Dialogs.FriendDetails;
 import java.awt.Frame;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class ProfileScreen extends javax.swing.JPanel {
      * Displays the people followed by the current user logged in
      */
     public void displayFollowing() {
-        allUsers = client.Controller.getFollowing();
+        allUsers = ControllerUser.getFollowing();
         int str = allUsers.size();
         DefaultListModel<String> dlm = new DefaultListModel<>();
         for (int i = 0; i < str; i++) {
@@ -43,10 +44,10 @@ public class ProfileScreen extends javax.swing.JPanel {
      * Displays the details of the current user logged in
      */
     public void displayProfileDetails() {
-        client.Controller.getUser();
-        name.setText(client.Controller.name);
-        email.setText(client.Controller.email);
-        city.setText(client.Controller.city);
+        ControllerUser.getUser();
+        name.setText(ControllerMain.name);
+        email.setText(ControllerMain.email);
+        city.setText(ControllerMain.city);
 
     }
 
@@ -57,7 +58,7 @@ public class ProfileScreen extends javax.swing.JPanel {
      */
     public void onSearch() {
         String email = searchBox.getText().trim();
-        client.User friendUser = Controller.getUserSearch(email);
+        client.User friendUser = ControllerUser.getUserSearch(email);
         if (friendUser.email.equals("")) {
             JPanel panel = new JPanel();
             JOptionPane.showMessageDialog(panel, "USER NOT FOUND", "Error", JOptionPane.ERROR_MESSAGE);
@@ -77,7 +78,7 @@ public class ProfileScreen extends javax.swing.JPanel {
      */
     public void mouseClicked(int index) {
         String emailOfFriend = allUsers.get(index);
-        client.User friendUser = Controller.getUserSearch(emailOfFriend);
+        client.User friendUser = ControllerUser.getUserSearch(emailOfFriend);
         Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
         FriendDetails friendDetails = new FriendDetails(topFrame, true, friendUser);
         friendDetails.setVisible(true);

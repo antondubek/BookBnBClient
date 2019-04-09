@@ -1,8 +1,9 @@
 package client.Screens;
 
+import Controller.ControllerBook;
+import Controller.ControllerMain;
 import client.Book;
 import client.BorrowedBook;
-import client.Controller;
 import client.Dialogs.AddBookDialog;
 import client.Dialogs.ProcessBookRequestDialog;
 import client.TabelModels.BorrowedBooksTableModel;
@@ -54,8 +55,8 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
      */
     public void populateMyBooksTable() {
 
-        if (Controller.loggedIn) {
-            userBooks = Controller.getUserBooks();
+        if (ControllerMain.loggedIn) {
+            userBooks = ControllerBook.getUserBooks();
         } else {
             userBooks = new ArrayList<>();
         }
@@ -73,8 +74,8 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
      */
     private void populateBorrowedBooksTable() {
 
-        if (Controller.loggedIn) {
-            borrowedBooks = Controller.getBorrowedBooks();
+        if (ControllerMain.loggedIn) {
+            borrowedBooks = ControllerBook.getBorrowedBooks();
         } else {
             borrowedBooks = new ArrayList<>();
         }
@@ -92,8 +93,8 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
      */
     private void populateLoanedBooksTable() {
 
-        if (Controller.loggedIn) {
-            loanedBooks = Controller.getLoanedBooks();
+        if (ControllerMain.loggedIn) {
+            loanedBooks = ControllerBook.getLoanedBooks();
         } else {
             loanedBooks = new ArrayList<>();
         }
@@ -148,7 +149,7 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
             return;
         }
 
-        //boolean response = Controller.recallBook();
+//        boolean response = Controller.recallBook();
 //        if(response){
 //            JOptionPane.showMessageDialog(topFrame, "Book recall sent");
 //        } else {

@@ -1,5 +1,6 @@
 package client;
 
+import Controller.ControllerMain;
 import client.Screens.BrowseScreen;
 import client.Screens.LoginRegisterScreen;
 import client.Screens.MyBooksScreen;
@@ -43,7 +44,7 @@ public class MainLayout extends JFrame {
      * controller
      */
     private void checkServerAvailable() {
-        Controller.getServerStatus();
+        ControllerMain.getServerStatus();
     }
 
     /**

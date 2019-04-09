@@ -1,6 +1,6 @@
 package client.Screens;
 
-import client.Controller;
+import Controller.ControllerMain;
 import java.awt.*;
 
 /**
@@ -21,7 +21,7 @@ public class WelcomeScreen extends javax.swing.JPanel {
      */
     public void checkServerStatus() {
 
-        if (Controller.isAvailable) {
+        if (ControllerMain.isAvailable) {
             statusBtn.setText("Available");
             statusBtn.setForeground(new Color(0, 200, 0));
         } else {
@@ -114,7 +114,7 @@ public class WelcomeScreen extends javax.swing.JPanel {
 
     private void statusBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusBtnActionPerformed
         //Will refresh the status indicator
-        Controller.getServerStatus();
+        ControllerMain.getServerStatus();
         checkServerStatus();
     }//GEN-LAST:event_statusBtnActionPerformed
 

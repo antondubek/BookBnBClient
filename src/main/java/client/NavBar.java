@@ -1,12 +1,7 @@
-
 package client;
 
+import Controller.ControllerMain;
 import java.awt.CardLayout;
-import java.awt.Image;
-import java.io.File;
-import javax.imageio.ImageIO;
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -17,9 +12,10 @@ public class NavBar extends javax.swing.JPanel {
 
     CardLayout cardLayout;
     JPanel cards;
-    
+
     /**
      * NavBar constructor
+     *
      * @param cardLayout The cardlayout of the parent frame.
      * @param cards The parent panel which the navbar controls
      */
@@ -29,19 +25,19 @@ public class NavBar extends javax.swing.JPanel {
         initComponents();
         loginUpdate();
     }
-    
+
     /**
      * Login Update method will show or hide elements in the navbar depending on
      * whether the user is logged in or not.
      */
-    public void loginUpdate(){
-        
-        boolean loggedIn = Controller.loggedIn;
-        
+    public void loginUpdate() {
+
+        boolean loggedIn = ControllerMain.loggedIn;
+
         profileBtn.setVisible(loggedIn);
         mybooksBtn.setVisible(loggedIn);
         loginRegisterBtn.setVisible(!loggedIn);
-       
+
     }
 
     /**
@@ -142,19 +138,17 @@ public class NavBar extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
     private void profileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileBtnActionPerformed
-        cardLayout.show(cards, "PROFILE");        
+        cardLayout.show(cards, "PROFILE");
         //client.Screens.ProfileScreen.displayFollows();
         MainLayout.profileCard.displayProfileDetails();
         MainLayout.profileCard.displayFollowing();
-        
-       
+
     }//GEN-LAST:event_profileBtnActionPerformed
 
     private void mybooksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mybooksBtnActionPerformed
         cardLayout.show(cards, "MYBOOKS");
-        
+
     }//GEN-LAST:event_mybooksBtnActionPerformed
 
     private void loginRegisterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginRegisterBtnActionPerformed
@@ -164,7 +158,6 @@ public class NavBar extends javax.swing.JPanel {
     private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
         cardLayout.show(cards, "BROWSE");
     }//GEN-LAST:event_browseBtnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton browseBtn;

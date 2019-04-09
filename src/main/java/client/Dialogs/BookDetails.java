@@ -1,27 +1,33 @@
 package client.Dialogs;
-import client.Controller;
+
+import Controller.ControllerBook;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import javax.imageio.ImageIO;
 import java.net.URL;
 import javax.swing.ImageIcon;
+
 /**
  * Dialog which displays the details of a book
+ *
  * @author er205
  */
 public class BookDetails extends javax.swing.JDialog {
+
     private String ISBN;
     private String[] details;
-    
+
     /**
      * Constructor
-     * @param parent Parent Frame of the dialog, only used to centre the box on top of the parent frame.
+     *
+     * @param parent Parent Frame of the dialog, only used to centre the box on
+     * top of the parent frame.
      * @param details details of the book retrieved using google's API
-     * @param ISBN of the book looked up 
+     * @param ISBN of the book looked up
      */
     public BookDetails(java.awt.Frame parent, boolean modal, String[] details, String ISBN) throws MalformedURLException, IOException {
-        super(parent, "Book Details" ,modal);
+        super(parent, "Book Details", modal);
         this.ISBN = ISBN;
         this.details = details;
         initComponents();
@@ -29,49 +35,52 @@ public class BookDetails extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
         setBookDetails(details);
     }
+
     /**
-     * Method executed when the Add button is pressed.
-     * Reads in the data and sends it to the controller for sending to the server.
-     * Then disposes itself or gives an error and asks the user to try again.
+     * Method executed when the Add button is pressed. Reads in the data and
+     * sends it to the controller for sending to the server. Then disposes
+     * itself or gives an error and asks the user to try again.
      */
-    public  void onAdd(){
+    public void onAdd() {
         String bookTitle = details[0];
         String author = details[1];
-        boolean addedCorrectly = Controller.addBook(this.ISBN, author, bookTitle, "");
+        boolean addedCorrectly = ControllerBook.addBook(this.ISBN, author, bookTitle, "");
         if (addedCorrectly) {
             dispose();
         } else {
-            
+
             pack();
         }
-        
+
     }
+
     /**
      * Displays the Details of the book on the dialog box
+     *
      * @param details of the book (Title, Author and Description)
      */
-    public void setBookDetails(String[] details) throws MalformedURLException, IOException{
+    public void setBookDetails(String[] details) throws MalformedURLException, IOException {
         String bookTitle = details[0];
         String author = details[1];
         String path = details[2];
         String description = "<html> " + details[3];
-        
+
         title.setText(bookTitle);
         authors.setText(author);
         descriptionLabel.setText(description);
-        
+
         // Read in the imgae from URL path
-         URL url = new URL(path);
-         BufferedImage image = ImageIO.read(url);
-         // Set the ImageIcon of the label
-         ImageIcon icon = new ImageIcon(image);
-         iconLabel.setIcon(icon);
-         iconLabel.setText("");
+        URL url = new URL(path);
+        BufferedImage image = ImageIO.read(url);
+        // Set the ImageIcon of the label
+        ImageIcon icon = new ImageIcon(image);
+        iconLabel.setIcon(icon);
+        iconLabel.setText("");
     }
+
     private void onCancel() {
         dispose();
     }
-    
 
     /**
      * This method is called from within the constructor to initialise the form.
@@ -264,13 +273,12 @@ public class BookDetails extends javax.swing.JDialog {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         onAdd();
-        
+
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         onCancel();
     }//GEN-LAST:event_cancelButtonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
