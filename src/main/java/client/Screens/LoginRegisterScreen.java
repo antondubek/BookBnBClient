@@ -1,7 +1,7 @@
-
 package client.Screens;
 
-import client.Controller;
+import client.Controller.ControllerMain;
+import client.Controller.ControllerUser;
 import client.MainLayout;
 import client.PasswordHasher;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -17,10 +17,11 @@ public class LoginRegisterScreen extends javax.swing.JPanel {
     public LoginRegisterScreen() {
         initComponents();
     }
-    
+
     /**
-     * Method called when the login button pressed. Will read in the values given, check the email and password
-     * with the server. If the authentication is correct then will load the mainscreen.
+     * Method called when the login button pressed. Will read in the values
+     * given, check the email and password with the server. If the
+     * authentication is correct then will load the mainscreen.
      * <p>
      * Currently a bypass put in for an 'admin' user for during development.
      */
@@ -32,7 +33,6 @@ public class LoginRegisterScreen extends javax.swing.JPanel {
 
         boolean isAuthenticated = false;
 
-
         //Check the email is valid
         if (!validateEmail(email)) {
             return;
@@ -40,16 +40,17 @@ public class LoginRegisterScreen extends javax.swing.JPanel {
 
         String password = PasswordHasher.hashPassword(new String(loginPasswordTxt.getPassword()));
 
-        isAuthenticated = Controller.authenticate(email, password);
-        
+        isAuthenticated = ControllerUser.authenticate(email, password);
+
         processAuthenticationResult(isAuthenticated, email);
-        
+
     }
 
     /**
-     * Method called when the register button pressed. Will read in the data, check the data is valid, hash the password
-     * and then send it to the controller for registering with the server. If registration correct then will load
-     * the main screen.
+     * Method called when the register button pressed. Will read in the data,
+     * check the data is valid, hash the password and then send it to the
+     * controller for registering with the server. If registration correct then
+     * will load the main screen.
      */
     private void onRegister() {
         //Reset the error text
@@ -65,31 +66,34 @@ public class LoginRegisterScreen extends javax.swing.JPanel {
             return;
         }
 
-        boolean isRegistered = Controller.register(name, email, password, city);
+        boolean isRegistered = ControllerUser.register(name, email, password, city);
 
         processAuthenticationResult(isRegistered, email);
     }
-    
+
     /**
-     * Takes the email and the response from the server and will either
-     * log the user in or show an error message.
+     * Takes the email and the response from the server and will either log the
+     * user in or show an error message.
+     *
      * @param result Whether the user is logged in or not
      * @param email email the user tried to login with
-     **/
-    private void processAuthenticationResult(boolean result, String email){
+     *
+     */
+    private void processAuthenticationResult(boolean result, String email) {
         if (result) {
-            Controller.email = email;
-            Controller.loggedIn = true;
+            ControllerMain.email = email;
+            ControllerMain.loggedIn = true;
             MainLayout.loginUpdate();
             MainLayout.setCurrentScreen("BROWSE");
-            
+
         } else {
             errorTxt.setText("Error: Unable to login, email or password not recognised");
         }
     }
 
     /**
-     * Uses the apache email validator to check that the email given is of a valid format.
+     * Uses the apache email validator to check that the email given is of a
+     * valid format.
      *
      * @param email Email to check the format of.
      * @return True (Email is valid) False (Email is not)
@@ -106,13 +110,14 @@ public class LoginRegisterScreen extends javax.swing.JPanel {
     }
 
     /**
-     * Method to check the registration details of the person. Looks for null values, empty strings and non
-     * alphanumeric characters. Will also validate the email using the method above.
-     * Any issues encountered will set the error text with the corresponding issue.
+     * Method to check the registration details of the person. Looks for null
+     * values, empty strings and non alphanumeric characters. Will also validate
+     * the email using the method above. Any issues encountered will set the
+     * error text with the corresponding issue.
      *
-     * @param name  Name the user inputted
+     * @param name Name the user inputted
      * @param email email the user inputted
-     * @param city  City the user inputted
+     * @param city City the user inputted
      * @return true (everything validates successfully) false (something fails)
      */
     public boolean checkRegisterInfo(String name, String email, String city) {
@@ -403,7 +408,6 @@ public class LoginRegisterScreen extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         onRegister();
     }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Login;

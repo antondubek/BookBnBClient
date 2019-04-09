@@ -1,6 +1,6 @@
 package client.Dialogs;
 
-import client.Controller;
+import client.Controller.ControllerBook;
 import client.ISBNLookUp;
 import java.awt.Frame;
 import java.util.logging.Level;
@@ -44,7 +44,7 @@ public class AddBookDialog extends javax.swing.JDialog {
             return;
         }
 
-        boolean addedCorrectly = Controller.addBook(ISBN, author, title, edition);
+        boolean addedCorrectly = ControllerBook.addBook(ISBN, author, title, edition);
 
         System.out.println(addedCorrectly);
 

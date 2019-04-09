@@ -1,6 +1,6 @@
 package client.Screens;
 
-import client.Controller;
+import client.Controller.ControllerMain;
 import java.awt.*;
 
 /**
@@ -21,14 +21,12 @@ public class WelcomeScreen extends javax.swing.JPanel {
      */
     public void checkServerStatus() {
 
-        if (Controller.isAvailable) {
+        if (ControllerMain.isAvailable) {
             statusBtn.setText("Available");
-            statusBtn.setBackground(new Color(0,255,0));
-            statusBtn.setForeground(new Color(255,255,255));
+            statusBtn.setForeground(new Color(0, 200, 0));
         } else {
             statusBtn.setText("Unavailable");
-            statusBtn.setBackground(new Color(255,0,0));
-            statusBtn.setForeground(new Color(255,255,255));
+            statusBtn.setForeground(new Color(255, 0, 0));
         }
 
     }
@@ -68,7 +66,7 @@ public class WelcomeScreen extends javax.swing.JPanel {
         statusTxt.setForeground(new java.awt.Color(255, 255, 255));
         statusTxt.setText("Service Status: ");
 
-        statusBtn.setBackground(new java.awt.Color(255, 102, 102));
+        statusBtn.setBackground(new java.awt.Color(255, 255, 255));
         statusBtn.setForeground(new java.awt.Color(255, 255, 255));
         statusBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,7 +79,7 @@ public class WelcomeScreen extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 134, Short.MAX_VALUE)
+                .addGap(0, 174, Short.MAX_VALUE)
                 .addComponent(blurb, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(106, 106, 106))
             .addComponent(blurb1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -94,8 +92,8 @@ public class WelcomeScreen extends javax.swing.JPanel {
                         .addGap(230, 230, 230)
                         .addComponent(statusTxt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(statusBtn)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(statusBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,19 +105,18 @@ public class WelcomeScreen extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(blurb1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(statusTxt)
-                    .addComponent(statusBtn))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(statusTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(statusBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(23, 23, 23))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void statusBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusBtnActionPerformed
         //Will refresh the status indicator
-        Controller.getServerStatus();
+        ControllerMain.getServerStatus();
         checkServerStatus();
     }//GEN-LAST:event_statusBtnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel blurb;

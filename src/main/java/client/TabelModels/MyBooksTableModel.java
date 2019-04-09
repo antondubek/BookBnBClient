@@ -1,9 +1,11 @@
 package client.TabelModels;
 
 import client.Book;
-import static client.Controller.email;
+import client.Controller.ControllerBook;
+import client.Controller.ControllerMain;
 import client.Screens.MyBooksScreen;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -88,8 +90,11 @@ public class MyBooksTableModel extends AbstractTableModel {
             String ISBN = books.get(rowIndex).ISBN;
             Boolean available = books.get(rowIndex).availability;
             String copyID = books.get(rowIndex).copyID;
+            String email = ControllerMain.email;
 
-            client.Controller.updateBookAvailability(email, ISBN, available, copyID);
+            ControllerBook.updateBookAvailability(email, ISBN, available, copyID);
+
+            JOptionPane.showMessageDialog(screen, "Changed Availability");
             screen.populateMyBooksTable();
         }
     }
