@@ -1,6 +1,6 @@
 package client;
 
-import Controller.ControllerMain;
+import client.Controller.ControllerMain;
 import client.Screens.BrowseScreen;
 import client.Screens.LoginRegisterScreen;
 import client.Screens.MyBooksScreen;

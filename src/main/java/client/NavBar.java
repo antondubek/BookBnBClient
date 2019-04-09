@@ -1,6 +1,6 @@
 package client;
 
-import Controller.ControllerMain;
+import client.Controller.ControllerMain;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 

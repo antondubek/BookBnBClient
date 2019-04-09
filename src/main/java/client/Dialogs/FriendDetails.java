@@ -1,8 +1,8 @@
 package client.Dialogs;
 
-import Controller.ControllerBook;
-import Controller.ControllerUser;
 import client.Book;
+import client.Controller.ControllerBook;
+import client.Controller.ControllerUser;
 import client.MainLayout;
 import client.TabelModels.ClassicBookTableModel;
 import client.TabelModels.TableMouseListener;

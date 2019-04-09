@@ -1,9 +1,9 @@
 package client.Screens;
 
-import Controller.ControllerBook;
-import Controller.ControllerMain;
 import client.Book;
 import client.BorrowedBook;
+import client.Controller.ControllerBook;
+import client.Controller.ControllerMain;
 import client.Dialogs.AddBookDialog;
 import client.Dialogs.ProcessBookRequestDialog;
 import client.TabelModels.BorrowedBooksTableModel;

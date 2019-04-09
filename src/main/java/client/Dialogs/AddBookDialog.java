@@ -1,6 +1,6 @@
 package client.Dialogs;
 
-import Controller.ControllerBook;
+import client.Controller.ControllerBook;
 import client.ISBNLookUp;
 import java.awt.Frame;
 import java.util.logging.Level;

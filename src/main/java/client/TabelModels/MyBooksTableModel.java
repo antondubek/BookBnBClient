@@ -1,7 +1,7 @@
 package client.TabelModels;
 
-import Controller.ControllerBook;
-import Controller.ControllerMain;
+import client.Controller.ControllerBook;
+import client.Controller.ControllerMain;
 import client.Book;
 import client.Screens.MyBooksScreen;
 import java.util.ArrayList;

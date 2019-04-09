@@ -1,6 +1,6 @@
 package client.Screens;
 
-import Controller.ControllerMain;
+import client.Controller.ControllerMain;
 import java.awt.*;
 
 /**

@@ -5,7 +5,7 @@
  */
 package client.Dialogs;
 
-import Controller.ControllerUser;
+import client.Controller.ControllerUser;
 import client.BorrowedBook;
 
 /**

@@ -1,11 +1,11 @@
 package client.Dialogs;
 
-import Controller.ControllerBook;
+import client.Controller.ControllerBook;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import javax.imageio.ImageIO;
 import java.net.URL;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /**

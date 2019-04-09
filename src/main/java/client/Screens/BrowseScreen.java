@@ -1,8 +1,8 @@
 package client.Screens;
 
-import Controller.ControllerBook;
-import Controller.ControllerMain;
 import client.Book;
+import client.Controller.ControllerBook;
+import client.Controller.ControllerMain;
 import client.Dialogs.BookInfoDialog;
 import client.TabelModels.ClassicBookTableModel;
 import client.TabelModels.TableMouseListener;

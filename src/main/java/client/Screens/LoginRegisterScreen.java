@@ -1,7 +1,7 @@
 package client.Screens;
 
-import Controller.ControllerMain;
-import Controller.ControllerUser;
+import client.Controller.ControllerMain;
+import client.Controller.ControllerUser;
 import client.MainLayout;
 import client.PasswordHasher;
 import org.apache.commons.validator.routines.EmailValidator;

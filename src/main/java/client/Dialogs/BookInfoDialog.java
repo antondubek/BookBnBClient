@@ -1,8 +1,8 @@
 package client.Dialogs;
 
-import Controller.ControllerMain;
-import Controller.ControllerUser;
 import client.Book;
+import client.Controller.ControllerMain;
+import client.Controller.ControllerUser;
 import client.Lender;
 import java.awt.Frame;
 import java.awt.Point;
