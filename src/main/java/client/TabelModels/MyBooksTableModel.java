@@ -1,10 +1,11 @@
 package client.TabelModels;
 
+import client.Book;
 import client.Controller.ControllerBook;
 import client.Controller.ControllerMain;
-import client.Book;
 import client.Screens.MyBooksScreen;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -92,6 +93,8 @@ public class MyBooksTableModel extends AbstractTableModel {
             String email = ControllerMain.email;
 
             ControllerBook.updateBookAvailability(email, ISBN, available, copyID);
+
+            JOptionPane.showMessageDialog(screen, "Changed Availability");
             screen.populateMyBooksTable();
         }
     }

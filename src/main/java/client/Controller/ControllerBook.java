@@ -220,11 +220,24 @@ public class ControllerBook extends ControllerMain {
 
             books.add(new BorrowedBook(currentBook.getString("ISBN"), currentBook.getString("title"),
                     currentBook.getString("author"), currentBook.getString("status"), currentBook.getString("name"),
-                    currentBook.getString("startDate"), currentBook.getString("endDate"), currentBook.getString("requestNumber")));
+                    currentBook.getString("startDate"), currentBook.getString("endDate"),
+                    currentBook.getString("requestNumber"), currentBook.getString("copyID")));
         }
 
         return books;
 
+    }
+
+    public static boolean recallBook(BorrowedBook book) {
+
+        JSONObject data = new JSONObject();
+        data.put("copyID", book.getCopyID());
+        data.put("requestNumber", book.getRequestNo());
+
+        System.out.println("Recalling Book with copyID:" + book.getCopyID()
+                + "and requestNo:" + book.getRequestNo());
+
+        return sendPostGetResponse("/recall", data);
     }
 
 }

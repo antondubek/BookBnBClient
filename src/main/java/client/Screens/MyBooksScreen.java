@@ -149,12 +149,14 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
             return;
         }
 
-//        boolean response = Controller.recallBook();
-//        if(response){
-//            JOptionPane.showMessageDialog(topFrame, "Book recall sent");
-//        } else {
-//            JOptionPane.showMessageDialog(topFrame, "Book recall failed, please try again later");
-//        }
+        boolean response = ControllerBook.recallBook(selectedBook);
+        if (response) {
+            JOptionPane.showMessageDialog(topFrame, "Book recall sent");
+        } else {
+            JOptionPane.showMessageDialog(topFrame, "Book recall failed, please try again later");
+        }
+
+        populateLoanedBooksTable();
     }
 
     private void bookApproval() {

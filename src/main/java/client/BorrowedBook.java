@@ -20,10 +20,12 @@ public class BorrowedBook extends Book {
     }
 
     //overloaded constructor
-    public BorrowedBook(String ISBN, String title, String author, String status, String lenderName, String startDate, String endDate, String requestNo) {
+    public BorrowedBook(String ISBN, String title, String author, String status,
+            String lenderName, String startDate, String endDate, String requestNo, String copyID) {
         this(ISBN, title, author, status, lenderName, requestNo);
         this.startDate = startDate;
         this.endDate = endDate;
+        this.copyID = copyID;
     }
 
     public String getStatus() {
