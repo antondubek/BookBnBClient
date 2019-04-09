@@ -73,9 +73,7 @@ public class BorrowedBooksTableModel extends AbstractTableModel {
         Date endDate = new Date();
         Date currentDate = new Date();
 
-        if (status.equals("pending")) {
-            return status;
-        } else {
+        if (status.equals("approved")) {
 
             //Get the end date of the book
             String end = book.getEndDate();
@@ -99,6 +97,8 @@ public class BorrowedBooksTableModel extends AbstractTableModel {
                 return (days + " days overdue");
             }
 
+        } else {
+            return status;
         }
 
     }

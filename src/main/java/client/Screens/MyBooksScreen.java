@@ -167,6 +167,8 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
         Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
         ProcessBookRequestDialog bookProcessDialog = new ProcessBookRequestDialog(topFrame, true, selectedBook);
         bookProcessDialog.setVisible(true);
+
+        populateLoanedBooksTable();
     }
 
     /*

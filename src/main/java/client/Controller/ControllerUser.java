@@ -241,10 +241,9 @@ public class ControllerUser extends ControllerMain {
         JSONObject data = new JSONObject();
         data.put("email", email);
         data.put("status", book.getStatus());
-        data.put("copyID", book.getCopyID());
         data.put("requestNumber", book.getRequestNo());
 
-        System.out.println(data);
+        System.out.println("Send Process Request: " + data);
 
         Date currentDate = new Date();
         String date = new SimpleDateFormat("yyyy-MM-dd").format(currentDate);
