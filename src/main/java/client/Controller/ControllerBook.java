@@ -228,6 +228,12 @@ public class ControllerBook extends ControllerMain {
 
     }
 
+    /**
+     * Sends the request to the server to recall a book
+     *
+     * @param book Book to request
+     * @return True (Recall complete) or False (recall failed)
+     */
     public static boolean recallBook(BorrowedBook book) {
 
         JSONObject data = new JSONObject();
