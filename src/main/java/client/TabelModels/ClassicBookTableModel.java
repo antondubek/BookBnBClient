@@ -53,13 +53,4 @@ public class ClassicBookTableModel extends AbstractTableModel {
     public Class<?> getColumnClass(int columnIndex) {
         return String.class;
     }
-
-    //TODO Don't think this should be here
-    @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-
-        if (aValue instanceof Boolean && columnIndex == 3) {
-            books.get(rowIndex).setAvailability((Boolean) aValue);
-        }
-    }
 }

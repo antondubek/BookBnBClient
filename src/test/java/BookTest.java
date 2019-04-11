@@ -1,12 +1,12 @@
+
+import client.Book;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import client.Book;
 
 /**
- * Tests for the Book class. Testing that all fields are assigned correctly when creating a new book object.
- * Also testing getters and setters methods.
+ * Tests for the Book class. Testing that all fields are assigned correctly when
+ * creating a new book object. Also testing getters and setters methods.
  */
-
 public class BookTest {
 
     private String ISBN = "9788532530837";
@@ -14,7 +14,8 @@ public class BookTest {
     private String title = "Harry Potter and the Half-Blood Prince";
     private boolean availability = true;
     private String copyID = "1";
-    private Book testBook = new Book(ISBN,  title, author, availability, copyID);
+    private boolean isLoaned = false;
+    private Book testBook = new Book(ISBN, title, author, availability, copyID, isLoaned);
 
     @Test
     public void createBook() {
@@ -23,6 +24,7 @@ public class BookTest {
         assertEquals(this.testBook.title, "Harry Potter and the Half-Blood Prince");
         assertEquals(this.testBook.availability, true);
         assertEquals(this.testBook.copyID, "1");
+        assertFalse(this.testBook.isLoaned);
     }
 
     @Test
