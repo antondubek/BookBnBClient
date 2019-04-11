@@ -29,6 +29,7 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
 
     private JMenuItem menuItemRecall;
     private JMenuItem menuItemApprove;
+    private JMenuItem menuItemReturn;
     private JPopupMenu popupMenu;
 
     /**
@@ -106,12 +107,15 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
         popupMenu = new JPopupMenu();
         menuItemApprove = new JMenuItem("Approve/Deny Request");
         menuItemRecall = new JMenuItem("Recall Book");
+        menuItemReturn = new JMenuItem("Return Book");
 
         popupMenu.add(menuItemRecall);
         popupMenu.add(menuItemApprove);
+        popupMenu.add(menuItemReturn);
 
         menuItemRecall.addActionListener(this);
         menuItemApprove.addActionListener(this);
+        menuItemReturn.addActionListener(this);
 
         loanedBooksTable.setComponentPopupMenu(popupMenu);
         loanedBooksTable.addMouseListener(new TableMouseListener(loanedBooksTable));
@@ -133,6 +137,10 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
 
         if (menu == menuItemApprove) {
             bookApproval();
+        }
+
+        if (menu == menuItemReturn) {
+            returnBook();
         }
     }
 
@@ -171,6 +179,24 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
         bookProcessDialog.setVisible(true);
 
         populateLoanedBooksTable();
+    }
+
+    private void returnBook() {
+
+        int row = loanedBooksTable.getSelectedRow();
+
+        BorrowedBook selectedBook = loanedBooks.get(row);
+
+        boolean response = ControllerBook.returnBook(selectedBook);
+
+        Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+        if (response) {
+            JOptionPane.showMessageDialog(topFrame, "Book return complete");
+            populateLoanedBooksTable();
+        } else {
+            JOptionPane.showMessageDialog(topFrame, "Book return failed, please try again later");
+        }
+
     }
 
     /*

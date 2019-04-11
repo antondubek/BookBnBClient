@@ -107,6 +107,7 @@ public class MainLayout extends JFrame {
      */
     public static void loginUpdate() {
         navBar.loginUpdate();
+        browseCard.populateTable();
         myBooksCard.populateTables();
     }
 

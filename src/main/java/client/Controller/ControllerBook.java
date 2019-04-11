@@ -247,4 +247,15 @@ public class ControllerBook extends ControllerMain {
         return sendPostGetResponse("/recall", data);
     }
 
+    public static boolean returnBook(BorrowedBook book) {
+
+        JSONObject data = new JSONObject();
+        data.put("requestNumber", book.getRequestNo());
+
+        System.out.println("Returning a book with request no:" + book.getRequestNo());
+
+        return sendPostGetResponse("/returnBook", data);
+
+    }
+
 }
