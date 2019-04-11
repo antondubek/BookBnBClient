@@ -52,7 +52,7 @@ public class MainLayout extends JFrame {
      * card layout used.
      *
      */
-    private static void setupFrame() {
+    private void setupFrame() {
 
         //Create a new JFrame
         JFrame frame = new JFrame("BookBnB");
@@ -61,7 +61,7 @@ public class MainLayout extends JFrame {
         profileCard = new ProfileScreen();
         welcomeCard = new WelcomeScreen();
         browseCard = new BrowseScreen();
-        loginCard = new LoginRegisterScreen();
+        loginCard = new LoginRegisterScreen(this);
         myBooksCard = new MyBooksScreen();
 
         //Define a new cardlayout
@@ -76,7 +76,7 @@ public class MainLayout extends JFrame {
         cards.add(myBooksCard, "MYBOOKS");
 
         //Create a new navigation bar
-        navBar = new NavBar(cardLayout, cards);
+        navBar = new NavBar(cardLayout, cards, this);
 
         //Add the card layout and navbar to the container
         pane = frame.getContentPane();
@@ -97,7 +97,8 @@ public class MainLayout extends JFrame {
     /**
      * Sets the current card that is showing on the screen
      */
-    public static void setCurrentScreen(String cardName) {
+    public void setCurrentScreen(String cardName) {
+        loginUpdate();
         cardLayout.show(cards, cardName);
     }
 
@@ -105,7 +106,7 @@ public class MainLayout extends JFrame {
      * Updates the navigation bar and loads data for the myBooks table once the
      * user logs in.
      */
-    public static void loginUpdate() {
+    public void loginUpdate() {
         navBar.loginUpdate();
         browseCard.populateTable();
         myBooksCard.populateTables();

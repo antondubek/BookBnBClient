@@ -17,6 +17,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * Class creates the screen for displaying the user's books
@@ -38,6 +40,13 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
     public MyBooksScreen() {
         initComponents();
         populateTables();
+        tabbedPane.addChangeListener(new ChangeListener() {
+
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                populateTables();
+            }
+        });
     }
 
     /**
@@ -195,7 +204,7 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
     /**
      ** Allows the user to return a book. Will get the current book from the
      * table and send its request number to the server to set as returned.
-    *
+     *
      */
     private void returnBook() {
 
@@ -225,7 +234,7 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabbedPane = new javax.swing.JTabbedPane();
         myBooksPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         yourBooksTable = new javax.swing.JTable();
@@ -246,7 +255,12 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("MyBooks");
 
-        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+        tabbedPane.setBackground(new java.awt.Color(255, 255, 255));
+        tabbedPane.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tabbedPaneFocusGained(evt);
+            }
+        });
 
         myBooksPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -298,7 +312,7 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
                 .addGap(12, 12, 12))
         );
 
-        jTabbedPane1.addTab("My Books", myBooksPanel);
+        tabbedPane.addTab("My Books", myBooksPanel);
 
         borrowedBooksPanel2.setBackground(new java.awt.Color(255, 255, 255));
         borrowedBooksPanel2.setForeground(new java.awt.Color(102, 102, 102));
@@ -334,7 +348,7 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Borrowed Books", borrowedBooksPanel2);
+        tabbedPane.addTab("Borrowed Books", borrowedBooksPanel2);
 
         LoanedBooksTab.setBackground(new java.awt.Color(255, 255, 255));
         LoanedBooksTab.setForeground(new java.awt.Color(102, 102, 102));
@@ -370,7 +384,7 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Loaned Books", LoanedBooksTab);
+        tabbedPane.addTab("Loaned Books", LoanedBooksTab);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -378,7 +392,7 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(52, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
             .addGroup(layout.createSequentialGroup()
                 .addGap(286, 286, 286)
@@ -391,11 +405,11 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.getAccessibleContext().setAccessibleName("MyBooks");
+        tabbedPane.getAccessibleContext().setAccessibleName("MyBooks");
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookBtnActionPerformed
@@ -406,6 +420,10 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
         populateMyBooksTable();
     }//GEN-LAST:event_addBookBtnActionPerformed
 
+    private void tabbedPaneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tabbedPaneFocusGained
+
+    }//GEN-LAST:event_tabbedPaneFocusGained
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel LoanedBooksTab;
     private javax.swing.JButton addBookBtn;
@@ -415,9 +433,9 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable loanedBooksTable;
     private javax.swing.JPanel myBooksPanel;
+    private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTable yourBooksTable;
     // End of variables declaration//GEN-END:variables
 }

@@ -54,6 +54,7 @@ public class ClassicBookTableModel extends AbstractTableModel {
         return String.class;
     }
 
+    //TODO Don't think this should be here
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 

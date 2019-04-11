@@ -5,8 +5,8 @@ import client.Controller.ControllerBook;
 import client.Controller.ControllerMain;
 import client.Dialogs.BookInfoDialog;
 import client.TabelModels.ClassicBookTableModel;
-import client.TabelModels.TableMouseListener;
 import java.awt.Frame;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -65,7 +65,6 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
         menuItemInfo.addActionListener(this);
 
         browseBooksTable.setComponentPopupMenu(popupMenu);
-        browseBooksTable.addMouseListener(new TableMouseListener(browseBooksTable));
 
         //Add a row sorter so that the user can filter the table
         rowSorter = new TableRowSorter<ClassicBookTableModel>(allBooksTableModel);
@@ -138,6 +137,11 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        browseBooksTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(browseBooksTable);
 
         jLabel1.setFont(new java.awt.Font("Lantinghei SC", 1, 26)); // NOI18N
@@ -146,7 +150,7 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
 
         jLabel2.setFont(new java.awt.Font("Lantinghei SC", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Please right click to request a book");
+        jLabel2.setText("Double click to view book info");
 
         jLabel3.setFont(new java.awt.Font("Lantinghei SC", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -163,21 +167,22 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36))
             .addGroup(layout.createSequentialGroup()
-                .addGap(196, 196, 196)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(205, 205, 205))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +196,7 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -200,6 +205,16 @@ public class BrowseScreen extends javax.swing.JPanel implements ActionListener {
         //Sets the row filter to the text, regardless of case
         rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchTxt.getText()));
     }//GEN-LAST:event_searchTxtKeyReleased
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        Point point = evt.getPoint();
+        int currentRow = browseBooksTable.rowAtPoint(point);
+        browseBooksTable.setRowSelectionInterval(currentRow, currentRow);
+
+        if (evt.getClickCount() == 2) {
+            processBookInfo();
+        }
+    }//GEN-LAST:event_tableMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable browseBooksTable;

@@ -11,10 +11,13 @@ import org.apache.commons.validator.routines.EmailValidator;
  */
 public class LoginRegisterScreen extends javax.swing.JPanel {
 
+    private MainLayout mainLayout;
+
     /**
      * Creates new form LoginRegisterScreen
      */
-    public LoginRegisterScreen() {
+    public LoginRegisterScreen(MainLayout mainLayout) {
+        this.mainLayout = mainLayout;
         initComponents();
     }
 
@@ -83,8 +86,8 @@ public class LoginRegisterScreen extends javax.swing.JPanel {
         if (result) {
             ControllerMain.email = email;
             ControllerMain.loggedIn = true;
-            MainLayout.loginUpdate();
-            MainLayout.setCurrentScreen("BROWSE");
+            mainLayout.loginUpdate();
+            mainLayout.setCurrentScreen("BROWSE");
 
         } else {
             errorTxt.setText("Error: Unable to login, email or password not recognised");
@@ -137,6 +140,8 @@ public class LoginRegisterScreen extends javax.swing.JPanel {
         }
 
         if (!name.matches("[a-zA-Z0-9]+") || !city.matches("[a-zA-Z0-9]+")) {
+            System.out.println(city.matches("[a-zA-Z0-9]+"));
+            System.out.println(name.matches("[a-zA-Z0-9]+"));
             errorTxt.setText("Error: Please use alphanumeric characters only");
             return false;
         }
