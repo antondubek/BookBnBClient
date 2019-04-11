@@ -10,9 +10,11 @@ public class Book {
     public String title;
     public boolean availability;
     public String copyID;
-    
+    public boolean isLoaned;
+
     /**
      * client.Book Constructor
+     *
      * @param ISBN ISBN number of the book
      * @param title Title of the book
      * @param author Author of the book
@@ -27,15 +29,18 @@ public class Book {
 
     /**
      * client.Book Constructor
+     *
      * @param ISBN ISBN number of the book
      * @param title Title of the book
      * @param author Author of the book
      *
      */
-    public Book(String ISBN, String title, String author, boolean availability, String copyID) {
+    public Book(String ISBN, String title, String author, boolean availability,
+            String copyID, boolean isLoaned) {
         this(ISBN, title, author);
         this.availability = availability;
         this.copyID = copyID;
+        this.isLoaned = isLoaned;
     }
 
     @Override
@@ -58,7 +63,7 @@ public class Book {
     public boolean getAvailability() {
         return availability;
     }
-    
+
     public String getCopyID() {
         return copyID;
     }

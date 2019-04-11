@@ -224,7 +224,7 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
 
         addBookBtn.setBackground(new java.awt.Color(0, 204, 255));
         addBookBtn.setFont(new java.awt.Font("Lantinghei SC", 0, 24)); // NOI18N
-        addBookBtn.setForeground(new java.awt.Color(0, 204, 255));
+        addBookBtn.setForeground(new java.awt.Color(255, 255, 255));
         addBookBtn.setText("Add Book");
         addBookBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 255), 2, true));
         addBookBtn.addActionListener(new java.awt.event.ActionListener() {

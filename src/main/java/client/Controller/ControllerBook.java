@@ -40,7 +40,7 @@ public class ControllerBook extends ControllerMain {
             JSONObject currentBook = allBooks.getJSONObject(i);
 
             books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"),
-                    currentBook.getString("author"), false, null));
+                    currentBook.getString("author"), false, null, false));
         }
 
         return books;
@@ -137,6 +137,7 @@ public class ControllerBook extends ControllerMain {
 
         String response = sendPostGetData("/profile/books", data);
         System.out.println("LOG: Books received");
+        System.out.println(response);
         JSONArray userBooks = new JSONArray(response);
 
         ArrayList<Book> books = new ArrayList<Book>();
@@ -144,7 +145,7 @@ public class ControllerBook extends ControllerMain {
             JSONObject currentBook = userBooks.getJSONObject(i);
 
             books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"), currentBook.getString("author"),
-                    currentBook.getBoolean("available"), currentBook.getString("copyID")));
+                    currentBook.getBoolean("available"), currentBook.getString("copyID"), currentBook.getBoolean("isLoaned")));
 
         }
 

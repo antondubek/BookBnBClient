@@ -71,7 +71,14 @@ public class MyBooksTableModel extends AbstractTableModel {
     //back end functionality has been implemented.
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex == 3;
+
+        Book book = books.get(rowIndex);
+
+        if (!book.isLoaned && columnIndex == 3) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
