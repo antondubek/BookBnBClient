@@ -144,6 +144,12 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
         }
     }
 
+    /**
+     * Recalls a specific book. Will send the request to the server to recall a
+     * book. Loads a dialog box informing the user whether the recall was
+     * successful or not and will then update the table to show the new status.
+     *
+     */
     private void recallBook() {
 
         int row = loanedBooksTable.getSelectedRow();
@@ -167,6 +173,11 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
         populateLoanedBooksTable();
     }
 
+    /**
+     * Approves a request to borrow a book. Will load a dialog box to check that
+     * a user wishes to approve or deny the loan request and then update the
+     * table with the new status.
+     */
     private void bookApproval() {
 
         int row = loanedBooksTable.getSelectedRow();
@@ -181,6 +192,11 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
         populateLoanedBooksTable();
     }
 
+    /**
+     ** Allows the user to return a book. Will get the current book from the
+     * table and send its request number to the server to set as returned.
+    *
+     */
     private void returnBook() {
 
         int row = loanedBooksTable.getSelectedRow();

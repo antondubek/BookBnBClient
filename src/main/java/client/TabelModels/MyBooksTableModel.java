@@ -67,8 +67,11 @@ public class MyBooksTableModel extends AbstractTableModel {
         }
     }
 
-    //Removed the isCell editable functionality so that user cannot check or uncheck the box until
-    //back end functionality has been implemented.
+    /**
+     * Will allow the user to toggle whether a book is available or not, unless
+     * it is on loan and then it will not allow the toggling.
+     *
+     */
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
 

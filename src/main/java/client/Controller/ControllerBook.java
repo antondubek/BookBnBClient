@@ -247,6 +247,15 @@ public class ControllerBook extends ControllerMain {
         return sendPostGetResponse("/recall", data);
     }
 
+    /**
+     * Registers a book as returned with the server. This will be called when an
+     * owner of a book says that the book has been returned from the
+     * MyBooksScreen.
+     *
+     * @param book Book to be returned
+     * @return True (Return was successful) or False (it failed for some backend
+     * reason)
+     */
     public static boolean returnBook(BorrowedBook book) {
 
         JSONObject data = new JSONObject();
