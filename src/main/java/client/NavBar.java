@@ -10,6 +10,7 @@ import javax.swing.JPanel;
  */
 public class NavBar extends javax.swing.JPanel {
 
+    MainLayout mainLayout;
     CardLayout cardLayout;
     JPanel cards;
 
@@ -19,9 +20,10 @@ public class NavBar extends javax.swing.JPanel {
      * @param cardLayout The cardlayout of the parent frame.
      * @param cards The parent panel which the navbar controls
      */
-    public NavBar(CardLayout cardLayout, JPanel cards) {
+    public NavBar(CardLayout cardLayout, JPanel cards, MainLayout mainLayout) {
         this.cardLayout = cardLayout;
         this.cards = cards;
+        this.mainLayout = mainLayout;
         initComponents();
         loginUpdate();
     }
@@ -147,8 +149,7 @@ public class NavBar extends javax.swing.JPanel {
     }//GEN-LAST:event_profileBtnActionPerformed
 
     private void mybooksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mybooksBtnActionPerformed
-        cardLayout.show(cards, "MYBOOKS");
-
+        mainLayout.setCurrentScreen("MYBOOKS");
     }//GEN-LAST:event_mybooksBtnActionPerformed
 
     private void loginRegisterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginRegisterBtnActionPerformed
@@ -156,7 +157,7 @@ public class NavBar extends javax.swing.JPanel {
     }//GEN-LAST:event_loginRegisterBtnActionPerformed
 
     private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
-        cardLayout.show(cards, "BROWSE");
+        mainLayout.setCurrentScreen("BROWSE");
     }//GEN-LAST:event_browseBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

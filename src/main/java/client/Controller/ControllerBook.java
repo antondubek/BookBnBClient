@@ -40,7 +40,7 @@ public class ControllerBook extends ControllerMain {
             JSONObject currentBook = allBooks.getJSONObject(i);
 
             books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"),
-                    currentBook.getString("author"), false, null));
+                    currentBook.getString("author"), false, null, false));
         }
 
         return books;
@@ -137,6 +137,7 @@ public class ControllerBook extends ControllerMain {
 
         String response = sendPostGetData("/profile/books", data);
         System.out.println("LOG: Books received");
+        System.out.println(response);
         JSONArray userBooks = new JSONArray(response);
 
         ArrayList<Book> books = new ArrayList<Book>();
@@ -144,7 +145,7 @@ public class ControllerBook extends ControllerMain {
             JSONObject currentBook = userBooks.getJSONObject(i);
 
             books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"), currentBook.getString("author"),
-                    currentBook.getBoolean("available"), currentBook.getString("copyID")));
+                    currentBook.getBoolean("available"), currentBook.getString("copyID"), currentBook.getBoolean("isLoaned")));
 
         }
 
@@ -244,6 +245,26 @@ public class ControllerBook extends ControllerMain {
                 + "and requestNo:" + book.getRequestNo());
 
         return sendPostGetResponse("/recall", data);
+    }
+
+    /**
+     * Registers a book as returned with the server. This will be called when an
+     * owner of a book says that the book has been returned from the
+     * MyBooksScreen.
+     *
+     * @param book Book to be returned
+     * @return True (Return was successful) or False (it failed for some backend
+     * reason)
+     */
+    public static boolean returnBook(BorrowedBook book) {
+
+        JSONObject data = new JSONObject();
+        data.put("requestNumber", book.getRequestNo());
+
+        System.out.println("Returning a book with request no:" + book.getRequestNo());
+
+        return sendPostGetResponse("/returnBook", data);
+
     }
 
 }
