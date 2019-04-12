@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
 public class MyBooksTableModel extends AbstractTableModel {
 
     private ArrayList<Book> books;
-    String headers[] = new String[]{"Title", "Author", "ISBN", "Available"};
+    String headers[] = new String[]{"Title", "Author", "ISBN", "Available", "Loan Length"};
     MyBooksScreen screen;
 
     public MyBooksTableModel(ArrayList<Book> books, MyBooksScreen screen) {
