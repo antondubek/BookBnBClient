@@ -47,6 +47,8 @@ public class MyBooksTableModel extends AbstractTableModel {
                 return book.getISBN();
             case 3:
                 return book.getAvailability();
+            case 4:
+                return book.getLoanLength();
             default:
                 return "";
         }
@@ -77,7 +79,7 @@ public class MyBooksTableModel extends AbstractTableModel {
 
         Book book = books.get(rowIndex);
 
-        if (!book.isLoaned && columnIndex == 3) {
+        if (!book.isLoaned && columnIndex == 3 || columnIndex == 4) {
             return true;
         } else {
             return false;

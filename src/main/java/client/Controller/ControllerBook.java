@@ -40,7 +40,7 @@ public class ControllerBook extends ControllerMain {
             JSONObject currentBook = allBooks.getJSONObject(i);
 
             books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"),
-                    currentBook.getString("author"), false, null, false));
+                    currentBook.getString("author"), false, null, false, null));
         }
 
         return books;
@@ -145,7 +145,7 @@ public class ControllerBook extends ControllerMain {
             JSONObject currentBook = userBooks.getJSONObject(i);
 
             books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"), currentBook.getString("author"),
-                    currentBook.getBoolean("available"), currentBook.getString("copyID"), currentBook.getBoolean("isLoaned")));
+                    currentBook.getBoolean("available"), currentBook.getString("copyID"), currentBook.getBoolean("isLoaned"), currentBook.getString("loanLength")));
 
         }
 
@@ -265,6 +265,14 @@ public class ControllerBook extends ControllerMain {
 
         return sendPostGetResponse("/returnBook", data);
 
+    }
+    
+    public static boolean setLoanLength(String copyID, String loanLength){
+        JSONObject data = new JSONObject();
+        data.put("copyID", copyID);
+        data.put("loanLength", loanLength);
+        
+        return sendPostGetResponse("/loanLength/get", data);
     }
 
 }
