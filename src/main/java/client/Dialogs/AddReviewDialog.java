@@ -6,6 +6,8 @@
 package client.Dialogs;
 
 import client.Controller.ControllerBook;
+import client.Controller.ControllerUser;
+import client.User;
 import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,8 @@ import javax.swing.SwingUtilities;
 public class AddReviewDialog extends javax.swing.JDialog {
     String name;
     String ISBN;
+    String email;
+    boolean userMode = false;
     
     /**
      * Creates new form AddReviewDialog
@@ -27,6 +31,16 @@ public class AddReviewDialog extends javax.swing.JDialog {
         super(parent, modal);
         this.name = name;
         this.ISBN = ISBN;
+        initComponents();
+       
+        nameLabel.setText(name);
+    }
+    
+    public AddReviewDialog(java.awt.Frame parent, boolean modal, User user) {
+        super(parent, modal);
+        this.name = user.name;
+        this.email = user.email;
+        this.userMode = true;
         initComponents();
        
         nameLabel.setText(name);
@@ -53,7 +67,13 @@ public class AddReviewDialog extends javax.swing.JDialog {
             return;
         }
         
-        boolean response = ControllerBook.setBookRating(ISBN, review, rating);
+        boolean response;
+        if(userMode){
+            response = ControllerUser.setUserRating(email, review, rating);
+        } else {
+            response = ControllerBook.setBookRating(ISBN, review, rating);
+        }
+        
         
         
         if(response){

@@ -6,6 +6,7 @@ import client.Controller.ControllerUser;
 import client.MainLayout;
 import client.TabelModels.ClassicBookTableModel;
 import client.TabelModels.TableMouseListener;
+import client.User;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -24,7 +25,7 @@ import javax.swing.border.LineBorder;
 public class FriendDetails extends javax.swing.JDialog implements ActionListener {
 
     private Boolean isFollowed;
-    private client.User user;
+    private User user;
 
     private JMenuItem menuItemInfo;
     private JPopupMenu popupMenu;
@@ -40,10 +41,11 @@ public class FriendDetails extends javax.swing.JDialog implements ActionListener
      */
     public FriendDetails(java.awt.Frame parent, boolean modal, client.User user) {
         super(parent, "Friend Profile", modal);
+        this.user = user;
         initComponents();
         setResizable(false);
         setLocationRelativeTo(parent);
-        setUsersDetails(user);
+        setUsersDetails();
         if (!user.email.equals("")) {
             this.user = user;
             populateTable(user.email);
@@ -72,10 +74,19 @@ public class FriendDetails extends javax.swing.JDialog implements ActionListener
      *
      * @param user logged in user
      */
-    public void setUsersDetails(client.User user) {
+    public void setUsersDetails() {
         name.setText(user.name + "'s Profile");
         email.setText("Email: " + user.email);
         city.setText("City: " + user.city);
+        
+        String userRating = ControllerUser.getUserRating(user.email);
+        
+        if(userRating.equals("")){
+            ratingTxt.setText("No ratings");
+        } else {
+            ratingTxt.setText(userRating + "/5");
+        }
+
     }
 
     /**
@@ -180,6 +191,8 @@ public class FriendDetails extends javax.swing.JDialog implements ActionListener
         follow = new javax.swing.JButton();
         errorLabel = new javax.swing.JLabel();
         name1 = new javax.swing.JLabel();
+        reviewBtn = new javax.swing.JButton();
+        ratingTxt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -230,19 +243,35 @@ public class FriendDetails extends javax.swing.JDialog implements ActionListener
         name1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         name1.setText("Right click to view book info");
 
+        reviewBtn.setBackground(new java.awt.Color(0, 204, 255));
+        reviewBtn.setFont(new java.awt.Font("Lantinghei SC", 1, 13)); // NOI18N
+        reviewBtn.setForeground(new java.awt.Color(255, 255, 255));
+        reviewBtn.setText("REVIEW");
+        reviewBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        reviewBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reviewBtnActionPerformed(evt);
+            }
+        });
+
+        ratingTxt.setFont(new java.awt.Font("Mint Spirit", 1, 14)); // NOI18N
+        ratingTxt.setForeground(new java.awt.Color(102, 102, 102));
+        ratingTxt.setText("Rating");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(8, 8, 8)
+                                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(follow, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,6 +287,12 @@ public class FriendDetails extends javax.swing.JDialog implements ActionListener
                 .addGap(44, 44, 44)
                 .addComponent(name1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ratingTxt)
+                    .addComponent(reviewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,13 +301,17 @@ public class FriendDetails extends javax.swing.JDialog implements ActionListener
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(name)
                     .addComponent(follow))
-                .addGap(18, 18, 18)
+                .addGap(7, 7, 7)
+                .addComponent(reviewBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(errorLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(email)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ratingTxt)
+                .addGap(8, 8, 8)
                 .addComponent(city)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(name1)
@@ -309,6 +348,14 @@ public class FriendDetails extends javax.swing.JDialog implements ActionListener
         MainLayout.profileCard.displayFollowing();
     }//GEN-LAST:event_followActionPerformed
 
+    private void reviewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewBtnActionPerformed
+        Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+        AddReviewDialog reviewDialog = new AddReviewDialog(topFrame, true, user);
+        reviewDialog.setVisible(true);
+        
+        setUsersDetails();
+    }//GEN-LAST:event_reviewBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable bookTable;
     private javax.swing.JLabel city;
@@ -319,5 +366,7 @@ public class FriendDetails extends javax.swing.JDialog implements ActionListener
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel name;
     private javax.swing.JLabel name1;
+    private javax.swing.JLabel ratingTxt;
+    private javax.swing.JButton reviewBtn;
     // End of variables declaration//GEN-END:variables
 }

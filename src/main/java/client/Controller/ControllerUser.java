@@ -255,5 +255,34 @@ public class ControllerUser extends ControllerMain {
         return response;
 
     }
+    
+    public static boolean setUserRating(String borrowerEmail, String review, String rating){
+        
+        JSONObject data = new JSONObject();
+        data.put("lenderEmail", email);
+        data.put("borrowerEmail", borrowerEmail);
+        data.put("rating", rating);
+        data.put("review", review);
+        
+        System.out.println(data);
+        
+        System.out.println("LOG: Sending user review");
+        
+        return sendPostGetResponse("/rating/user/set", data);
+    }
+    
+    public static String getUserRating(String email){
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+        
+        System.out.println("LOG: Getting user rating");
+        
+        String response = sendPostGetData("/rating/user", data);
+        
+        JSONObject info = new JSONObject(response);
+        
+        return info.getString("AverageRating");
+        
+    }
 
 }
