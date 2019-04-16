@@ -15,7 +15,8 @@ public class BookTest {
     private boolean availability = true;
     private String copyID = "1";
     private boolean isLoaned = false;
-    private Book testBook = new Book(ISBN, title, author, availability, copyID, isLoaned);
+    private String loanLength = "7";
+    private Book testBook = new Book(ISBN, title, author, availability, copyID, isLoaned, loanLength);
 
     @Test
     public void createBook() {
