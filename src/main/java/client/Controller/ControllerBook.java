@@ -266,5 +266,17 @@ public class ControllerBook extends ControllerMain {
         return sendPostGetResponse("/returnBook", data);
 
     }
+    
+    public static String getBookRating(String ISBN) {
+        JSONObject data = new JSONObject();
+        data.put("ISBN", ISBN);
+        
+        System.out.println("LOG: Getting Book Review");
+        
+        String response = sendPostGetData("/rating/book", data);
+        JSONObject rating = new JSONObject(response);
+        
+        return rating.getString("AverageRating");
+    }
 
 }

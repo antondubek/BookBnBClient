@@ -48,7 +48,6 @@ public class ProfileScreen extends javax.swing.JPanel {
         name.setText(ControllerMain.name);
         email.setText(ControllerMain.email);
         city.setText(ControllerMain.city);
-
     }
 
     /**

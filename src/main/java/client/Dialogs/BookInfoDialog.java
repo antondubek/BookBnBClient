@@ -1,8 +1,10 @@
 package client.Dialogs;
 
 import client.Book;
+import client.Controller.ControllerBook;
 import client.Controller.ControllerMain;
 import client.Controller.ControllerUser;
+import client.ISBNLookUp;
 import client.Lender;
 import java.awt.Frame;
 import java.awt.Point;
@@ -18,6 +20,15 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import client.StarRater;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 /**
  * Will show all the information of a book and the users which is can be
@@ -41,19 +52,14 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
         super(parent, "Book Information", modal);
 
         this.selectedBook = selectedBook;
-
-        ISBN = selectedBook.getISBN();
-        author = selectedBook.getAuthor();
-        title = selectedBook.getTitle();
-        copyID = selectedBook.getCopyID();
-        
         initComponents();
+        getBookInfo();
         displayStars();
         populateLenderTable();
     }
     
     public void displayStars(){
-         StarRater starRater = new StarRater(5, 2, 1);
+         StarRater starRater = new StarRater(5, 5, 1);
          System.out.println("CREATED Star Rater");
          starRater.addStarListener(
             new StarRater.StarListener()   {
@@ -61,9 +67,63 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
                     System.out.println(selection);
                 }
             });
-         starPanel.add(starRater);
-         starPanel.repaint();
+//         starPanel.add(starRater);
+//         starPanel.revalidate();
 //         starPanel.repaint();
+         System.out.println("PANEL ADDED");
+    }
+    private void getBookInfo() {
+        ISBN = selectedBook.getISBN();
+//        String rating = ControllerBook.getBookRating(ISBN);
+//        bookRating.setText(rating);
+        String[] details = {};
+        try {
+            details = ISBNLookUp.searchBook(ISBN);
+        } catch(Exception e) {
+            System.out.println("Exception getting book info" + e.getMessage());
+        }
+        
+
+        if (!details[0].equals("NO MATCHES FOUND")) {
+            String bookTitle = details[0];
+            String author = details[1];
+            String path = details[2];
+            String ratingFromGoogle = details[4];
+            String price = details[5];
+            
+
+            headingLabel.setText(bookTitle);
+            bookAuthors.setText(author);
+            bookISBN.setText(ISBN);
+            googleRating.setText(ratingFromGoogle + "/5");
+            googlePrice.setText("£" + price);
+            // Read in the imgae from URL path
+            
+            try {
+                URL url = new URL(path);
+                BufferedImage image = ImageIO.read(url);
+                ImageIcon icon = new ImageIcon(image);
+                bookCover.setIcon(icon);
+                bookCover.setText("");
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(BookInfoDialog.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(BookInfoDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            // Set the ImageIcon of the label
+
+        } else {
+            author = selectedBook.getAuthor();
+            title = selectedBook.getTitle();
+            copyID = selectedBook.getCopyID();
+            bookCover.setText("No image found");
+            headingLabel.setText(title);
+            bookAuthors.setText(author);
+            bookISBN.setText(ISBN);
+            googleRating.setText("NA");
+            googleRating.setText("NA");
+        }
     }
 
     /**
@@ -225,7 +285,14 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
         jScrollPane1 = new javax.swing.JScrollPane();
         lenderTable = new javax.swing.JTable();
         headingLabel = new javax.swing.JLabel();
-        starPanel = new javax.swing.JPanel();
+        bookRating = new javax.swing.JLabel();
+        bookISBN = new javax.swing.JLabel();
+        bookAuthors = new javax.swing.JLabel();
+        bookCover = new javax.swing.JLabel();
+        googleRating = new javax.swing.JLabel();
+        googlePrice = new javax.swing.JLabel();
+        fromGoogle = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -250,46 +317,88 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
         jScrollPane1.setViewportView(lenderTable);
 
         headingLabel.setForeground(new java.awt.Color(0, 204, 255));
+        headingLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         headingLabel.setText("label");
 
-        javax.swing.GroupLayout starPanelLayout = new javax.swing.GroupLayout(starPanel);
-        starPanel.setLayout(starPanelLayout);
-        starPanelLayout.setHorizontalGroup(
-            starPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
-        );
-        starPanelLayout.setVerticalGroup(
-            starPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 53, Short.MAX_VALUE)
-        );
+        bookRating.setText("jLabel1");
+
+        bookISBN.setText("jLabel1");
+
+        bookAuthors.setText("jLabel2");
+
+        bookCover.setText("jLabel1");
+
+        googleRating.setText("jLabel1");
+
+        googlePrice.setText("jLabel1");
+
+        fromGoogle.setText("From Google:");
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Add Review");
+        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 255, 255), 2, true));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(220, 220, 220)
-                .addComponent(headingLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(starPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(googlePrice)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bookISBN)
+                            .addComponent(bookRating)
+                            .addComponent(bookAuthors)
+                            .addComponent(googleRating)
+                            .addComponent(fromGoogle))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bookCover, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(128, 128, 128))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(headingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(headingLabel)
-                .addGap(7, 7, 7)
-                .addComponent(starPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(headingLabel)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(bookRating)
+                        .addGap(26, 26, 26)
+                        .addComponent(bookISBN)
+                        .addGap(26, 26, 26)
+                        .addComponent(bookAuthors)
+                        .addGap(65, 65, 65)
+                        .addComponent(fromGoogle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(googleRating))
+                    .addComponent(bookCover, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(googlePrice)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(33, 33, 33))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -300,17 +409,28 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bookAuthors;
+    private javax.swing.JLabel bookCover;
+    private javax.swing.JLabel bookISBN;
+    private javax.swing.JLabel bookRating;
+    private javax.swing.JLabel fromGoogle;
+    private javax.swing.JLabel googlePrice;
+    private javax.swing.JLabel googleRating;
     private javax.swing.JLabel headingLabel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable lenderTable;
-    private javax.swing.JPanel starPanel;
     // End of variables declaration//GEN-END:variables
 }
