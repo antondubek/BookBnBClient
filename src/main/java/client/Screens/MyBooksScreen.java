@@ -107,17 +107,6 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
                 new DefaultTableCellRenderer();
         renderer.setToolTipText("Click to select loan length");
         loanLengthColumn.setCellRenderer(renderer);
-        
-        comboBox.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                JComboBox cb = (JComboBox)e.getSource();
-                String newLoanLength = (String)cb.getSelectedItem();
-                int row = yourBooksTable.getSelectedRow();
-                userBooks.get(row).setLoanLength(newLoanLength);
-                
-                System.out.println("Listener Executed");
-            }
-        });
     }
 
     /**

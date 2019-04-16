@@ -119,7 +119,7 @@ public class MyBooksTableModel extends AbstractTableModel {
             
             Book selectedBook = books.get(rowIndex);
             
-            boolean response = ControllerBook.setLoanLength(selectedBook.getCopyID(), selectedBook.getLoanLength());
+            boolean response = ControllerBook.setLoanLength(selectedBook.getCopyID(), (String) aValue);
             
             if (response) {
                 JOptionPane.showMessageDialog(screen, "Loan Length Changed");
@@ -130,6 +130,8 @@ public class MyBooksTableModel extends AbstractTableModel {
             }
 
         }
+
+
         
         
     }
