@@ -87,15 +87,15 @@ public class ControllerBook extends ControllerMain {
      * @param availability availability of the book that needs to change
      * availability of
      */
-    public static void updateBookAvailability(String email, String ISBN, Boolean availability, String copyID) {
+    public static boolean updateBookAvailability(String email, String ISBN, Boolean availability, String copyID) {
         JSONObject data = new JSONObject();
         data.put("email", email);
         data.put("ISBN", ISBN);
         data.put("available", availability);
         data.put("copyID", copyID);
 
-        Boolean response = sendPostGetResponse("/profile/books/availability", data);
-        getUserBooks();
+        return sendPostGetResponse("/profile/books/availability", data);
+        
     }
 
     /**
@@ -272,7 +272,10 @@ public class ControllerBook extends ControllerMain {
         data.put("copyID", copyID);
         data.put("loanLength", loanLength);
         
-        return sendPostGetResponse("/loanLength/get", data);
+        System.out.println("LoanLength:" + loanLength);
+        System.out.println("copyID:" + copyID);
+        
+        return sendPostGetResponse("/loanLength/set", data);
     }
 
 }

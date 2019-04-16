@@ -73,6 +73,11 @@ public class Book {
         return loanLength;
     }
 
+    public void setLoanLength(String loanLength) {
+        this.loanLength = loanLength;
+    }
+    
+
     public void setAvailability(boolean availability) {
 
         this.availability = availability;

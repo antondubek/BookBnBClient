@@ -13,12 +13,17 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  * Class creates the screen for displaying the user's books
@@ -75,7 +80,27 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
 
         yourBooksTable.setModel(userBooksTableModel);
         yourBooksTable.setAutoCreateRowSorter(true);
+        
+        setupDaysLoanedColumn(yourBooksTable, yourBooksTable.getColumnModel().getColumn(4));
 
+    }
+    
+    
+    public void setupDaysLoanedColumn(JTable table,TableColumn sportColumn) {
+
+        JComboBox comboBox = new JComboBox();
+        comboBox.addItem("1");
+        comboBox.addItem("2");
+        comboBox.addItem("3");
+        comboBox.addItem("4");
+        comboBox.addItem("5");
+        comboBox.addItem("6");
+        sportColumn.setCellEditor(new DefaultCellEditor(comboBox));
+
+        DefaultTableCellRenderer renderer =
+                new DefaultTableCellRenderer();
+        renderer.setToolTipText("Click to select loan length");
+        sportColumn.setCellRenderer(renderer);
     }
 
     /**
