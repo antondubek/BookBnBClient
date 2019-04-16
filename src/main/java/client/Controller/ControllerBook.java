@@ -278,5 +278,18 @@ public class ControllerBook extends ControllerMain {
         
         return rating.getString("AverageRating");
     }
+    
+    public static boolean setBookRating(String ISBN, String review, String rating){
+        
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+        data.put("ISBN", ISBN);
+        data.put("rating", rating);
+        data.put("review", review);
+        
+        System.out.println("LOG: Sending review");
+        
+        return sendPostGetResponse("/rating/book/set", data);
+    }
 
 }

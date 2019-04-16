@@ -74,8 +74,15 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
     }
     private void getBookInfo() {
         ISBN = selectedBook.getISBN();
-//        String rating = ControllerBook.getBookRating(ISBN);
-//        bookRating.setText(rating);
+        String rating = ControllerBook.getBookRating(ISBN);
+        
+        if(rating.equals("")){
+            bookRating.setText("No ratings");
+        } else {
+            bookRating.setText(rating + "/5");
+        }
+        
+        
         String[] details = {};
         try {
             details = ISBNLookUp.searchBook(ISBN);
@@ -271,6 +278,23 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
             table.setRowSelectionInterval(currentRow, currentRow);
         }
     }
+    private void onAddReview(){
+        
+        if (ControllerMain.loggedIn) {
+            Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+            AddReviewDialog reviewDialog = new AddReviewDialog(topFrame, true, selectedBook.getTitle(), selectedBook.getISBN());
+            reviewDialog.setVisible(true);
+            
+            bookRating.setText(ControllerBook.getBookRating(ISBN) + "/5");
+
+        } else {
+            //show error box
+            Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+            JOptionPane.showMessageDialog(topFrame, "Error: Please Login");
+        }
+        
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -293,6 +317,8 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
         googlePrice = new javax.swing.JLabel();
         fromGoogle = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -343,26 +369,14 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
             }
         });
 
+        jLabel1.setText("Rating:");
+
+        jLabel2.setText("Price:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(googlePrice)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bookISBN)
-                            .addComponent(bookRating)
-                            .addComponent(bookAuthors)
-                            .addComponent(googleRating)
-                            .addComponent(fromGoogle))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bookCover, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(128, 128, 128))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -373,6 +387,25 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(googlePrice))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(bookISBN)
+                        .addComponent(bookRating)
+                        .addComponent(bookAuthors)
+                        .addComponent(fromGoogle)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(googleRating))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bookCover, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(128, 128, 128))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,12 +424,17 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
                         .addComponent(bookAuthors)
                         .addGap(65, 65, 65)
                         .addComponent(fromGoogle)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(googleRating))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(googleRating)
+                            .addComponent(jLabel1))
+                        .addGap(6, 6, 6))
                     .addComponent(bookCover, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(googlePrice)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(googlePrice)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
@@ -416,7 +454,7 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        onAddReview();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -429,6 +467,8 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
     private javax.swing.JLabel googleRating;
     private javax.swing.JLabel headingLabel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable lenderTable;
