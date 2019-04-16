@@ -86,21 +86,38 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
     }
     
     
-    public void setupDaysLoanedColumn(JTable table,TableColumn sportColumn) {
+    /**
+     * Sets up the combo box so that the user can select how long to loan a book for.
+     * Also implements a listener so that it updates the book value when a new selection
+     * is made. This new value will be used to update the server from the book model.
+     * @param table Table to add the combo box to
+     * @param loanLengthColumn The column to add the combo box to.
+     */
+    public void setupDaysLoanedColumn(JTable table,TableColumn loanLengthColumn) {
 
         JComboBox comboBox = new JComboBox();
-        comboBox.addItem("1");
-        comboBox.addItem("2");
-        comboBox.addItem("3");
-        comboBox.addItem("4");
-        comboBox.addItem("5");
-        comboBox.addItem("6");
-        sportColumn.setCellEditor(new DefaultCellEditor(comboBox));
+        int maxDaysToLoan = 20;
+        for(int i=1; i< maxDaysToLoan; i++){
+            comboBox.addItem(Integer.toString(i));
+        }
+
+        loanLengthColumn.setCellEditor(new DefaultCellEditor(comboBox));
 
         DefaultTableCellRenderer renderer =
                 new DefaultTableCellRenderer();
         renderer.setToolTipText("Click to select loan length");
-        sportColumn.setCellRenderer(renderer);
+        loanLengthColumn.setCellRenderer(renderer);
+        
+        comboBox.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                JComboBox cb = (JComboBox)e.getSource();
+                String newLoanLength = (String)cb.getSelectedItem();
+                int row = yourBooksTable.getSelectedRow();
+                userBooks.get(row).setLoanLength(newLoanLength);
+                
+                System.out.println("Listener Executed");
+            }
+        });
     }
 
     /**
