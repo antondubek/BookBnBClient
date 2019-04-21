@@ -19,7 +19,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
-import client.StarRater;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -54,24 +54,13 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
         this.selectedBook = selectedBook;
         initComponents();
         getBookInfo();
-        displayStars();
+        
         populateLenderTable();
     }
     
-    public void displayStars(){
-         StarRater starRater = new StarRater(5, 5, 1);
-         System.out.println("CREATED Star Rater");
-         starRater.addStarListener(
-            new StarRater.StarListener()   {
-                public void handleSelection(int selection) {
-                    System.out.println(selection);
-                }
-            });
-//         starPanel.add(starRater);
-//         starPanel.revalidate();
-//         starPanel.repaint();
-         System.out.println("PANEL ADDED");
-    }
+    /**
+     * Gets the info of the book clicked on
+     */
     private void getBookInfo() {
         ISBN = selectedBook.getISBN();
         String rating = ControllerBook.getBookRating(ISBN);
@@ -89,7 +78,7 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
         } catch(Exception e) {
             System.out.println("Exception getting book info" + e.getMessage());
         }
-        
+         
 
         if (!details[0].equals("NO MATCHES FOUND")) {
             String bookTitle = details[0];
@@ -278,6 +267,9 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
             table.setRowSelectionInterval(currentRow, currentRow);
         }
     }
+    /**
+     * Listens when clicking on Add Review Button
+     */
     private void onAddReview(){
         
         if (ControllerMain.loggedIn) {
@@ -388,12 +380,8 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(googlePrice))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(bookISBN)
                         .addComponent(bookRating)
@@ -402,7 +390,12 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(googleRating))))
+                            .addComponent(googleRating)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(googlePrice)
+                        .addGap(6, 6, 6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bookCover, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(128, 128, 128))
@@ -430,11 +423,11 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
                             .addComponent(jLabel1))
                         .addGap(6, 6, 6))
                     .addComponent(bookCover, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(googlePrice)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel2)
+                    .addComponent(googlePrice))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );

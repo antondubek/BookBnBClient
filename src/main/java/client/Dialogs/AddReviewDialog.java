@@ -35,7 +35,9 @@ public class AddReviewDialog extends javax.swing.JDialog {
        
         nameLabel.setText(name);
     }
-    
+    /**
+     * Creates new form AddReviewDialog
+     */
     public AddReviewDialog(java.awt.Frame parent, boolean modal, User user) {
         super(parent, modal);
         this.name = user.name;
@@ -46,6 +48,9 @@ public class AddReviewDialog extends javax.swing.JDialog {
         nameLabel.setText(name);
     }
     
+    /**
+     * Listens when the user is typing in the box
+     */
     private void onKeyTyped() {
         int length = reviewText.getText().length();
         if (length > 500) {
@@ -56,6 +61,9 @@ public class AddReviewDialog extends javax.swing.JDialog {
         
     }
     
+    /**
+     * Gets called when user clicks submit
+     */
     private void onSubmit(){
         Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
         

@@ -255,7 +255,13 @@ public class ControllerUser extends ControllerMain {
         return response;
 
     }
-    
+    /**
+     * Sends a request to set the book review
+     * @param borrowerEmail email of the borrower
+     * @param review review set by the user
+     * @param rating rating set by the user
+     * @return 
+     */
     public static boolean setUserRating(String borrowerEmail, String review, String rating){
         
         JSONObject data = new JSONObject();
@@ -270,7 +276,11 @@ public class ControllerUser extends ControllerMain {
         
         return sendPostGetResponse("/rating/user/set", data);
     }
-    
+    /**
+     * Gets the user rating
+     * @param email of the user to search
+     * @return average rating of the user
+     */
     public static String getUserRating(String email){
         JSONObject data = new JSONObject();
         data.put("email", email);

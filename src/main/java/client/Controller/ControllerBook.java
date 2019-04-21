@@ -267,6 +267,11 @@ public class ControllerBook extends ControllerMain {
 
     }
     
+    /**
+     * Gets the rating of a book
+     * @param ISBN of the book to get the rating 
+     * @return the average rating of the book
+     */
     public static String getBookRating(String ISBN) {
         JSONObject data = new JSONObject();
         data.put("ISBN", ISBN);
@@ -279,6 +284,13 @@ public class ControllerBook extends ControllerMain {
         return rating.getString("AverageRating");
     }
     
+    /**
+     * Sends a request to set the book review
+     * @param ISBN of the book
+     * @param review review set by the user
+     * @param rating rating set by the user
+     * @return 
+     */
     public static boolean setBookRating(String ISBN, String review, String rating){
         
         JSONObject data = new JSONObject();
