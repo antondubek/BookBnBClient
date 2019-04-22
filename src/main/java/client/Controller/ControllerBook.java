@@ -291,17 +291,18 @@ public class ControllerBook extends ControllerMain {
      * @param rating rating set by the user
      * @return 
      */
-    public static boolean setBookRating(String ISBN, String review, String rating){
-        
+    public static boolean setBookRating(String ISBN, String review, String rating) {
+
         JSONObject data = new JSONObject();
         data.put("email", email);
         data.put("ISBN", ISBN);
         data.put("rating", rating);
         data.put("review", review);
-        
+
         System.out.println("LOG: Sending review");
-        
+
         return sendPostGetResponse("/rating/book/set", data);
+    }
 
       
     public static boolean setLoanLength(String copyID, String loanLength){
