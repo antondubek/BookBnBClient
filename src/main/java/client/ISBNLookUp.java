@@ -43,7 +43,7 @@ public class ISBNLookUp {
         // Set query string and filter only Google eBooks.
         System.out.println("Query: [" + query + "]");
         List volumesList = books.volumes().list(query);
-        volumesList.setFilter("ebooks");
+//        volumesList.setFilter("ebooks");
 
         // Execute the query.
         Volumes volumes = volumesList.execute();
@@ -108,11 +108,13 @@ public class ISBNLookUp {
         java.util.List<String> authors = new ArrayList<String>();
         String thumbnailLink = "";
         String description = "";
+        int fullRating = 0;
+        double price = 0;
         String info;
          // Output results.
         for (Volume volume : volumes.getItems()) {
             Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();
-            
+            Volume.SaleInfo saleInfo = volume.getSaleInfo();
             // Title.
             title = volumeInfo.getTitle();
 
@@ -136,9 +138,22 @@ public class ISBNLookUp {
             if (volumeInfo.getDescription() != null && volumeInfo.getDescription().length() > 0) {
                 description = volumeInfo.getDescription();
             }
+            // Ratings (if any).
+            if (volumeInfo.getRatingsCount() != null && volumeInfo.getRatingsCount() > 0) {
+                fullRating = (int) Math.round(volumeInfo.getAverageRating());
+                System.out.print("User Rating: ");
+                for (int i = 0; i < fullRating; ++i) {
+                    System.out.print("*");
+                }
+                System.out.println(" (" + volumeInfo.getRatingsCount() + " rating(s))");
+            }
+            // Price
+            if (saleInfo != null && "FOR_SALE".equals(saleInfo.getSaleability())) {
+                price = saleInfo.getListPrice().getAmount();
+            }
        }
         info = String.join(",", authors);
-        String[] details = {title, info, thumbnailLink, description};
+        String[] details = {title, info, thumbnailLink, description, Integer.toString(fullRating), Double.toString(price)};
         return details;
      }
 }

@@ -267,6 +267,44 @@ public class ControllerBook extends ControllerMain {
 
     }
     
+    /**
+     * Gets the rating of a book
+     * @param ISBN of the book to get the rating 
+     * @return the average rating of the book
+     */
+    public static String getBookRating(String ISBN) {
+        JSONObject data = new JSONObject();
+        data.put("ISBN", ISBN);
+        
+        System.out.println("LOG: Getting Book Review");
+        
+        String response = sendPostGetData("/rating/book", data);
+        JSONObject rating = new JSONObject(response);
+        
+        return rating.getString("AverageRating");
+    }
+    
+    /**
+     * Sends a request to set the book review
+     * @param ISBN of the book
+     * @param review review set by the user
+     * @param rating rating set by the user
+     * @return 
+     */
+    public static boolean setBookRating(String ISBN, String review, String rating) {
+
+        JSONObject data = new JSONObject();
+        data.put("email", email);
+        data.put("ISBN", ISBN);
+        data.put("rating", rating);
+        data.put("review", review);
+
+        System.out.println("LOG: Sending review");
+
+        return sendPostGetResponse("/rating/book/set", data);
+    }
+
+      
     public static boolean setLoanLength(String copyID, String loanLength){
         JSONObject data = new JSONObject();
         data.put("copyID", copyID);
@@ -276,6 +314,7 @@ public class ControllerBook extends ControllerMain {
         System.out.println("copyID:" + copyID);
         
         return sendPostGetResponse("/loanLength/set", data);
+
     }
 
 }
