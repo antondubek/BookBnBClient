@@ -16,7 +16,7 @@ import org.json.JSONObject;
 
 /**
  *
- * @author acm35
+ * Controller class which deals with all of the sending and retrieval of user data from the server
  */
 public class ControllerUser extends ControllerMain {
 

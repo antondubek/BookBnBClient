@@ -12,8 +12,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
+ * Controller class which sends and retrieves all data to do with books with the server.
  *
- * @author acm35
  */
 public class ControllerBook extends ControllerMain {
 
@@ -32,18 +32,7 @@ public class ControllerBook extends ControllerMain {
             return new ArrayList<Book>();
         }
 
-        JSONArray allBooks = new JSONArray(response.toString());
-
-        //System.out.println("All books response = " + response.toString());
-        ArrayList<Book> books = new ArrayList<Book>();
-        for (int i = 0; i < allBooks.length(); i++) {
-            JSONObject currentBook = allBooks.getJSONObject(i);
-
-            books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"),
-                    currentBook.getString("author"), false, null, false, null));
-        }
-
-        return books;
+        return loadBookEmpty(response);
 
     }
 
@@ -138,18 +127,9 @@ public class ControllerBook extends ControllerMain {
         String response = sendPostGetData("/profile/books", data);
         System.out.println("LOG: Books received");
         System.out.println(response);
-        JSONArray userBooks = new JSONArray(response);
 
-        ArrayList<Book> books = new ArrayList<Book>();
-        for (int i = 0; i < userBooks.length(); i++) {
-            JSONObject currentBook = userBooks.getJSONObject(i);
 
-            books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"), currentBook.getString("author"),
-                    currentBook.getBoolean("available"), currentBook.getString("copyID"), currentBook.getBoolean("isLoaned"), currentBook.getString("loanLength")));
-
-        }
-
-        return books;
+        return loadBookFull(response);
     }
 
     /**
@@ -172,9 +152,7 @@ public class ControllerBook extends ControllerMain {
             return new ArrayList<>();
         }
 
-        ArrayList<BorrowedBook> books = loadBorrowedBooks(response);
-
-        return books;
+        return loadBorrowedBooks(response);
 
     }
 
@@ -198,9 +176,7 @@ public class ControllerBook extends ControllerMain {
             return new ArrayList<>();
         }
 
-        ArrayList<BorrowedBook> books = loadBorrowedBooks(response);
-
-        return books;
+        return loadBorrowedBooks(response);
 
     }
 
@@ -211,9 +187,9 @@ public class ControllerBook extends ControllerMain {
      * @param response JSON formatted string of borrowed books
      * @return An arraylist of borrowed books
      */
-    private static ArrayList<BorrowedBook> loadBorrowedBooks(String response) {
+    static ArrayList<BorrowedBook> loadBorrowedBooks(String response) {
 
-        JSONArray borrowedBooks = new JSONArray(response.toString());
+        JSONArray borrowedBooks = new JSONArray(response);
 
         ArrayList<BorrowedBook> books = new ArrayList<BorrowedBook>();
         for (int i = 0; i < borrowedBooks.length(); i++) {
@@ -227,6 +203,51 @@ public class ControllerBook extends ControllerMain {
 
         return books;
 
+    }
+
+    /**
+     * Takes in a response from the server in a JSON format and create an
+     * arraylist of books from that. Populates values that are not in the JSON with
+     * defaults.
+     *
+     * @param response JSON formatted string of borrowed books
+     * @return An arraylist of books
+     */
+    static ArrayList<Book> loadBookEmpty(String response){
+        JSONArray allBooks = new JSONArray(response);
+
+        //System.out.println("All books response = " + response.toString());
+        ArrayList<Book> books = new ArrayList<Book>();
+        for (int i = 0; i < allBooks.length(); i++) {
+            JSONObject currentBook = allBooks.getJSONObject(i);
+
+            books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"),
+                    currentBook.getString("author"), false, null, false, null));
+        }
+
+        return books;
+    }
+
+    /**
+     * Takes in a response from the server in a JSON format and create an
+     * arraylist of books from that.
+     *
+     * @param response JSON formatted string of borrowed books
+     * @return An arraylist of books
+     */
+    static ArrayList<Book> loadBookFull(String response){
+        JSONArray userBooks = new JSONArray(response);
+
+        ArrayList<Book> books = new ArrayList<Book>();
+        for (int i = 0; i < userBooks.length(); i++) {
+            JSONObject currentBook = userBooks.getJSONObject(i);
+
+            books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"), currentBook.getString("author"),
+                    currentBook.getBoolean("available"), currentBook.getString("copyID"), currentBook.getBoolean("isLoaned"), currentBook.getString("loanLength")));
+
+        }
+
+        return books;
     }
 
     /**

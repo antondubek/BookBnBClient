@@ -1,3 +1,4 @@
+package client;
 
 import client.Book;
 import static org.junit.Assert.*;

@@ -110,7 +110,7 @@ public class ISBNLookUp {
         String description = "";
         int fullRating = 0;
         double price = 0;
-        String info;
+        String info = "";
          // Output results.
         for (Volume volume : volumes.getItems()) {
             Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();

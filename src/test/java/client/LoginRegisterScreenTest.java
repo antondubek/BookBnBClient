@@ -1,3 +1,4 @@
+package client;
 
 import client.MainLayout;
 import client.Screens.LoginRegisterScreen;

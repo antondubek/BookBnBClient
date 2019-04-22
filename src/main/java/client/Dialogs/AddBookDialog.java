@@ -63,7 +63,12 @@ public class AddBookDialog extends javax.swing.JDialog {
      * @throws Exception
      */
     public void onLookUp() throws Exception {
+
         String ISBN = isbnGoogle.getText().trim();
+        if (!ISBN.matches("[0-9]+")) {
+            errorTxt.setText("Error: Please insert the ISBN as numbers only");
+            return;
+        }
         String[] details = ISBNLookUp.searchBook(ISBN);
 
         if (!details[0].equals("NO MATCHES FOUND")) {
@@ -113,9 +118,13 @@ public class AddBookDialog extends javax.swing.JDialog {
             return false;
         }
 
-        //TODO: Add in further validation of ISBN / check if this is correct
         if (!ISBN.matches("[0-9]+")) {
             errorTxt.setText("Error: Please insert the ISBN as numbers only");
+            return false;
+        }
+
+        if(ISBN.length() != 10 || ISBN.length() != 13){
+            errorTxt.setText("Error: ISBN Length not valid, should be 10 or 13 digits.");
             return false;
         }
 
