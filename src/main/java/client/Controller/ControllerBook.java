@@ -40,7 +40,7 @@ public class ControllerBook extends ControllerMain {
             JSONObject currentBook = allBooks.getJSONObject(i);
 
             books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"),
-                    currentBook.getString("author"), false, null, false));
+                    currentBook.getString("author"), false, null, false, null));
         }
 
         return books;
@@ -87,15 +87,15 @@ public class ControllerBook extends ControllerMain {
      * @param availability availability of the book that needs to change
      * availability of
      */
-    public static void updateBookAvailability(String email, String ISBN, Boolean availability, String copyID) {
+    public static boolean updateBookAvailability(String email, String ISBN, Boolean availability, String copyID) {
         JSONObject data = new JSONObject();
         data.put("email", email);
         data.put("ISBN", ISBN);
         data.put("available", availability);
         data.put("copyID", copyID);
 
-        Boolean response = sendPostGetResponse("/profile/books/availability", data);
-        getUserBooks();
+        return sendPostGetResponse("/profile/books/availability", data);
+        
     }
 
     /**
@@ -145,7 +145,7 @@ public class ControllerBook extends ControllerMain {
             JSONObject currentBook = userBooks.getJSONObject(i);
 
             books.add(new Book(currentBook.getString("ISBN"), currentBook.getString("title"), currentBook.getString("author"),
-                    currentBook.getBoolean("available"), currentBook.getString("copyID"), currentBook.getBoolean("isLoaned")));
+                    currentBook.getBoolean("available"), currentBook.getString("copyID"), currentBook.getBoolean("isLoaned"), currentBook.getString("loanLength")));
 
         }
 
@@ -302,6 +302,18 @@ public class ControllerBook extends ControllerMain {
         System.out.println("LOG: Sending review");
         
         return sendPostGetResponse("/rating/book/set", data);
+
+      
+    public static boolean setLoanLength(String copyID, String loanLength){
+        JSONObject data = new JSONObject();
+        data.put("copyID", copyID);
+        data.put("loanLength", loanLength);
+        
+        System.out.println("LoanLength:" + loanLength);
+        System.out.println("copyID:" + copyID);
+        
+        return sendPostGetResponse("/loanLength/set", data);
+
     }
 
 }

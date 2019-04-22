@@ -1,6 +1,7 @@
 package client.TabelModels;
 
 import client.Book;
+import client.BorrowedBook;
 import client.Controller.ControllerBook;
 import client.Controller.ControllerMain;
 import client.Screens.MyBooksScreen;
@@ -15,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
 public class MyBooksTableModel extends AbstractTableModel {
 
     private ArrayList<Book> books;
-    String headers[] = new String[]{"Title", "Author", "ISBN", "Available"};
+    String headers[] = new String[]{"Title", "Author", "ISBN", "Available", "Loan Length"};
     MyBooksScreen screen;
 
     public MyBooksTableModel(ArrayList<Book> books, MyBooksScreen screen) {
@@ -47,6 +48,8 @@ public class MyBooksTableModel extends AbstractTableModel {
                 return book.getISBN();
             case 3:
                 return book.getAvailability();
+            case 4:
+                return book.getLoanLength();
             default:
                 return "";
         }
@@ -77,7 +80,7 @@ public class MyBooksTableModel extends AbstractTableModel {
 
         Book book = books.get(rowIndex);
 
-        if (!book.isLoaned && columnIndex == 3) {
+        if (!book.isLoaned && columnIndex == 3 || columnIndex == 4) {
             return true;
         } else {
             return false;
@@ -85,8 +88,9 @@ public class MyBooksTableModel extends AbstractTableModel {
     }
 
     /**
-     * listener for the tickBox which sets the availability of the selected book
-     *
+     * Set value at is called whenever their is a change to anything in the Table.
+     * For the tickBox will set the availability of the selected book with the server
+     * For the dropdown, will change the loan length of the book.
      * @param aValue
      * @param rowIndex
      * @param columnIndex
@@ -95,17 +99,40 @@ public class MyBooksTableModel extends AbstractTableModel {
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 
         if (aValue instanceof Boolean && columnIndex == 3) {
-            books.get(rowIndex).setAvailability((Boolean) aValue);
 
             String ISBN = books.get(rowIndex).ISBN;
-            Boolean available = books.get(rowIndex).availability;
             String copyID = books.get(rowIndex).copyID;
             String email = ControllerMain.email;
 
-            ControllerBook.updateBookAvailability(email, ISBN, available, copyID);
+            boolean response = ControllerBook.updateBookAvailability(email, ISBN, (Boolean) aValue, copyID);
 
-            JOptionPane.showMessageDialog(screen, "Changed Availability");
-            screen.populateMyBooksTable();
+            if (response) {
+                JOptionPane.showMessageDialog(screen, "Availability Changed");
+                books.get(rowIndex).setAvailability((Boolean) aValue);
+                screen.populateMyBooksTable();
+            } else {
+                JOptionPane.showMessageDialog(screen, "Availability Change Failed");
+            }
         }
+        
+        if(columnIndex == 4){
+            
+            Book selectedBook = books.get(rowIndex);
+            
+            boolean response = ControllerBook.setLoanLength(selectedBook.getCopyID(), (String) aValue);
+            
+            if (response) {
+                JOptionPane.showMessageDialog(screen, "Loan Length Changed");
+                selectedBook.setLoanLength((String) aValue);
+                screen.populateMyBooksTable();
+            } else {
+                JOptionPane.showMessageDialog(screen, "Loan Length Change Failed");
+            }
+
+        }
+
+
+        
+        
     }
 }

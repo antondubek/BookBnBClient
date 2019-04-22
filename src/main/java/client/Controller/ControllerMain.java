@@ -29,6 +29,7 @@ public class ControllerMain {
     //private static String address = "http://138.251.30.68:8080";
     private static String address = "http://138.251.29.123:8080";
 
+
     public static boolean isAvailable;
     public static String name;
     public static String email;

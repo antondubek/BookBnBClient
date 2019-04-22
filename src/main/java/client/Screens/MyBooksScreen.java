@@ -13,12 +13,17 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  * Class creates the screen for displaying the user's books
@@ -75,7 +80,33 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
 
         yourBooksTable.setModel(userBooksTableModel);
         yourBooksTable.setAutoCreateRowSorter(true);
+        
+        setupDaysLoanedColumn(yourBooksTable, yourBooksTable.getColumnModel().getColumn(4));
 
+    }
+    
+    
+    /**
+     * Sets up the combo box so that the user can select how long to loan a book for.
+     * Also implements a listener so that it updates the book value when a new selection
+     * is made. This new value will be used to update the server from the book model.
+     * @param table Table to add the combo box to
+     * @param loanLengthColumn The column to add the combo box to.
+     */
+    public void setupDaysLoanedColumn(JTable table,TableColumn loanLengthColumn) {
+
+        JComboBox comboBox = new JComboBox();
+        int maxDaysToLoan = 20;
+        for(int i=1; i< maxDaysToLoan; i++){
+            comboBox.addItem(Integer.toString(i));
+        }
+
+        loanLengthColumn.setCellEditor(new DefaultCellEditor(comboBox));
+
+        DefaultTableCellRenderer renderer =
+                new DefaultTableCellRenderer();
+        renderer.setToolTipText("Click to select loan length");
+        loanLengthColumn.setCellRenderer(renderer);
     }
 
     /**
