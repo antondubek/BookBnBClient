@@ -9,21 +9,16 @@ import client.Dialogs.ProcessBookRequestDialog;
 import client.TabelModels.BorrowedBooksTableModel;
 import client.TabelModels.MyBooksTableModel;
 import client.TabelModels.TableMouseListener;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JComboBox;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
-import javax.swing.JTable;
-import javax.swing.SwingUtilities;
+
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Class creates the screen for displaying the user's books
@@ -147,7 +142,7 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
         popupMenu = new JPopupMenu();
         menuItemApprove = new JMenuItem("Approve/Deny Request");
         menuItemRecall = new JMenuItem("Recall Book");
-        menuItemReturn = new JMenuItem("Return Book");
+        menuItemReturn = new JMenuItem("Mark Book Returned");
 
         popupMenu.add(menuItemRecall);
         popupMenu.add(menuItemApprove);
@@ -223,13 +218,19 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
         int row = loanedBooksTable.getSelectedRow();
 
         BorrowedBook selectedBook = loanedBooks.get(row);
-
-        //Launch a new dialog
         Frame topFrame = (Frame) SwingUtilities.getWindowAncestor(this);
-        ProcessBookRequestDialog bookProcessDialog = new ProcessBookRequestDialog(topFrame, true, selectedBook);
-        bookProcessDialog.setVisible(true);
+        if(selectedBook.getStatus().equals("pending")){
+            //Launch a new dialog
+            ProcessBookRequestDialog bookProcessDialog = new ProcessBookRequestDialog(topFrame, true, selectedBook);
+            bookProcessDialog.setVisible(true);
 
-        populateLoanedBooksTable();
+            populateLoanedBooksTable();
+        } else {
+            JOptionPane.showMessageDialog(topFrame, "Decision has already been made");
+            populateLoanedBooksTable();
+        }
+
+        
     }
 
     /**
@@ -276,6 +277,7 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
         LoanedBooksTab = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         loanedBooksTable = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 204, 255));
         setName("MyBooks"); // NOI18N
@@ -396,7 +398,16 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
             }
         ));
         loanedBooksTable.setGridColor(new java.awt.Color(0, 204, 255));
+        loanedBooksTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                loanedBooksTableMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(loanedBooksTable);
+
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 204, 255));
+        jLabel2.setText("Right Click a Book for Options");
 
         javax.swing.GroupLayout LoanedBooksTabLayout = new javax.swing.GroupLayout(LoanedBooksTab);
         LoanedBooksTab.setLayout(LoanedBooksTabLayout);
@@ -404,15 +415,21 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
             LoanedBooksTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LoanedBooksTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(LoanedBooksTabLayout.createSequentialGroup()
+                .addGap(169, 169, 169)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         LoanedBooksTabLayout.setVerticalGroup(
             LoanedBooksTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoanedBooksTabLayout.createSequentialGroup()
+            .addGroup(LoanedBooksTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Loaned Books", LoanedBooksTab);
@@ -455,12 +472,18 @@ public class MyBooksScreen extends javax.swing.JPanel implements ActionListener 
 
     }//GEN-LAST:event_tabbedPaneFocusGained
 
+    private void loanedBooksTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loanedBooksTableMouseClicked
+
+  
+    }//GEN-LAST:event_loanedBooksTableMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel LoanedBooksTab;
     private javax.swing.JButton addBookBtn;
     private javax.swing.JPanel borrowedBooksPanel2;
     private javax.swing.JTable borrowedBooksTable;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
