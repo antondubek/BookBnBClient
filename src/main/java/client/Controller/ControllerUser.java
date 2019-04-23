@@ -236,6 +236,12 @@ public class ControllerUser extends ControllerMain {
 
     }
 
+    /**
+     * Processes the Request
+     *
+     * @param book the book requested by the user
+     * @return True (Request successful) False (Request Failed)
+     */
     public static boolean processRequest(BorrowedBook book) {
 
         JSONObject data = new JSONObject();
