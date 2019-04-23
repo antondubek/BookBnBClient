@@ -118,7 +118,7 @@ public class BookInfoDialog extends javax.swing.JDialog implements ActionListene
             bookAuthors.setText(author);
             bookISBN.setText(ISBN);
             googleRating.setText("NA");
-            googleRating.setText("NA");
+            googlePrice.setText("NA");
         }
     }
 
