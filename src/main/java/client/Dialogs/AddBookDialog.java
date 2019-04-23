@@ -2,12 +2,11 @@ package client.Dialogs;
 
 import client.Controller.ControllerBook;
 import client.ISBNLookUp;
-import java.awt.Frame;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 /**
  * Simple dialog box which will allow the user to input the data of a new book
@@ -123,9 +122,13 @@ public class AddBookDialog extends javax.swing.JDialog {
             return false;
         }
 
-        if(ISBN.length() != 10 || ISBN.length() != 13){
-            errorTxt.setText("Error: ISBN Length not valid, should be 10 or 13 digits.");
-            return false;
+        int length = ISBN.length();
+
+        if(length != 10){
+            if(length != 13){
+                errorTxt.setText("Error: ISBN Length not valid, should be 10 or 13 digits.");
+                return false;
+            }
         }
 
         if (!author.matches("[a-zA-Z0-9 ]+") || !title.matches("[a-zA-Z0-9 ]+")
