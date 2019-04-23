@@ -139,9 +139,7 @@ public class LoginRegisterScreen extends javax.swing.JPanel {
             return false;
         }
 
-        if (!name.matches("[a-zA-Z0-9]+") || !city.matches("[a-zA-Z0-9]+")) {
-            System.out.println(city.matches("[a-zA-Z0-9]+"));
-            System.out.println(name.matches("[a-zA-Z0-9]+"));
+        if (!name.matches("[a-zA-Z0-9 ]+") || !city.matches("[a-zA-Z0-9 ]+")) {
             errorTxt.setText("Error: Please use alphanumeric characters only");
             return false;
         }
@@ -399,11 +397,11 @@ public class LoginRegisterScreen extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginEmailTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginEmailTxtActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_loginEmailTxtActionPerformed
 
     private void registerCityTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerCityTxtActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_registerCityTxtActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed

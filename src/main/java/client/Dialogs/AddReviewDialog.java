@@ -16,7 +16,7 @@ import javax.swing.SwingUtilities;
 
 /**
  *
- * @author er205
+ * Class which allows the user to add a review, used for both books and users.
  */
 public class AddReviewDialog extends javax.swing.JDialog {
     String name;

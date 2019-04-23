@@ -14,7 +14,7 @@ public class Book {
     public String loanLength;
 
     /**
-     * client.Book Constructor
+     * Book Constructor
      *
      * @param ISBN ISBN number of the book
      * @param title Title of the book
@@ -29,11 +29,15 @@ public class Book {
     }
 
     /**
-     * client.Book Constructor
+     * Overloaded Book Constructor
      *
      * @param ISBN ISBN number of the book
      * @param title Title of the book
      * @param author Author of the book
+     * @param availability Whether the book is available or not
+     * @param copyID The copyID of the book
+     * @param isLoaned Whether the book is loaned or not
+     * @param loanLength Length of loan the owner has set
      *
      */
     public Book(String ISBN, String title, String author, boolean availability,

@@ -9,8 +9,8 @@ import client.Controller.ControllerUser;
 import client.BorrowedBook;
 
 /**
+ * Dialog box which allows the user to accept or reject book requests.
  *
- * @author amakepeace
  */
 public class ProcessBookRequestDialog extends javax.swing.JDialog {
 
@@ -134,7 +134,7 @@ public class ProcessBookRequestDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void denyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_denyBtnActionPerformed
-        // TODO add your handling code here:
+
         book.setStatus("denied");
         boolean response = ControllerUser.processRequest(book);
 
@@ -146,7 +146,7 @@ public class ProcessBookRequestDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_denyBtnActionPerformed
 
     private void approveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveBtnActionPerformed
-        // TODO add your handling code here:
+
         book.setStatus("approved");
         boolean response = ControllerUser.processRequest(book);
 
@@ -158,7 +158,7 @@ public class ProcessBookRequestDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_approveBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

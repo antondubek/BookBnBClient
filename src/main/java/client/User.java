@@ -19,6 +19,6 @@ public class User {
         this.name = name;
         this.email = email;
         this.city = city;
-
     }
+
 }
