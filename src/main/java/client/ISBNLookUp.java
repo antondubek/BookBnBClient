@@ -21,7 +21,7 @@ import javax.swing.JPanel;
  */
 public class ISBNLookUp {
     private static final String APPLICATION_NAME = "GoogleAPI-Test";
-    private static final String API_KEY = "AIzaSyDV9t8ZAEoVx1H31Pgub3FyIJSHjYJ_rmk";
+    private static final String API_KEY = API_KEY;
     
     /**
      * Given a ISBN number this class returns the Title, Author and Description found on Google Books
